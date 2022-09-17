@@ -1,7 +1,11 @@
-# Directory Structure
-- crawler-server <- 파이썬 크롤러 서버 ( 백엔드 )
-    - requirements.txt <- 파이썬 패키지 관리 파일
-
+```
+modular-sns
+│   README.md
+│   .gitignore  
+└─── crawler-server <- python server (backend)
+    │   app.py <- running flask application
+    |   requirements.txt <- The package for the project is specified.
+```
 ## How to setup python server development environment?
 1. change directory crawler-server
    - cd crawler-server
