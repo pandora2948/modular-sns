@@ -16,3 +16,8 @@
    - pip install -r requirements.txt
 5. Open Directory to crawler-server
 6. enjoy to development
+
+# Guides
+**[Flask Documents](https://flask.palletsprojects.com/en/2.2.x/)**
+
+**[BeautifulSoup4 Documents](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)**
