@@ -24,8 +24,8 @@ export const Header = () => {
         />
       </nav>
       {openSearch &&
-        <div className="absolute right-1 -bottom-10 transition ease-in">
-          <Input.Search />
+        <div className="absolute right-1 -bottom-12 transition ease-in">
+          <Input.Search size="large" />
         </div>
       }
     </header>
