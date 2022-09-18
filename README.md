@@ -1,10 +1,12 @@
 ```
-modular-sns
-│   README.md
-│   .gitignore  
-└─── crawler-server <- python server (backend)
-    │   app.py <- running flask application
-    |   requirements.txt <- The package for the project is specified.
+|-- api <- python api server (django)
+|   `-- src
+|       |-- migrations <- database (mysql) migration scripts
+|       |
+|       `-- models <- db schema modeling scripts
+`-- react-happy-hacking <- frontend web application ( react.js )
+    |-- public <- includes public files
+    `-- src <- web app source scripts
 ```
 ## How to setup python server development environment?
    1. change directory crawler-server
