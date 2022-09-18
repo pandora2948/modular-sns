@@ -12,5 +12,13 @@ html, body {
 }
 
 body {
-  background-color: #F0F2F5;
+  /*background-color: #F0F2F5;*/
+  background-color: #FAFAFA;
+}
+
+div#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }

@@ -1,5 +1,11 @@
+import { AppLayout } from './layouts/AppLayout';
+
 function App() {
-  return <div className="App">this is mobile</div>;
+  return (
+    <AppLayout>
+      <div className="App">this is mobile</div>
+    </AppLayout>
+  );
 }
 
 export default App;
