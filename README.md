@@ -11,7 +11,6 @@ modular-sns
       > ```cd api```
    2. install python virtualenv
       - [what is virtaulenv?](https://www.daleseo.com/python-venv/)
-      - [how to setup virtaulenv?](https://flask.palletsprojects.com/en/2.2.x/installation/)
    3. setup virtualenv environment (commands below)
       > ```py -3 -m venv .venv```
 
@@ -26,6 +25,7 @@ modular-sns
    7. enjoy to development
 
 # Guides
-**[Flask Documents](https://flask.palletsprojects.com/en/2.2.x/)**
+**[Django Korean Documents](https://docs.djangoproject.com/ko/4.1/)**
 
-**[BeautifulSoup4 Documents](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)**
+**[Antd Documents](https://ant.design/docs/react/introduce)**
+
