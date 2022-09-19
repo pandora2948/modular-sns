@@ -9,7 +9,7 @@ export const Header = () => {
     <header
       className="
         flex h-14 bg-white justify-between px-4 items-center shadow-md
-        relative
+        relative font-semibold
       "
     >
       <h1 className="text-lg text-slate-600">sns-modular</h1>
