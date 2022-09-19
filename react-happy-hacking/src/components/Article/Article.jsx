@@ -1,5 +1,7 @@
 import { Card } from 'antd';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
+
 import { ArticleCarousel } from './ArticleCarousel';
 
 export const Article = (
@@ -8,11 +10,12 @@ export const Article = (
     writer,
     content,
     hashtags,
-    comments
+    comments,
   }
 ) => {
   return (
     <Card
+      key={shortid.generate()}
       className="w-full"
       cover={<ArticleCarousel images={images} />}
     >
@@ -25,7 +28,7 @@ Article.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string),
   writer: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  hashtags: PropTypes.string.isRequired,
+  hashtags: PropTypes.arrayOf(PropTypes.string).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       writer:PropTypes.string.isRequired,

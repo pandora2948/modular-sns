@@ -1,10 +1,7 @@
-import { AppLayout } from './layouts/AppLayout';
+import { Feed } from './pages/Feed';
 
 function App() {
-  return (
-    <AppLayout>
-    </AppLayout>
-  );
+  return <Feed />;
 }
 
 export default App;

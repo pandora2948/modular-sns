@@ -1,5 +1,6 @@
 import { Carousel, Image } from 'antd';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
 
 export const ArticleCarousel = ({ images }) => {
   if (!images || images.length === 0)
@@ -7,7 +8,11 @@ export const ArticleCarousel = ({ images }) => {
 
   return (
     <Carousel>
-      {images.map(url => <Image src={url} />)}
+      {images.map(url => (
+        <div key={shortid.generate()}>
+          <Image src={url} width="100%" height="300px" />
+        </div>
+      ))}
     </Carousel>
   )
 };

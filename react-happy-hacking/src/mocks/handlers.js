@@ -7,6 +7,23 @@ const mockFollowUserInfo = {
   username: 'galaxy4276',
 };
 
+const mockFeedData = {
+  images: [mockImageUrl, mockImageUrl, mockImageUrl],
+  writer: 'galaxy4276',
+  content: '오늘 하루도 고생하셨습니다.',
+  hashtags: ['#응기', '#응기잇', '#흥기엣'],
+  comments: [
+    {
+      writer: 'minesp3164',
+      content: '네.',
+    },
+    {
+      writer: 'Antidote',
+      content: '고생많으셨습니다.',
+    },
+  ],
+};
+
 export const handlers = [
   rest.get('/api/user', (req, res, ctx) =>
     res(
@@ -46,6 +63,12 @@ export const handlers = [
   ),
   rest.get('/api/user/follow', (req, res, ctx) =>
     res(ctx.status(201)),
+  ),
+  rest.post('/api/posts', (__, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json([mockFeedData, mockFeedData, mockFeedData])
+    ),
   ),
   rest.post('/api/post', (__, res, ctx) => res(ctx.status(201))),
   rest.get('/api/post/:id', (__, res, ctx) =>
