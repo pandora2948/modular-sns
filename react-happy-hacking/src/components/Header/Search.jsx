@@ -6,10 +6,7 @@ export const Search = ({ open, setOpen }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const onBlur = () => {
-      console.log('onblur');
-      setOpen(false);
-    };
+    const onBlur = () => setOpen(false);
 
     if (inputRef.current) {
       const { input: search } = inputRef.current;
@@ -23,7 +20,7 @@ export const Search = ({ open, setOpen }) => {
         search.onblur = null;
       }
     }
-  }, [open]);
+  }, [open, inputRef.current, setOpen]);
 
   if (!open) return null;
   return (
