@@ -26,6 +26,10 @@ div#root {
   justify-content: center;
 }
 
+.card {
+  @apply bg-white w-full rounded-md shadow-md overflow-hidden
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }

@@ -1,4 +1,4 @@
-import { Card, Typography } from 'antd';
+import { Typography } from 'antd';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 
@@ -17,18 +17,18 @@ export const Article = (
   }
 ) => {
   return (
-    <Card
+    <div
       key={shortid.generate()}
-      className="w-full"
-      cover={<ArticleCarousel images={images} />}
+      className="card"
     >
-      <section>
+      <ArticleCarousel images={images} />
+      <section className="px-4 pt-2 py-4">
         <div className="flex gap-x-3 items-center">
           <UserOutlined size="32px" />
           <Text>{ writer }</Text>
         </div>
       </section>
-    </Card>
+    </div>
   );
 };
 
