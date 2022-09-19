@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Button, Avatar, Input } from 'antd';
+import { Button, Avatar } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Search } from './Search';
 
 export const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -23,11 +24,7 @@ export const Header = () => {
           onClick={() => setOpenSearch(prev => !prev)}
         />
       </nav>
-      {openSearch &&
-        <div className="absolute right-1 -bottom-12 transition ease-in">
-          <Input.Search size="large" />
-        </div>
-      }
+      <Search open={openSearch} setOpen={setOpenSearch} />
     </header>
   );
 };
