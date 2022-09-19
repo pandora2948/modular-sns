@@ -1,29 +1,33 @@
 ```
-modular-sns
-│   README.md
-│   .gitignore  
-└─── crawler-server <- python server (backend)
-    │   app.py <- running flask application
-    |   requirements.txt <- The package for the project is specified.
+|-- api <- python api server (django)
+|   `-- src
+|       |-- migrations <- database (mysql) migration scripts
+|       |
+|       `-- models <- db schema modeling scripts
+`-- react-happy-hacking <- frontend web application ( react.js )
+    |-- public <- includes public files
+    `-- src <- web app source scripts
 ```
 ## How to setup python server development environment?
-1. change directory crawler-server
-   > ```cd crawler-server```
-2. install python virtualenv
-   - [what is virtaulenv?](https://www.daleseo.com/python-venv/)
-   - [how to setup virtaulenv?](https://flask.palletsprojects.com/en/2.2.x/installation/)
-3. setup virtualenv environment (commands below)
-    > ```py -3 -m venv .venv```
+   1. change directory crawler-server
+      > ```cd api```
+   2. install python virtualenv
+      - [what is virtaulenv?](https://www.daleseo.com/python-venv/)
+   3. setup virtualenv environment (commands below)
+      > ```py -3 -m venv .venv```
 
-    > ```source .venv/Scripts/activate```
+      > ```source .venv/Scripts/activate```
 
-    > ``` which python ```
-4. let install python packages in requirements.txt
-   >``` pip install -r requirements.txt```
-5. Open Directory to crawler-server
-6. enjoy to development
+      > ``` which python ```
+   4. let install python packages in requirements.txt
+      >``` pip install -r requirements.txt```
+   5. Open Directory to api
+   6. running application
+      > python manage.py runserver
+   7. enjoy to development
 
 # Guides
-**[Flask Documents](https://flask.palletsprojects.com/en/2.2.x/)**
+**[Django Korean Documents](https://docs.djangoproject.com/ko/4.1/)**
 
-**[BeautifulSoup4 Documents](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)**
+**[Antd Documents](https://ant.design/docs/react/introduce)**
+
