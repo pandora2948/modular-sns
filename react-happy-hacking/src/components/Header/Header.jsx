@@ -14,7 +14,9 @@ export const Header = () => {
         relative font-semibold
       "
       >
-        <h1 className="text-lg text-slate-600">sns-modular</h1>
+        <h1 className="text-lg text-slate-600 whitespace-nowrap">
+          sns-modular
+        </h1>
         <nav className="flex gap-x-2">
           <Avatar icon={<UserOutlined />} />
           <Button
