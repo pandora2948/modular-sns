@@ -10,7 +10,7 @@ export const ArticleCarousel = ({ images }) => {
     <Carousel>
       {images.map(url => (
         <div key={shortid.generate()}>
-          <Image src={url} width="100%" height="300px" />
+          <Image src={url} width="100%" height="320px" />
         </div>
       ))}
     </Carousel>

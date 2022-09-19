@@ -24,7 +24,7 @@ export const Search = ({ open, setOpen }) => {
 
   if (!open) return null;
   return (
-    <div className="absolute right-1 -bottom-12">
+    <div className="absolute right-1 -bottom-12 z-10">
       <Input.Search size="large" ref={inputRef} />
     </div>
   );

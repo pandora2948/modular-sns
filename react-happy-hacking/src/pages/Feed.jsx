@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
+import shortid from 'shortid';
 
 import { AppLayout } from '../layouts/AppLayout';
 import { getPosts } from '../api/post';
 import { Article } from '../components/Article';
-import shortid from 'shortid';
 
 export const Feed = () => {
   const {

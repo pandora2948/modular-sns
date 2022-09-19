@@ -1,8 +1,11 @@
-import { Card } from 'antd';
+import { Card, Typography } from 'antd';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 
 import { ArticleCarousel } from './ArticleCarousel';
+import { UserOutlined } from '@ant-design/icons';
+
+const { Text } = Typography;
 
 export const Article = (
   {
@@ -19,7 +22,12 @@ export const Article = (
       className="w-full"
       cover={<ArticleCarousel images={images} />}
     >
-      mocking
+      <section>
+        <div className="flex gap-x-3 items-center">
+          <UserOutlined size="32px" />
+          <Text>{ writer }</Text>
+        </div>
+      </section>
     </Card>
   );
 };

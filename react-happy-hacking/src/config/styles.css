@@ -37,3 +37,12 @@ div#root {
 ::-webkit-scrollbar-thumb {
   background-color: #b2c5d2;
 }
+
+.ant-card-body {
+  padding: 10px !important;
+}
+
+.ant-image-preview-img-wrapper {
+  display: flex;
+  justify-content: center;
+}

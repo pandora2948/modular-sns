@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
-import App from './App';
+import { Feed } from './pages/Feed';
 import './config/styles.css';
 import { worker } from './mocks/worker';
 
@@ -17,7 +17,7 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <React.StrictMode>
-        <App />
+        <Feed />
       </React.StrictMode>
     </BrowserRouter>
   </QueryClientProvider>
