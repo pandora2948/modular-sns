@@ -13,6 +13,7 @@ export const Article = (
 ) => {
   return (
     <Card
+      className="w-full"
       cover={<ArticleCarousel images={images} />}
     >
       mocking
