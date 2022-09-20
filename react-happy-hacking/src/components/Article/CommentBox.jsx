@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useMutation } from 'react-query';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
@@ -16,10 +16,11 @@ export const CommentBox = ({ open }) => {
   /**
    * @description 댓글 작성 함수
    */
-  const onEnterComment = ({ key }) => {
+  const onEnterComment = useCallback(({ key }) => {
     const { value } = inputRef.current;
     if (key === 'Enter') {
       if (value.trim() === '') {
+        message.error('댓글에 내용을 입력해야합니다.');
         return;
       }
       createComment({
@@ -29,7 +30,7 @@ export const CommentBox = ({ open }) => {
       if (inputRef.current)
         inputRef.current.value = '';
     }
-  };
+  }, [createComment]);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -41,7 +42,6 @@ export const CommentBox = ({ open }) => {
     if (isError)
       message.info('댓글 작성에 실패하였습니다.');
   }, [isSuccess, isError]);
-
 
   if (!open) return null;
 
