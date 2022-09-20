@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const { Text } = Typography;
 
-export const Comment = ({ comment }) => (
+const Comment = ({ comment }) => (
   <div className="flex items-center gap-x-3" key={shortid.generate()}>
     <div className="flex gap-x-1 items-center">
       <UserOutlined />
