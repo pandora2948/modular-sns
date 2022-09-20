@@ -3,10 +3,10 @@ import { Button, Avatar } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Search } from './Search';
 
-export const Header = () => {
+export const Header = ({ onClick }) => {
   const [openSearch, setOpenSearch] = useState(false);
 
-  const handleShowSearch = () => setOpenSearch(prev => !prev);
+  const handleShowSearch = () => setOpenSearch((prev) => !prev);
 
   return (
     <header>
@@ -20,7 +20,7 @@ export const Header = () => {
           sns-modular
         </h1>
         <nav className="flex gap-x-2">
-          <Avatar icon={<UserOutlined />} />
+          <Avatar onClick={onClick} icon={<UserOutlined />} />
           <Button
             color="#0ea5e9"
             type="default"

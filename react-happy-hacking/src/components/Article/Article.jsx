@@ -12,34 +12,23 @@ import { CommentList } from './CommentList';
 
 const { Text } = Typography;
 
-export const Article = (
-  {
-    images,
-    writer,
-    content,
-    hashtags,
-    comments,
-  }
-) => {
+export const Article = ({ images, writer, content, hashtags, comments }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
 
-  const handleCommentBox = () => setIsOpenCommentBox(prev => !prev);
+  const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
   const onClickLikeBox = () => {};
 
   return (
-    <div
-      key={shortid.generate()}
-      className="card"
-    >
+    <div key={shortid.generate()} className="card">
       <ArticleCarousel images={images} />
 
       <section className="px-4 pt-2 py-4">
         <div className="flex gap-x-3 items-center pb-0.5">
           <UserOutlined size="32px" />
-          <Text>{ writer }</Text>
+          <Text>{writer}</Text>
         </div>
         <div>
-          <Text className="pr-2">{ content }</Text>
+          <Text className="pr-2">{content}</Text>
           <Hashtags tags={hashtags} />
         </div>
       </section>
@@ -53,7 +42,7 @@ export const Article = (
         </InteractButton>
         <InteractButton onClick={handleCommentBox}>
           <CommentOutlined className="pr-1" />
-          <Text>{ isOpenCommentBox ? '댓글 닫기' : '댓글 달기' }</Text>
+          <Text>{isOpenCommentBox ? '댓글 닫기' : '댓글 달기'}</Text>
         </InteractButton>
       </section>
 
@@ -61,7 +50,6 @@ export const Article = (
 
       <CommentBox open={isOpenCommentBox} />
       <CommentList comments={comments} />
-
     </div>
   );
 };
@@ -73,7 +61,7 @@ Article.propTypes = {
   hashtags: PropTypes.arrayOf(PropTypes.string).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      writer:PropTypes.string.isRequired,
+      writer: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
     })
   ),
