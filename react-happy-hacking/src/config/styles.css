@@ -27,7 +27,11 @@ div#root {
 }
 
 .card {
-  @apply bg-white w-full rounded-md shadow-md overflow-hidden
+  @apply bg-white w-full rounded-md shadow-md overflow-hidden;
+}
+
+.flex-all {
+  @apply flex justify-center items-center;
 }
 
 ::-webkit-scrollbar {
