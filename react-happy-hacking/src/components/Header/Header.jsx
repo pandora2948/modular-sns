@@ -6,6 +6,8 @@ import { Search } from './Search';
 export const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
 
+  const handleShowSearch = () => setOpenSearch(prev => !prev);
+
   return (
     <header>
       <section
@@ -24,7 +26,7 @@ export const Header = () => {
             type="default"
             shape="circle"
             icon={<SearchOutlined />}
-            onClick={() => setOpenSearch(prev => !prev)}
+            onClick={handleShowSearch}
           />
         </nav>
         <Search open={openSearch} setOpen={setOpenSearch} />
