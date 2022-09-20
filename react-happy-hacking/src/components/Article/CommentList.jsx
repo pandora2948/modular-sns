@@ -34,13 +34,13 @@ export const CommentList = ({ comments }) => {
         ))
       }
       {notExpand && <Text
-        className="text-sky-500 cursor-pointer"
+        className="text-sky-500 cursor-pointer w-fit"
         onClick={onClickHandleExpand}
       >
         댓글 더보기
       </Text>}
       {expand && <Text
-        className="text-sky-500 cursor-pointer"
+        className="text-sky-500 cursor-pointer w-fit"
         onClick={onClickHandleExpand}
       >
         댓글 닫기
