@@ -57,6 +57,8 @@ export const Article = (
         </InteractButton>
       </section>
 
+      <Divider className="m-0" />
+
       <CommentBox open={isOpenCommentBox} />
       <CommentList comments={comments} />
 
