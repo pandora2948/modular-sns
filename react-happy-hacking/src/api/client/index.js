@@ -6,6 +6,6 @@ const getURLByEnvironment = () =>
   : '<production_url>';
 
 export const apiClient = axios.create({
-  baseURL: getURLByEnvironment(),
+  // baseURL: getURLByEnvironment(),
   timeout: 5000,
 });
