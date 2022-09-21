@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import { Typography } from 'antd';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import shortid from 'shortid';
-import { useState } from 'react';
 
 const { Text } = Typography;
 
 const Comment = ({ comment }) => (
-  <div className="flex items-center gap-x-3" key={shortid.generate()}>
+  <div className="flex items-center gap-x-3">
     <div className="flex gap-x-1 items-center">
       <UserOutlined />
       <Text>{ comment.writer }</Text>
@@ -25,21 +25,27 @@ export const CommentList = ({ comments }) => {
   return (
     <section className="flex flex-col justify-center p-3">
       {notExpand && (
+        <div key={shortid.generate()}>
           <Comment comment={comments[0]} />
+        </div>
       )
       }
       {expand &&
         comments?.map(comment => (
-            <Comment comment={comment} />
+          <div key={shortid.generate()}>
+            <Comment keyId={shortid.generate()} comment={comment} />
+          </div>
         ))
       }
       {notExpand && <Text
+        key={shortid.generate()}
         className="text-sky-500 cursor-pointer w-fit"
         onClick={onClickHandleExpand}
       >
         댓글 더보기
       </Text>}
       {expand && <Text
+        key={shortid.generate()}
         className="text-sky-500 cursor-pointer w-fit"
         onClick={onClickHandleExpand}
       >

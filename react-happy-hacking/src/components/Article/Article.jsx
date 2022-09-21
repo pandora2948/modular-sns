@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import { Typography, Divider } from 'antd';
+import { UserOutlined, LikeOutlined, CommentOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 
 import { ArticleCarousel } from './ArticleCarousel';
-import { UserOutlined, LikeOutlined, CommentOutlined } from '@ant-design/icons';
 import { InteractButton } from './InteractButton';
 import { Hashtags } from './Hashtags';
-import { useState } from 'react';
 import { CommentBox } from './CommentBox';
 import { CommentList } from './CommentList';
 
