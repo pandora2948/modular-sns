@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Modal, message } from 'antd';
 import PropTypes from 'prop-types';
 
-export const LoginModal = ({ isOpen, onClick }) => {
+export const SignModal = ({ isOpen, onClick }) => {
 
   /**
    * @param formValue 입력받은 폼 요소의 값들
@@ -71,7 +71,7 @@ export const LoginModal = ({ isOpen, onClick }) => {
   );
 };
 
-LoginModal.propTypes = {
+SignModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
