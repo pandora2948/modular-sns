@@ -32,7 +32,7 @@ export const SignModal = ({ isOpen, onClick }) => {
         Or <button
             type="button"
             onClick={onClickShowSignInButton}
-            className="text-sky-600"
+            className="text-sky-600 bg-[#1890ff]"
           >
           register now!
         </button>

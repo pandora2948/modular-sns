@@ -67,6 +67,6 @@ export const SigninForm = ({ hidden, children }) => {
 };
 
 SigninForm.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array.isRequired,
   hidden: PropTypes.bool.isRequired,
 };

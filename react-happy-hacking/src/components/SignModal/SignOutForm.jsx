@@ -13,5 +13,5 @@ export const SignOutForm = ({ show, children }) => {
 
 SignOutForm.propTypes = {
   show: PropTypes.bool.isRequired,
-  children: PropTypes.object,
+  children: PropTypes.array.isRequired,
 };
