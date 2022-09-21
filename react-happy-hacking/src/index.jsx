@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client';
 import {  createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
-import { Feed } from './pages/Feed';
 import './config/styles.css';
 import { worker } from './mocks/worker';
+import { Feed } from './pages/Feed';
+import { SearchHashtag } from './pages/SearchHashtag';
 import { Error } from './pages/Error';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
     path:'/',
     element: <Feed />,
     errorElement: <Error />
-  }
-])
+  },
+  {
+   path: '/search',
+    element: <SearchHashtag />,
+  },
+]);
 
 const root = createRoot(document.getElementById('root'));
 root.render(

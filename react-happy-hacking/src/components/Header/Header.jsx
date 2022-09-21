@@ -4,6 +4,7 @@ import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Search } from './Search';
 import { SignModal } from '../SignModal';
 import { useModal } from '../../hooks/useModal';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -21,7 +22,9 @@ export const Header = () => {
       "
       >
         <h1 className="text-lg text-slate-600 whitespace-nowrap">
-          sns-modular
+          <Link to="/">
+            sns-modular
+          </Link>
         </h1>
         <nav className="flex gap-x-2">
           <Avatar
