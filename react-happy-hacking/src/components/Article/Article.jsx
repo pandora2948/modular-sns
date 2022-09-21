@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Typography, Divider } from 'antd';
+import { Typography, Divider, Popover } from 'antd';
 import {
   UserOutlined,
   LikeOutlined,
@@ -47,7 +47,9 @@ export const Article = (
       </section>
 
       <section className="flex gap-x-1 items-center px-4 pb-3">
-        <HeartTwoTone style={{ fontSize: '1.1rem' }} />
+        <Popover placement="top" content="해당 게시글의 좋아요 갯수입니다." className="cursor-pointer">
+          <HeartTwoTone style={{ fontSize: '1.1rem' }} />
+        </Popover>
         <Text>{ likeCount }</Text>
       </section>
       <Divider className="m-0" />
