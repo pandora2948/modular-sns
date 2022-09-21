@@ -12,6 +12,7 @@ const mockFeedData = {
   writer: 'galaxy4276',
   content: '오늘 하루도 고생하셨습니다.',
   hashtags: ['#응기', '#응기잇', '#흥기엣'],
+  likeCount: 44,
   comments: [
     {
       writer: 'minesp3164',
@@ -79,6 +80,7 @@ export const handlers = [
         writer: 'galaxy4276',
         content: '오늘 하루도 고생하셨습니다.',
         hashtags: ['#응기', '#응기잇', '#흥기엣'],
+        likeCount: 44,
         comments: [
           {
             writer: 'minesp3164',

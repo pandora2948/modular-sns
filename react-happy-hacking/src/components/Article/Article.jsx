@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Typography, Divider } from 'antd';
-import { UserOutlined, LikeOutlined, CommentOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  LikeOutlined,
+  CommentOutlined,
+  HeartTwoTone
+} from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 
@@ -12,7 +17,15 @@ import { CommentList } from './CommentList';
 
 const { Text } = Typography;
 
-export const Article = ({ images, writer, content, hashtags, comments }) => {
+export const Article = (
+  {
+    images,
+    likeCount,
+    writer,
+    content,
+    hashtags,
+    comments
+  }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
@@ -22,7 +35,7 @@ export const Article = ({ images, writer, content, hashtags, comments }) => {
     <div key={shortid.generate()} className="card">
       <ArticleCarousel images={images} />
 
-      <section className="px-4 pt-2 py-4">
+      <section className="px-4 pt-2 pt-4 pb-2">
         <div className="flex gap-x-3 items-center pb-0.5">
           <UserOutlined size="32px" />
           <Text>{writer}</Text>
@@ -33,6 +46,10 @@ export const Article = ({ images, writer, content, hashtags, comments }) => {
         </div>
       </section>
 
+      <section className="flex gap-x-1 items-center px-4 pb-3">
+        <HeartTwoTone style={{ fontSize: '1.1rem' }} />
+        <Text>{ likeCount }</Text>
+      </section>
       <Divider className="m-0" />
 
       <section className="flex interact-space">
@@ -58,6 +75,7 @@ Article.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string),
   writer: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  likeCount: PropTypes.number.isRequired,
   hashtags: PropTypes.arrayOf(PropTypes.string).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
