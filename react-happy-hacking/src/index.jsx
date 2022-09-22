@@ -28,10 +28,11 @@ const router = createBrowserRouter([
   {
    path: '/search',
     element: <SearchHashtag />,
-    loader: ({ request }) =>
-      Object.entries(qs.parse(request.url))
-        .filter(urlSearchParamsFilter)
-        .map(([__, value]) => value),
+    loader: ({ request }) => {
+      const temp = Object.entries(qs.parse(request.url))
+        .map(([__, value]) => value);
+      return [temp[temp.length - 1], ...temp].slice(0, temp.length);
+    }
   },
 ]);
 

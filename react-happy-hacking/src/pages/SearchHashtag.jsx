@@ -22,7 +22,7 @@ export const SearchHashtag = () => {
   return (
   <AppLayout>
     <section className="flex flex-col items-center">
-      <div className="flex">
+      <div className="flex gap-x-1">
         { query.map(tag => <Tag name={tag} />) }
         <span className="text-base md:text-lg">로 검색하신 결과입니다.</span>
       </div>

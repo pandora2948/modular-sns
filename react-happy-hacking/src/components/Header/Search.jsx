@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import qs from 'qs';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Input, message } from 'antd';
 
 export const Search = ({ open, setOpen }) => {
+  const navigate = useNavigate();
   const inputRef = useRef(null);
 
   const onSearch = searchText => {
@@ -14,24 +15,16 @@ export const Search = ({ open, setOpen }) => {
     if (hashtags?.length > 5)
       return message.error('해시태그 5개 이상 검색할 수 없습니다.');
     const queries = qs.stringify(hashtags);
-    const redir = redirect(`/search?tags=${queries}`);
-    console.log(redir);
+    console.log(queries);
+    return navigate(`/search?${queries}`);
   };
 
   useEffect(() => {
     const onBlur = () => setOpen(false);
-
     if (inputRef.current) {
       const { input: search } = inputRef.current;
       search.focus();
       search.onblur = onBlur;
-    }
-
-    return () => {
-      if (inputRef.current) {
-        const { input: search } = inputRef.current;
-        search.onblur = null;
-      }
     }
   }, [open, setOpen]);
 
