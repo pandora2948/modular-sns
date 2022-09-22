@@ -16,9 +16,6 @@ if (isDevelopment) worker.start();
 
 const queryClient = new QueryClient();
 
-const urlSearchParamsFilter = ([key]) =>
-  !Number.isNaN(parseInt(key, 10));
-
 const router = createBrowserRouter([
   {
     path:'/',
