@@ -19,3 +19,13 @@ export const getPosts = count =>
 export const postComment = (id, comment) =>
   apiClient.post(`/api/comments/${id}`, { comment })
     .catch(parseFailureResponse);
+
+/**
+ * @description 해시태그 값들을 받아서, 대응하는 게시글을 반환합니다.
+ * @param hashtags 배열로 구성된 해시태그 문자열
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const getSearchPosts = hashtags =>
+  apiClient.post('/api/posts/search', { hashtags })
+    .then(parseSuccessResponse)
+    .catch(parseFailureResponse);

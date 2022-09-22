@@ -107,5 +107,11 @@ export const handlers = [
   ),
   rest.post('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
   rest.patch('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
-  rest.delete('/api/comments/:id', (__, res, ctx) => res(ctx.status(201)))
+  rest.delete('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
+  rest.post('/api/posts/search', (__, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json([mockFeedData, mockFeedData, mockFeedData]),
+    ),
+  ),
 ];

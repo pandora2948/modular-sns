@@ -1,17 +1,21 @@
+import { useEffect, useRef } from 'react';
+import qs from 'qs';
+import { redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Input, message } from 'antd';
-import { useEffect, useRef } from 'react';
 
 export const Search = ({ open, setOpen }) => {
   const inputRef = useRef(null);
 
   const onSearch = searchText => {
-    if (searchText.trim() === '')
-      return message.error('해시태그를 검색해주세요.');
     const hashtags = searchText.match(/(#+[가-힣a-zA-Z0-9]+)/g);
-    console.log(hashtags);
-    if (hashtags.length > 5)
+    if (!hashtags)
+      return message.error('해시태그를 검색해주세요.');
+    if (hashtags?.length > 5)
       return message.error('해시태그 5개 이상 검색할 수 없습니다.');
+    const queries = qs.stringify(hashtags);
+    const redir = redirect(`/search?tags=${queries}`);
+    console.log(redir);
   };
 
   useEffect(() => {
@@ -29,7 +33,7 @@ export const Search = ({ open, setOpen }) => {
         search.onblur = null;
       }
     }
-  }, [open, inputRef.current, setOpen]);
+  }, [open, setOpen]);
 
   if (!open) return null;
   return (
