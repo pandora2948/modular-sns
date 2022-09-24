@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import { SigninForm } from './SigninForm';
 import { useState } from 'react';
-import { SignOutForm } from './SignOutForm';
+import { SignUpForm } from './SignUpForm';
 
 export const SignModal = ({ isOpen, onClick }) => {
   const [showSignOut, setShowSignOut] = useState(false);
@@ -20,23 +20,25 @@ export const SignModal = ({ isOpen, onClick }) => {
       footer={null}
     >
       <SigninForm hidden={showSignOut}>
-        Or <button
-            type="button"
-            onClick={onClickShowSignOutButton}
-            className="text-sky-600"
-          >
+        Or{' '}
+        <button
+          type="button"
+          onClick={onClickShowSignOutButton}
+          className="text-sky-600"
+        >
           register now!
         </button>
       </SigninForm>
-      <SignOutForm show={showSignOut}>
-        Or <button
-            type="button"
-            onClick={onClickShowSignInButton}
-            className="text-sky-600 bg-[#1890ff]"
-          >
+      <SignUpForm show={showSignOut}>
+        Or{' '}
+        <button
+          type="button"
+          onClick={onClickShowSignInButton}
+          className="text-sky-600 bg-[#1890ff]"
+        >
           register now!
         </button>
-      </SignOutForm>
+      </SignUpForm>
     </Modal>
   );
 };
