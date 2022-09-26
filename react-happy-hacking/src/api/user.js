@@ -11,7 +11,6 @@ export const getUserApi = () =>
     .then(parseSuccessResponse)
     .catch(parseFailureResponse);
 
-
 /**
  * @description 인증을 요청하여 토큰 값을 반환받습니다.
  * @param email 로그인 이메일 정보
@@ -19,9 +18,11 @@ export const getUserApi = () =>
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const loginUserApi = (email, password) =>
-  apiClient.post('/api/user/login', {
-    email, password,
-  })
+  apiClient
+    .post('/api/user/login', {
+      email,
+      password,
+    })
     .then(parseSuccessResponse)
     .catch(parseFailureResponse);
 
@@ -32,15 +33,23 @@ export const loginUserApi = (email, password) =>
  * @param password 회원가입 받을 사용자 패스워드
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const createUserApi = ({
-  username,
-  email,
-  password,
-}) =>
-  apiClient.post('/api/user/register', {
-    username,
-    email,
-    password
-  })
+export const createUserApi = ({ username, email, password }) =>
+  apiClient
+    .post('/api/user/register', {
+      username,
+      email,
+      password,
+    })
     .then(parseSuccessResponse)
     .then(parseFailureResponse);
+
+/**
+ * @description 사용자 인증정보를 새로 갱신합니다.
+ * @param refresh 로그인 요청 때 응답받은 refreshToken
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const getAccessTokenAPI = (refresh) =>
+  apiClient
+    .post('/api/token/refresh', { refresh })
+    .then(parseSuccessResponse)
+    .catch(parseFailureResponse);
