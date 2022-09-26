@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import User
 
 
+# TODO: 사용하지 않으므로 앱에서 제거 예정
 class ModularSnsTokenObtainPairSerializer(TokenObtainSerializer):
   @classmethod
   def get_token(cls, user):
@@ -37,6 +38,7 @@ class JWTSignupSerializer(serializers.ModelSerializer):
     style={'input_type': 'password'}
   )
 
+  # TODO: 비밀번호 해시암호화 기능 필요
   def save(self, req):
     user = super(JWTSignupSerializer, self).save()
     user.username = self.validated_data['username']
