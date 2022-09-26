@@ -1,13 +1,12 @@
-from django.contrib.auth import login
 from django.http import JsonResponse
-from rest_framework import permissions, views, status
+from rest_framework import views, status
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..models import User
-from ..serializers.auth import LoginSerializer, ModularSnsTokenObtainPairSerializer, JWTSignupSerializer
+from ..serializers.auth import ModularSnsTokenObtainPairSerializer, JWTSignupSerializer, \
+  JWTLoginSerializer
 
 
 class ModularSnsObtainTokenPairView(TokenObtainPairView):
@@ -34,21 +33,29 @@ class JWTSignupView(views.APIView):
           'access': access,
           'refresh': refresh
         }
-      })
+      }, status=status.HTTP_200_OK)
     return JsonResponse(data={
       "message": "회원가입 실패"
     })
 
 
-class LoginView(views.APIView):
-  permission_classes = (permissions.AllowAny,)
+class JWTLoginView(views.APIView):
+  serializer_class = JWTLoginSerializer
 
-  def post(self, request):
-    serializer = LoginSerializer(
-      data=self.request.data,
-      context={'request': self.request}
-    )
-    serializer.is_valid(raise_exception=True)
-    user = serializer.validated_data['user']
-    login(request, user)
-    return Response(None, status=status.HTTP_200_OK)
+  def post(self, req):
+    serializer = self.serializer_class(data=req.data)
+    if serializer.is_valid(raise_exception=False):
+      user = serializer.validated_data['user']
+      refresh = serializer.validated_data['refresh']
+      access = serializer.validated_data['access']
+      return JsonResponse({
+        'message': '',
+        'data': {
+          'user': user,
+          'refresh': refresh,
+          'access': access
+        }
+      }, status=status.HTTP_200_OK)
+    return JsonResponse({
+      'message': '로그인에 실패하였습니다.'
+    }, status=status.HTTP_401_UNAUTHORIZED)
