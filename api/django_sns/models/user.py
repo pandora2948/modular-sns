@@ -12,3 +12,6 @@ class User(models.Model):
 
   def __str__(self):
     return self.username
+
+  def set_password(self, password):
+    pass
