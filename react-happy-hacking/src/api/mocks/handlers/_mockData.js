@@ -1,5 +1,6 @@
 export const mock = {
   imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+  token: 'ey%419929aksjdmnxcvlaeoqwiehwqprqsdlasmdlqwskdfjsadklfnwnfawfn',
 
   get followUserInfo() {
     return {

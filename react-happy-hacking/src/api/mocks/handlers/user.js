@@ -15,8 +15,35 @@ export const userHandlers = [
     )
   ),
   rest.patch('/api/user', (__, res, ctx) => res(ctx.status(201))),
-  rest.patch('/api/user/register', (__, res, ctx) => res(ctx.status(201))),
-  rest.post('/api/user/login', (__, res, ctx) => res(ctx.status(200))),
+  rest.patch('/api/user/register', (__, res, ctx) =>
+    res(
+      ctx.status(201),
+      ctx.json({
+        message: '회원가입에 성공하였습니다.',
+        data: {
+          user: 'galaxy4276@gmail.com',
+          refresh: mock.token,
+          access: mock.token,
+        },
+      })
+    )
+  ),
+  rest.post('/api/user/login', (__, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json({
+        message: '',
+        data: {
+          user: {
+            username: 'pandora',
+            email: 'pandora@pan.dora',
+          },
+          refresh: mock.token,
+          access: mock.token,
+        },
+      })
+    )
+  ),
   rest.get('/api/user/logout', (__, res, ctx) => res(ctx.status(200))),
   rest.get('/api/user/following', (__, res, ctx) =>
     res(
