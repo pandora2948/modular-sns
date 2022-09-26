@@ -137,4 +137,12 @@ export const handlers = [
       ctx.json([mockFeedData, mockFeedData, mockFeedData]),
     ),
   ),
+  rest.post('/api/token/refresh', (__, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json({
+        access: mockToken,
+      }),
+    ),
+  ),
 ];
