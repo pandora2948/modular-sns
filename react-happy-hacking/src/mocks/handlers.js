@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 const mockImageUrl = 'https://picsum.photos/seed/picsum/200/300';
-
+const mockToken = 'ey%419929aksjdmnxcvlaeoqwiehwqprqsdlasmdlqwskdfjsadklfnwnfawfn';
 const mockFollowUserInfo = {
   profileUrl: mockImageUrl,
   username: 'galaxy4276',
@@ -42,10 +42,33 @@ export const handlers = [
     res(ctx.status(201)),
   ),
   rest.patch('/api/user/register', (__, res, ctx) =>
-    res(ctx.status(201)),
+    res(
+        ctx.status(201),
+        ctx.json({
+          message: '회원가입에 성공하였습니다.',
+          data: {
+            user: 'galaxy4276@gmail.com',
+            refresh: mockToken,
+            access: mockToken,
+          },
+        }),
+      ),
   ),
   rest.post('/api/user/login', (__, res, ctx) =>
-    res(ctx.status(200)),
+    res(
+      ctx.status(200),
+      ctx.json({
+        message: '',
+        data: {
+          user: {
+            username: 'pandora',
+            email: 'pandora@pan.dora',
+          },
+          refresh: mockToken,
+          access: mockToken,
+        },
+      }),
+    ),
   ),
   rest.get('/api/user/logout', (__, res, ctx) =>
     res(ctx.status(200)),
