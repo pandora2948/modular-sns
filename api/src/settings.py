@@ -123,6 +123,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Django 애플리케이션에 사용자 모듈을 알림
+AUTH_USER_MODEL = 'django_sns.User'
+
 # REST FRAMEWORK 설정
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
