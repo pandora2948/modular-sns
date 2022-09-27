@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from rest_framework.exceptions import NotFound, AuthenticationFailed
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -15,10 +15,13 @@ class ModularSnsTokenObtainPairSerializer(TokenObtainSerializer):
     return token
 
 
+"""
+  회원가입을 처리하는 Serializer 클래스입니다.
+"""
 class JWTSignupSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ['id', 'username', 'email', 'password']
+    fields = ['username', 'email', 'password']
 
   username = serializers.CharField(
     required=True,
@@ -38,13 +41,12 @@ class JWTSignupSerializer(serializers.ModelSerializer):
     style={'input_type': 'password'}
   )
 
-  # TODO: 비밀번호 해시암호화 기능 필요
   def save(self, req):
-    user = super(JWTSignupSerializer, self).save()
-    user.username = self.validated_data['username']
-    user.email = self.validated_data['email']
-    user.password = self.validated_data['password']
-    user.save()
+    User.objects.create_user(
+      username=self.validated_data['username'],
+      email=self.validated_data['email'],
+      password=self.validated_data['password']
+    )
 
   def validate(self, data):
     username = data.get('username')
@@ -79,10 +81,11 @@ class JWTLoginSerializer(serializers.ModelSerializer):
   def validate(self, data):
     email = data.get('email', None)
     password = data.get('password', None)
-    user = None
-    if User.objects.filter(email=email).exists():
-      user = User.objects.get(email=email)
-      # TODO: 패스워드 검증 로직 작성 필요
+    if not User.objects.get(email=email).exists(email=email):
+      raise NotFound(detail="no user exists")
+    user = User.objects.get(email=email)
+    if not user.check_password(password):
+      raise AuthenticationFailed(detail="wrong password")
     token = RefreshToken.for_user(user)
     return {
       'user': self.serialize_user(user),
