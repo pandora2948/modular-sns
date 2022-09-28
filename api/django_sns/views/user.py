@@ -5,11 +5,10 @@ from ..models import User
 from ..serializers import UserSerializer
 
 
-
 class UserAPI(APIView):
-  def get(self, req):
-    print(req)
-    queryset = User.objects.all()
-    print(queryset)
-    serializer = UserSerializer(queryset, many=True)
-    return Response(serializer.data)
+    def get(self, req):
+        print(req)
+        queryset = User.objects.all()
+        print(queryset)
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data)

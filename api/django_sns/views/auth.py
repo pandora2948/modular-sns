@@ -6,66 +6,65 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import User
 from ..serializers.auth import (
-  ModularSnsTokenObtainPairSerializer,
-  JWTSignupSerializer,
-  JWTLoginSerializer
+    ModularSnsTokenObtainPairSerializer,
+    JWTSignupSerializer,
+    JWTLoginSerializer
 )
 
 
 class ModularSnsObtainTokenPairView(TokenObtainPairView):
-  permission_classes = (AllowAny,)
-  serializer_class = ModularSnsTokenObtainPairSerializer
+    permission_classes = (AllowAny,)
+    serializer_class = ModularSnsTokenObtainPairSerializer
 
 
 class JWTSignupView(views.APIView):
-  serializer_class = JWTSignupSerializer
+    serializer_class = JWTSignupSerializer
 
-  def post(self, req):
-    serializer = self.serializer_class(data=req.data)
-    try:
-      if serializer.is_valid(raise_exception=True):
-        serializer.save(req)
-        user = User.objects.get(username=req.data['username'])
-        token = RefreshToken.for_user(user)
-        refresh = str(token)
-        access = str(token.access_token)
-        return JsonResponse({
-          'message': '회원가입에 성공하였습니다.',
-          'data': {
-            'user': req.data['username'],
-            'access': access,
-            'refresh': refresh
-          }
-        }, status=status.HTTP_200_OK)
-    except ValidationError as e:
-      err_message: str = "".join("".join(v) for v in e.detail.values())
-      return JsonResponse(
-        data={
-          "message": '',
-          "error": err_message,
-        },
-        status=e.status_code
-      )
-
+    def post(self, req):
+        serializer = self.serializer_class(data=req.data)
+        try:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(req)
+                user = User.objects.get(username=req.data['username'])
+                token = RefreshToken.for_user(user)
+                refresh = str(token)
+                access = str(token.access_token)
+                return JsonResponse({
+                    'message': '회원가입에 성공하였습니다.',
+                    'data': {
+                        'user': req.data['username'],
+                        'access': access,
+                        'refresh': refresh
+                    }
+                }, status=status.HTTP_200_OK)
+        except ValidationError as e:
+            err_message: str = "".join("".join(v) for v in e.detail.values())
+            return JsonResponse(
+                data={
+                    "message": '',
+                    "error": err_message,
+                },
+                status=e.status_code
+            )
 
 
 class JWTLoginView(views.APIView):
-  serializer_class = JWTLoginSerializer
+    serializer_class = JWTLoginSerializer
 
-  def post(self, req):
-    serializer = self.serializer_class(data=req.data)
-    if serializer.is_valid(raise_exception=False):
-      user = serializer.validated_data['user']
-      refresh = serializer.validated_data['refresh']
-      access = serializer.validated_data['access']
-      return JsonResponse({
-        'message': '',
-        'data': {
-          'user': user,
-          'refresh': refresh,
-          'access': access
-        }
-      }, status=status.HTTP_200_OK)
-    return JsonResponse({
-      'message': '로그인에 실패하였습니다.'
-    }, status=status.HTTP_401_UNAUTHORIZED)
+    def post(self, req):
+        serializer = self.serializer_class(data=req.data)
+        if serializer.is_valid(raise_exception=False):
+            user = serializer.validated_data['user']
+            refresh = serializer.validated_data['refresh']
+            access = serializer.validated_data['access']
+            return JsonResponse({
+                'message': '',
+                'data': {
+                    'user': user,
+                    'refresh': refresh,
+                    'access': access
+                }
+            }, status=status.HTTP_200_OK)
+        return JsonResponse({
+            'message': '로그인에 실패하였습니다.'
+        }, status=status.HTTP_401_UNAUTHORIZED)
