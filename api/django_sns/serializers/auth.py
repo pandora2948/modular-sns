@@ -18,6 +18,8 @@ class ModularSnsTokenObtainPairSerializer(TokenObtainSerializer):
 """
   회원가입을 처리하는 Serializer 클래스입니다.
 """
+
+
 class JWTSignupSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
@@ -59,7 +61,6 @@ class JWTSignupSerializer(serializers.ModelSerializer):
 
 
 class JWTLoginSerializer(serializers.ModelSerializer):
-
   class Meta:
     model = User
     fields = ['email', 'password']
@@ -68,7 +69,7 @@ class JWTLoginSerializer(serializers.ModelSerializer):
   password = serializers.CharField(
     required=True,
     write_only=True,
-    style={'input_type':'password'}
+    style={'input_type': 'password'}
   )
 
   def serialize_user(self, user):
@@ -81,8 +82,12 @@ class JWTLoginSerializer(serializers.ModelSerializer):
   def validate(self, data):
     email = data.get('email', None)
     password = data.get('password', None)
-    if not User.objects.get(email=email).exists(email=email):
+    print(f'email: {email}, password: {password}')
+
+    user_find_query = User.objects.filter(email=email)
+    if not user_find_query.exists():
       raise NotFound(detail="no user exists")
+
     user = User.objects.get(email=email)
     if not user.check_password(password):
       raise AuthenticationFailed(detail="wrong password")
