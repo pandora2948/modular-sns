@@ -7,12 +7,12 @@ import {
   HeartTwoTone,
 } from '@ant-design/icons';
 import { Typography, Divider, Popover } from 'antd';
+import HashtagList from 'components/hashtag/HashtagList';
 import shortid from 'shortid';
 import ArticleButton from './ArticleButton';
 import ArticleCarousel from './ArticleCarousel';
 import ArticleCommentBox from './ArticleCommentBox';
 import ArticleCommentList from './ArticleCommentList';
-import ArticleHashtags from './ArticleHashtags';
 
 const { Text } = Typography;
 
@@ -40,7 +40,7 @@ const Article = ({
         </div>
         <div>
           <Text className="pr-2">{content}</Text>
-          <ArticleHashtags tags={hashtags} />
+          <HashtagList tags={hashtags} />
         </div>
       </section>
 
