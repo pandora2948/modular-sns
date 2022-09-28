@@ -11,7 +11,7 @@ import shortid from 'shortid';
 
 import { ArticleCarousel } from './ArticleCarousel';
 import { InteractButton } from './InteractButton';
-import { Hashtags } from './Hashtags';
+import { HashtagList } from '../Hashtag';
 import { CommentBox } from './CommentBox';
 import { CommentList } from './CommentList';
 
@@ -42,7 +42,7 @@ export const Article = (
         </div>
         <div>
           <Text className="pr-2">{content}</Text>
-          <Hashtags tags={hashtags} />
+          <HashtagList tags={hashtags} />
         </div>
       </section>
 
