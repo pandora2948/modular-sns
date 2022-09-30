@@ -5,6 +5,8 @@ from rest_framework.exceptions import (
 )
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
+from rest_framework_simplejwt.exceptions import InvalidToken
+
 from ..views.auth import JWTLoginView
 
 
@@ -15,6 +17,12 @@ def del_detail(response: Response):
 #  모든 예외(에러) 발생을 처리하는 함수입니다.
 def application_exception_handler(exc, context):
     response = exception_handler(exc, context)
+
+    if isinstance(exc, InvalidToken): # 유효하지 않은 토큰 예외 처리
+        del_detail(response)
+        del response.data['code']
+        del response.data['messages']
+        response.data['error'] = 'Token Expired or Invalid'
 
     if isinstance(exc, NotAuthenticated):  # 인증되지 않은 요청 예외 처리
         del_detail(response)
