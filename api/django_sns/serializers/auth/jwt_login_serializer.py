@@ -31,7 +31,6 @@ class JWTLoginSerializer(serializers.ModelSerializer):
     def validate(self, data):
         email = data.get('email', None)
         password = data.get('password', None)
-        print(f'email: {email}, password: {password}')
 
         user_find_query = User.objects.filter(email=email)
         if not user_find_query.exists():

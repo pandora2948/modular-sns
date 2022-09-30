@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework import views, status
+from rest_framework.permissions import AllowAny
 
 from django_sns.serializers.auth import JWTLoginSerializer
 
@@ -8,6 +9,7 @@ from django_sns.serializers.auth import JWTLoginSerializer
     로그인을 처리하는 DRF view 클래스입니다.
 """
 class JWTLoginView(views.APIView):
+    permission_classes = [AllowAny]
     serializer_class = JWTLoginSerializer
 
     def post(self, req):
