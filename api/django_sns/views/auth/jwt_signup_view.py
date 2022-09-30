@@ -11,14 +11,14 @@ from django_sns.serializers.auth import JWTSignupSerializer
 
 #    회원가입을 처리하는 DRF view 클래스입니다.
 class JWTSignupView(views.APIView):
-    permission_classes = [AllowAny,]
+    permission_classes = [AllowAny, ]
     serializer_class = JWTSignupSerializer
 
     def post(self, req):
         serializer = self.serializer_class(data=req.data)
 
         try:
-            if serializer.is_valid(raise_exception=True): # 모든 데이터가 유효하다면
+            if serializer.is_valid(raise_exception=True):  # 모든 데이터가 유효하다면
                 serializer.save(req)
                 user: User | None = User.objects.get(username=req.data['username'])
                 token = RefreshToken.for_user(user)
@@ -32,7 +32,7 @@ class JWTSignupView(views.APIView):
                         'refresh': refresh
                     }
                 }, status=status.HTTP_200_OK)
-        except ValidationError as e: # 예외 발생 시 (from line 19)
+        except ValidationError as e:  # 예외 발생 시 (from line 19)
             err_message: str = "".join("".join(v) for v in e.detail.values())
             return JsonResponse(
                 data={
