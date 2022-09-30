@@ -5,9 +5,7 @@ from rest_framework.permissions import AllowAny
 from django_sns.serializers.auth import JWTLoginSerializer
 
 
-"""
-    로그인을 처리하는 DRF view 클래스입니다.
-"""
+# 로그인을 처리하는 DRF view 클래스입니다.
 class JWTLoginView(views.APIView):
     permission_classes = [AllowAny]
     serializer_class = JWTLoginSerializer
@@ -18,14 +16,13 @@ class JWTLoginView(views.APIView):
             user = serializer.validated_data['user']
             refresh = serializer.validated_data['refresh']
             access = serializer.validated_data['access']
-            return JsonResponse({
-                'message': '',
-                'data': {
-                    'user': user,
-                    'refresh': refresh,
-                    'access': access
-                }
-            }, status=status.HTTP_200_OK)
-        return JsonResponse({
-            'message': '로그인에 실패하였습니다.'
-        }, status=status.HTTP_401_UNAUTHORIZED)
+            return JsonResponse(
+                {
+                    'data': {
+                        'user': user,
+                        'refresh': refresh,
+                        'access': access
+                    }
+                },
+                status=status.HTTP_200_OK
+            )
