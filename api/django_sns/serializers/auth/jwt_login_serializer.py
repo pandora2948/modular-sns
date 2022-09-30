@@ -5,9 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django_sns.models import User
 
 
-"""
-    로그인을 처리하는 DRF serializer 클래스입니다.
-"""
+#    로그인을 처리하는 DRF serializer 클래스입니다.
 class JWTLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
