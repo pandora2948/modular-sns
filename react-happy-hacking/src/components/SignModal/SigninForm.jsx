@@ -13,6 +13,7 @@ export const SigninForm = ({ hidden, children }) => {
     loginUserApi(formValue.email, formValue.password);
     localStorage.setItem('remember', formValue.remember);
   };
+  const rememberChecked = localStorage.getItem('remember') === 'true';
 
   if (hidden) return null;
 
@@ -22,7 +23,7 @@ export const SigninForm = ({ hidden, children }) => {
       <Form
         name="normal_login"
         className="login-form pt-10"
-        initialValues={{ remember: localStorage.getItem('remember') || false }}
+        initialValues={{ remember: rememberChecked || false }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -46,7 +47,7 @@ export const SigninForm = ({ hidden, children }) => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox checked={rememberChecked}>Remember me</Checkbox>
           </Form.Item>
 
           <a className="float-right" href="/#">
