@@ -1,7 +1,8 @@
 import { rest } from 'msw';
 
 const mockImageUrl = 'https://picsum.photos/seed/picsum/200/300';
-const mockToken = 'ey%419929aksjdmnxcvlaeoqwiehwqprqsdlasmdlqwskdfjsadklfnwnfawfn';
+const mockToken =
+  'ey%419929aksjdmnxcvlaeoqwiehwqprqsdlasmdlqwskdfjsadklfnwnfawfn';
 const mockFollowUserInfo = {
   profileUrl: mockImageUrl,
   username: 'galaxy4276',
@@ -35,24 +36,22 @@ export const handlers = [
         followerCount: 6,
         followingCount: 12,
         allLikeCount: 368,
-      }),
-    ),
+      })
+    )
   ),
-  rest.patch('/api/user', (__, res, ctx) =>
-    res(ctx.status(201)),
-  ),
-  rest.patch('/api/user/register', (__, res, ctx) =>
+  rest.patch('/api/user', (__, res, ctx) => res(ctx.status(201))),
+  rest.post('/api/user/register', (__, res, ctx) =>
     res(
-        ctx.status(201),
-        ctx.json({
-          message: '회원가입에 성공하였습니다.',
-          data: {
-            user: 'galaxy4276@gmail.com',
-            refresh: mockToken,
-            access: mockToken,
-          },
-        }),
-      ),
+      ctx.status(201),
+      ctx.json({
+        message: '회원가입에 성공하였습니다.',
+        data: {
+          user: 'galaxy4276@gmail.com',
+          refresh: mockToken,
+          access: mockToken,
+        },
+      })
+    )
   ),
   rest.post('/api/user/login', (__, res, ctx) =>
     res(
@@ -67,32 +66,33 @@ export const handlers = [
           refresh: mockToken,
           access: mockToken,
         },
-      }),
-    ),
+      })
+    )
   ),
-  rest.get('/api/user/logout', (__, res, ctx) =>
-    res(ctx.status(200)),
-  ),
+  rest.get('/api/user/logout', (__, res, ctx) => res(ctx.status(200))),
   rest.get('/api/user/following', (__, res, ctx) =>
     res(
       ctx.status(200),
-      ctx.json([Array(10).fill(0).map(() => mockFollowUserInfo)]),
-    ),
+      ctx.json([
+        Array(10)
+          .fill(0)
+          .map(() => mockFollowUserInfo),
+      ])
+    )
   ),
   rest.get('/api/user/follower', (__, res, ctx) =>
     res(
       ctx.status(200),
-      ctx.json([Array(10).fill(0).map(() => mockFollowUserInfo)]),
-    ),
+      ctx.json([
+        Array(10)
+          .fill(0)
+          .map(() => mockFollowUserInfo),
+      ])
+    )
   ),
-  rest.get('/api/user/follow', (req, res, ctx) =>
-    res(ctx.status(201)),
-  ),
+  rest.get('/api/user/follow', (req, res, ctx) => res(ctx.status(201))),
   rest.post('/api/posts', (__, res, ctx) =>
-    res(
-      ctx.status(200),
-      ctx.json([mockFeedData, mockFeedData, mockFeedData])
-    ),
+    res(ctx.status(200), ctx.json([mockFeedData, mockFeedData, mockFeedData]))
   ),
   rest.post('/api/post', (__, res, ctx) => res(ctx.status(201))),
   rest.get('/api/post/:id', (__, res, ctx) =>
@@ -114,8 +114,8 @@ export const handlers = [
             content: '고생많으셨습니다.',
           },
         ],
-      }),
-    ),
+      })
+    )
   ),
   rest.patch('/api/post', (__, res, ctx) => res(ctx.status(201))),
   rest.delete('/api/post', (__, res, ctx) => res(ctx.status(201))),
@@ -125,24 +125,21 @@ export const handlers = [
       ctx.json({
         writer: 'galaxy4276',
         content: '요청하신 api 말아드립니다.',
-      }),
-    ),
+      })
+    )
   ),
   rest.post('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
   rest.patch('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
   rest.delete('/api/comments/:id', (__, res, ctx) => res(ctx.status(201))),
   rest.post('/api/posts/search', (__, res, ctx) =>
-    res(
-      ctx.status(200),
-      ctx.json([mockFeedData, mockFeedData, mockFeedData]),
-    ),
+    res(ctx.status(200), ctx.json([mockFeedData, mockFeedData, mockFeedData]))
   ),
   rest.post('/api/token/refresh', (__, res, ctx) =>
     res(
       ctx.status(200),
       ctx.json({
         access: mockToken,
-      }),
-    ),
+      })
+    )
   ),
 ];
