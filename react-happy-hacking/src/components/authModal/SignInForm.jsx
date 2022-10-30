@@ -1,18 +1,18 @@
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { loginUserApi } from 'api/user';
 
 const SignInForm = ({ hidden, children }) => {
   /**
    * @param formValue 입력받은 폼 요소의 값들
    * @desc 여기서 값을 전달받아서 로그인, 회원가입 처리
    */
-  const onFinish = (formValue) => {
-    // 디버깅용 코드
-    message.info('이메일: ' + formValue.email);
-    message.info('비밀번호: ' + formValue.password);
-    message.info('이메일 기억 여부: ' + formValue.remember);
-  };
+  const onFinish = useCallback(async (formValue) => {
+    await loginUserApi(formValue.email, formValue.password);
+    localStorage.setItem('remember', formValue.remember);
+  }, []);
 
   if (hidden) return null;
 
@@ -22,7 +22,7 @@ const SignInForm = ({ hidden, children }) => {
       <Form
         name="normal_login"
         className="login-form pt-10"
-        initialValues={{ remeber: true }}
+        initialValues={{ remember: localStorage.getItem('remember') || false }}
         onFinish={onFinish}
       >
         <Form.Item
