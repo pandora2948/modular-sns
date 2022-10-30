@@ -9,6 +9,8 @@ const SignInForm = ({ hidden, children }) => {
    * @param formValue 입력받은 폼 요소의 값들
    * @desc 여기서 값을 전달받아서 로그인, 회원가입 처리
    */
+  const rememberChecked = localStorage.getItem('remember') === 'true';
+
   const onFinish = useCallback(async (formValue) => {
     await loginUserApi(formValue.email, formValue.password);
     localStorage.setItem('remember', formValue.remember);
@@ -22,7 +24,9 @@ const SignInForm = ({ hidden, children }) => {
       <Form
         name="normal_login"
         className="login-form pt-10"
-        initialValues={{ remember: localStorage.getItem('remember') || false }}
+        initialValues={{
+          remember: rememberChecked,
+        }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -46,7 +50,7 @@ const SignInForm = ({ hidden, children }) => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox checked={rememberChecked}>Remember me</Checkbox>
           </Form.Item>
 
           <a className="float-right" href="/#">
