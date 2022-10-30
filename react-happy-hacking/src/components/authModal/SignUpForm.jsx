@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
+import { createUserApi } from 'api/user';
 
 const formItemLayout = {
   labelCol: {
@@ -38,6 +39,10 @@ const SignUpForm = ({ show, children }) => {
   const [form] = Form.useForm();
   if (!show) return null;
 
+  const submitUserInfo = ({ email, password, username }) => {
+    createUserApi(username, email, password);
+  };
+
   return (
     <div>
       <h1 className="text-2xl">sign up</h1>
@@ -49,6 +54,7 @@ const SignUpForm = ({ show, children }) => {
           prefix: '82',
         }}
         scrollToFirstError
+        onFinish={submitUserInfo}
       >
         <Form.Item
           name="email"
