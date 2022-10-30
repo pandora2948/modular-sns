@@ -11,9 +11,9 @@ const SignInForm = ({ hidden, children }) => {
    */
   const rememberChecked = localStorage.getItem('remember') === 'true';
 
-  const onFinish = useCallback(async (formValue) => {
-    await loginUserApi(formValue.email, formValue.password);
-    localStorage.setItem('remember', formValue.remember);
+  const onFinish = useCallback(async (formValues) => {
+    await loginUserApi(formValues.email, formValues.password);
+    localStorage.setItem('email', formValues.email);
   }, []);
 
   if (hidden) return null;
@@ -26,6 +26,7 @@ const SignInForm = ({ hidden, children }) => {
         className="login-form pt-10"
         initialValues={{
           remember: rememberChecked,
+          email: localStorage.getItem('email'),
         }}
         onFinish={onFinish}
       >
@@ -50,7 +51,14 @@ const SignInForm = ({ hidden, children }) => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox checked={rememberChecked}>Remember me</Checkbox>
+            <Checkbox
+              checked={rememberChecked}
+              onClick={(e) => {
+                localStorage.setItem('remember', e.target.checked);
+              }}
+            >
+              Remember me
+            </Checkbox>
           </Form.Item>
 
           <a className="float-right" href="/#">
