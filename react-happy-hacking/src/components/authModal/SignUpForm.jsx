@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
@@ -37,11 +38,12 @@ const tailFormItemLayout = {
 
 const SignUpForm = ({ show, children }) => {
   const [form] = Form.useForm();
-  if (!show) return null;
 
-  const submitUserInfo = ({ email, password, username }) => {
-    createUserApi(username, email, password);
-  };
+  const createUser = useCallback(async (values) => {
+    await createUserApi(values);
+  }, []);
+
+  if (!show) return null;
 
   return (
     <div>
@@ -54,7 +56,7 @@ const SignUpForm = ({ show, children }) => {
           prefix: '82',
         }}
         scrollToFirstError
-        onFinish={submitUserInfo}
+        onFinish={createUser}
       >
         <Form.Item
           name="email"

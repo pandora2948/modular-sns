@@ -26,7 +26,7 @@ const SignInForm = ({ hidden, children }) => {
         className="login-form pt-10"
         initialValues={{
           remember: rememberChecked,
-          email: localStorage.getItem('email'),
+          email: rememberChecked ? localStorage.getItem('email') : '',
         }}
         onFinish={onFinish}
       >
