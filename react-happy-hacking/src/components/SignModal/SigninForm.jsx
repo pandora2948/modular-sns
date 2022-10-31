@@ -13,6 +13,7 @@ export const SigninForm = ({ hidden, children }) => {
     loginUserApi(formValue.email, formValue.password);
     localStorage.setItem('email', formValue.email);
   };
+
   const rememberChecked = localStorage.getItem('remember') === 'true';
 
   if (hidden) return null;
@@ -25,7 +26,7 @@ export const SigninForm = ({ hidden, children }) => {
         className="login-form pt-10"
         initialValues={{
           remember: rememberChecked || false,
-          email: localStorage.getItem('email'),
+          email: rememberChecked ? localStorage.getItem('email') : '',
         }}
         onFinish={onFinish}
       >

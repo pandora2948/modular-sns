@@ -22,9 +22,7 @@ export const Header = () => {
       "
       >
         <h1 className="text-lg text-slate-600 whitespace-nowrap">
-          <Link to="/">
-            sns-modular
-          </Link>
+          <Link to="/">sns-modular</Link>
         </h1>
         <nav className="flex gap-x-2">
           <Avatar
