@@ -1,4 +1,4 @@
-package com.modular.restfulserver.user.models;
+package com.modular.restfulserver.user.model;
 
 import global.utils.models.BaseTimeAuditing.CreateAndModifiedTimeAuditEntity;
 import lombok.*;
@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class User extends CreateAndModifiedTimeAuditEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false, unique = true)
@@ -31,6 +31,9 @@ public class User extends CreateAndModifiedTimeAuditEntity {
 
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
+  private String refreshToken;
 
   @Builder(
     setterPrefix = "add"
@@ -51,6 +54,10 @@ public class User extends CreateAndModifiedTimeAuditEntity {
 
   public void changePassword(String newPassword) {
     this.password = newPassword;
+  }
+
+  public void updateRefreshToken(String token) {
+    this.refreshToken = token;
   }
 
 }
