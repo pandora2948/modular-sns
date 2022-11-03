@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import static global.config.security.JwtConstants.*;
+
+import static com.modular.restfulserver.global.config.security.JwtConstants.TOKEN_HEADER_PREFIX;
 
 @RequiredArgsConstructor
 @RestController()
@@ -21,15 +22,18 @@ public class AuthApi {
   private final AuthService authService;
 
   @GetMapping("/")
-  public ResponseEntity getUser() {
-    return new ResponseEntity("hello, world", HttpStatus.OK);
+  public String test() {
+    return "hello!";
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<Long> signup(
+  public ResponseEntity<Integer> signup(
     @RequestBody UserSignupRequestDto dto
     ) {
-    return ResponseEntity.ok(authService.saveUser(dto));
+    authService.saveUser(dto);
+    return ResponseEntity
+      .status(HttpStatus.CREATED)
+      .build();
   }
 
   @GetMapping("/refresh")

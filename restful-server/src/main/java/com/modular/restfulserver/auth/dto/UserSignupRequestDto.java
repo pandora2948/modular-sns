@@ -13,6 +13,7 @@ public class UserSignupRequestDto {
   private String password;
   private String username;
 
+
   public User toEntity() {
     return User.builder()
       .addEmail(email)
