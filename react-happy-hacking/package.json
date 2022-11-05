@@ -1,7 +1,10 @@
 {
   "name": "react-front",
   "version": "0.1.0",
-  "private": true,
+  "engines": {
+    "node": ">=18.9.0",
+    "npm": ">=8.19.1"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@loadable/component": "^5.15.2",
@@ -26,9 +29,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development && react-scripts start",
     "start": "react-scripts start",
-    "build": "cross-env NODE_ENV=development react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "cross-env NODE_ENV=development react-scripts build"
   },
   "eslintConfig": {
     "extends": [
