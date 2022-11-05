@@ -1,6 +1,6 @@
-import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
-
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 
 const formItemLayout = {
   labelCol: {
@@ -152,7 +152,7 @@ const SignUpForm = ({ show, children }) => {
           {...tailFormItemLayout}
         >
           <Checkbox>
-            I have read the <a href="">agreement</a>
+            I have read the <Link to="">agreement</Link>
           </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>

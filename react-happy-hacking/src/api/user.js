@@ -6,6 +6,7 @@ import { parseSuccessResponse, parseFailureResponse } from './helper';
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const getUserApi = () =>
-  apiClient.get('/api/user')
+  apiClient
+    .get('/api/user')
     .then(parseSuccessResponse)
     .catch(parseFailureResponse);

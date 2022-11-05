@@ -1,12 +1,12 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import qs from 'qs';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { createRoot } from 'react-dom/client';
 import { worker } from 'mocks/worker';
+import Error from 'pages/error';
 import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
-import Error from 'pages/error';
+import qs from 'qs';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './config/styles.css';
 
@@ -18,28 +18,29 @@ const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path:'/',
+    path: '/',
     element: <FeedPage />,
-    errorElement: <Error />
+    errorElement: <Error />,
   },
   {
-   path: '/search',
+    path: '/search',
     element: <SearchHashtagPage />,
     loader: ({ request }) => {
-      const temp = Object.entries(qs.parse(request.url))
-        .map(([__, value]) => value);
+      const temp = Object.entries(qs.parse(request.url)).map(
+        ([__, value]) => value
+      );
       return [temp[temp.length - 1], ...temp].slice(0, temp.length);
-    }
+    },
   },
 ]);
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}>
-        <React.StrictMode>
-          <FeedPage />
-        </React.StrictMode>
-      </RouterProvider>
+    <RouterProvider router={router}>
+      <React.StrictMode>
+        <FeedPage />
+      </React.StrictMode>
+    </RouterProvider>
   </QueryClientProvider>
 );

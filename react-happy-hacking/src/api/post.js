@@ -5,8 +5,9 @@ import { parseFailureResponse, parseSuccessResponse } from './helper';
  * @description 게시글(피드) 정보를 불러옵니다. ( 기본 게시글 갯수: 3 )
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const getPosts = count =>
-  apiClient.post('/api/posts', { count })
+export const getPosts = (count) =>
+  apiClient
+    .post('/api/posts', { count })
     .then(parseSuccessResponse)
     .catch(parseFailureResponse);
 
@@ -17,7 +18,8 @@ export const getPosts = count =>
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const postComment = (id, comment) =>
-  apiClient.post(`/api/comments/${id}`, { comment })
+  apiClient
+    .post(`/api/comments/${id}`, { comment })
     .catch(parseFailureResponse);
 
 /**
@@ -25,7 +27,8 @@ export const postComment = (id, comment) =>
  * @param hashtags 배열로 구성된 해시태그 문자열
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const getSearchPosts = hashtags =>
-  apiClient.post('/api/posts/search', { hashtags })
+export const getSearchPosts = (hashtags) =>
+  apiClient
+    .post('/api/posts/search', { hashtags })
     .then(parseSuccessResponse)
     .catch(parseFailureResponse);

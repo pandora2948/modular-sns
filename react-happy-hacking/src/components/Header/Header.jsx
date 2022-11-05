@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Button, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Avatar } from 'antd';
 import AuthModal from 'components/authModal/AuthModal';
 import { useModal } from 'hooks/useModal';
-import { Link } from 'react-router-dom';
-
 import HeaderSearch from './HeaderSearch';
 
 const Header = () => {
@@ -23,9 +22,7 @@ const Header = () => {
       "
       >
         <h1 className="text-lg text-slate-600 whitespace-nowrap">
-          <Link to="/">
-            sns-modular
-          </Link>
+          <Link to="/">sns-modular</Link>
         </h1>
         <nav className="flex gap-x-2">
           <Avatar

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-
+import { Modal } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 

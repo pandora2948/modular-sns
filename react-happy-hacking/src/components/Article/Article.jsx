@@ -1,31 +1,29 @@
 import { useState } from 'react';
-import { Typography, Divider, Popover } from 'antd';
+import PropTypes from 'prop-types';
 import {
   UserOutlined,
   LikeOutlined,
   CommentOutlined,
-  HeartTwoTone
+  HeartTwoTone,
 } from '@ant-design/icons';
-import PropTypes from 'prop-types';
+import { Typography, Divider, Popover } from 'antd';
 import shortid from 'shortid';
-
-import ArticleCarousel from './ArticleCarousel';
 import ArticleButton from './ArticleButton';
-import ArticleHashtags from './ArticleHashtags';
+import ArticleCarousel from './ArticleCarousel';
 import ArticleCommentBox from './ArticleCommentBox';
 import ArticleCommentList from './ArticleCommentList';
+import ArticleHashtags from './ArticleHashtags';
 
 const { Text } = Typography;
 
-const Article = (
-  {
-    images,
-    likeCount,
-    writer,
-    content,
-    hashtags,
-    comments
-  }) => {
+const Article = ({
+  images,
+  likeCount,
+  writer,
+  content,
+  hashtags,
+  comments,
+}) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
@@ -47,10 +45,14 @@ const Article = (
       </section>
 
       <section className="flex gap-x-1 items-center px-4 pb-3">
-        <Popover placement="top" content="해당 게시글의 좋아요 갯수입니다." className="cursor-pointer">
+        <Popover
+          placement="top"
+          content="해당 게시글의 좋아요 갯수입니다."
+          className="cursor-pointer"
+        >
           <HeartTwoTone style={{ fontSize: '1.1rem' }} />
         </Popover>
-        <Text>{ likeCount }</Text>
+        <Text>{likeCount}</Text>
       </section>
       <Divider className="m-0" />
 

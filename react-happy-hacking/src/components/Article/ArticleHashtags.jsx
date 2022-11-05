@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
-import shortid from 'shortid';
 import { Typography } from 'antd';
+import shortid from 'shortid';
 
 const { Text } = Typography;
 
 const ArticleHashtags = ({ tags }) => (
   <>
-    {tags.map(tag =>
+    {tags.map((tag) => (
       <Text className="text-sky-500 pr-0.5" key={shortid.generate()}>
-        { tag }
+        {tag}
       </Text>
-    )
-    }
+    ))}
   </>
 );
 

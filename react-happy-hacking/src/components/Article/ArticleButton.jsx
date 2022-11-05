@@ -6,7 +6,7 @@ const ArticleButton = ({ children, onClick }) => (
     className="p-2 w-full flex-all bg-white hover:bg-gray-100"
     onClick={onClick}
   >
-    { children }
+    {children}
   </button>
 );
 
@@ -14,6 +14,5 @@ ArticleButton.propTypes = {
   children: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
 };
-
 
 export default ArticleButton;

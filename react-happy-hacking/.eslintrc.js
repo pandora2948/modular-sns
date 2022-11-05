@@ -1,0 +1,80 @@
+module.exports = {
+  root: true,
+  parser: '@babel/eslint-parser',
+  extends: [
+    'react-app',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:react-hooks/recommended',
+  ],
+  plugins: ['unused-imports', 'import'],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  rules: {
+    'no-else-return': 2,
+    'react/prop-types': 0,
+    'react/jsx-no-target-blank': 0,
+    'react/react-in-jsx-scope': 0,
+    'unused-imports/no-unused-imports-ts': 2,
+    'unused-imports/no-unused-vars-ts': 0,
+    'react-hooks/exhaustive-deps': 2,
+    'react/display-name': 0,
+    'no-restricted-syntax': [
+      2,
+      {
+        selector: "LogicalExpression[right.type='AssignmentExpression']",
+        message: 'right-hand assign is not allowed',
+      },
+    ],
+    'import/order': [
+      2,
+      {
+        groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
+        pathGroups: [
+          {
+            pattern: 'prop-types',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'react-dom/client',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'react-router-dom',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: [
+          'react',
+          'react-router-dom',
+          'react-dom/client',
+          'prop-types',
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: false,
+        },
+        'newlines-between': 'never',
+      },
+    ],
+  },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: '18',
+    },
+  },
+};
