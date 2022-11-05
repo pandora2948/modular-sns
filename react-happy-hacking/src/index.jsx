@@ -8,7 +8,7 @@ import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import './config/styles.css';
+import './styles/styles.css';
 
 if (process.env.NODE_ENV === 'development') {
   worker.start().then();
