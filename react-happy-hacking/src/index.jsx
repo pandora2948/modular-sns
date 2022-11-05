@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import { worker } from 'mocks/worker';
+import { worker } from 'api/mocks/worker';
 import Error from 'pages/error';
 import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
