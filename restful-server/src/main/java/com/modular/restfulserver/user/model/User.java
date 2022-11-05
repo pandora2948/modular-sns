@@ -1,6 +1,6 @@
 package com.modular.restfulserver.user.model;
 
-import global.utils.models.BaseTimeAuditing.CreateAndModifiedTimeAuditEntity;
+import com.modular.restfulserver.global.utils.models.BaseTimeAuditing.CreateAndModifiedTimeAuditEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE users SET deleted_date = CURRENT_TIMESTAMP WHERE id ?")
-@Where(clause = "deleted_date = null")
+@Where(clause = "deleted = false")
 public class User extends CreateAndModifiedTimeAuditEntity {
 
   @Id
@@ -32,7 +32,7 @@ public class User extends CreateAndModifiedTimeAuditEntity {
   @Column(nullable = false)
   private String password;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String refreshToken;
 
   @Builder(

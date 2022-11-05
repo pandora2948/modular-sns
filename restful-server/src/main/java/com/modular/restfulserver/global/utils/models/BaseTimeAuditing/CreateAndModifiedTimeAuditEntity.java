@@ -1,4 +1,4 @@
-package global.utils.models.BaseTimeAuditing;
+package com.modular.restfulserver.global.utils.models.BaseTimeAuditing;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,7 +7,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @MappedSuperclass
@@ -20,6 +19,6 @@ public abstract class CreateAndModifiedTimeAuditEntity {
   @LastModifiedDate
   private LocalDateTime updatedDate;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date deletedDate;
+  @Column(nullable = false)
+  private boolean deleted = false;
 }
