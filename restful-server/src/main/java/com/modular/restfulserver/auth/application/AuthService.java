@@ -44,7 +44,7 @@ public class AuthService {
   }
 
   public Map<String, Object> loginUser(UserLoginRequestDto dto) {
-    Map<String, Object> map = new HashMap<>();
+    Map<String, Object> response = new HashMap<>();
     User user = userRepository.findByEmail(dto.getEmail())
       .orElseThrow(
         () -> new UsernameNotFoundException("존재하지 않는 이메일 사용자입니다.")
@@ -52,6 +52,7 @@ public class AuthService {
 
     if (!passwordEncoder.matches(dto.getPassword(), user.getPassword()))
       throw new PasswordNotMatchException();
+
     CustomEmailPasswordAuthToken emailPasswordAuthToken =
       new CustomEmailPasswordAuthToken(dto.getEmail(), dto.getPassword());
     Authentication authentication = authenticationManager
@@ -67,9 +68,9 @@ public class AuthService {
       .addAccessToken(accessToken)
       .addRefreshToken(refreshToken)
       .build();
-    map.put("data", tokenDto);
+    response.put("data", tokenDto);
 
-    return map;
+    return response;
   }
 
   public Map<String, String> refresh(String refreshToken) {
