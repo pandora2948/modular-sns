@@ -9,7 +9,6 @@ public class CustomEmailPasswordAuthToken extends AbstractAuthenticationToken {
   private final String principal;
   private final String credentials;
 
-
   public CustomEmailPasswordAuthToken(
     String principal,
     String credentials
