@@ -37,6 +37,19 @@ public class JwtProvider {
     return createToken(claims, 7 * 24 * 60 * 60 * 1000L);
   }
 
+  public boolean validateToken(String token) {
+    try {
+      Jwts.parserBuilder()
+        .setSigningKey(jwtSecretKey)
+        .build()
+        .parseClaimsJws(token);
+      return true;
+    } catch (JwtException ex) {
+      log.error(ex.getMessage());
+      return false;
+    }
+  }
+
   public String getUserEmailByToken(String token) {
     return parseClaims(token).getSubject();
   }
