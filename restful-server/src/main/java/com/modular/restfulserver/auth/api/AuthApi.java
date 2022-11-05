@@ -1,6 +1,5 @@
 package com.modular.restfulserver.auth.api;
 
-
 import com.modular.restfulserver.auth.application.AuthService;
 import com.modular.restfulserver.auth.dto.UserLoginRequestDto;
 import com.modular.restfulserver.auth.dto.UserSignupRequestDto;
@@ -19,14 +18,14 @@ import java.util.Map;
 import static com.modular.restfulserver.global.config.security.JwtConstants.*;
 
 @RequiredArgsConstructor
-@RestController()
+@RestController
 @RequestMapping("/auth")
 public class AuthApi {
 
   private final AuthService authService;
 
   @PostMapping("/signup")
-  public ResponseEntity<Integer> signup(
+  public ResponseEntity<Void> signup(
     @RequestBody @Valid UserSignupRequestDto dto
     ) {
     authService.saveUser(dto);
@@ -43,13 +42,13 @@ public class AuthApi {
   }
 
   @PostMapping("/login")
-  public ResponseEntity login(
+  public ResponseEntity<Map<String, Object>> login(
     @RequestBody @Valid UserLoginRequestDto dto
     ) {
-    authService.loginUser(dto);
+    var data = authService.loginUser(dto);
     return ResponseEntity
-      .status(HttpStatus.ACCEPTED)
-      .build();
+      .status(HttpStatus.OK)
+      .body(data);
   }
 
   @GetMapping("/refresh")
@@ -68,4 +67,5 @@ public class AuthApi {
 
     return ResponseEntity.ok(tokens);
   }
+
 }
