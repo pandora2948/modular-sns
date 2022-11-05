@@ -12,7 +12,7 @@ const mockFeedData = {
   images: [mockImageUrl, mockImageUrl, mockImageUrl],
   writer: 'galaxy4276',
   content: '오늘 하루도 고생하셨습니다.',
-  hashtags: ['#응기', '#응기잇', '#흥기엣'],
+  hashtags: ['#출근', '#힘내자', '#화이팅'],
   likeCount: 44,
   comments: [
     {
@@ -102,7 +102,7 @@ export const handlers = [
         images: [mockImageUrl, mockImageUrl, mockImageUrl],
         writer: 'galaxy4276',
         content: '오늘 하루도 고생하셨습니다.',
-        hashtags: ['#응기', '#응기잇', '#흥기엣'],
+        hashtags: ['#퇴근', '#퇴사', '#노예'],
         likeCount: 44,
         comments: [
           {
