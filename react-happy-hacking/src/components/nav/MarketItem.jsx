@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { InfoCircleFilled, DownloadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
@@ -16,6 +17,11 @@ const MarketItem = ({ description, name }) => {
       <p className="px-2 py-3">{description}</p>
     </div>
   );
+};
+
+MarketItem.propTypes = {
+  description: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default MarketItem;

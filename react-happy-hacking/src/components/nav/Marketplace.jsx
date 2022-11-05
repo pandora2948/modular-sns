@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { Collapse, Modal } from 'antd';
 import CollapsePanel from 'antd/lib/collapse/CollapsePanel';
-import { MarketItem } from 'components/nav/MarketItem';
+import MarketItem from 'components/nav/MarketItem';
 import shortid from 'shortid';
 
 const mockItems = [
@@ -38,6 +39,11 @@ const Marketplace = ({ isOpen, onClick }) => {
       </div>
     </Modal>
   );
+};
+
+Marketplace.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Marketplace;
