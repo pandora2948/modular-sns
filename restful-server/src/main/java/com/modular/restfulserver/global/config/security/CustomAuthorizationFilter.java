@@ -1,4 +1,4 @@
-package global.config.security;
+package com.modular.restfulserver.global.config.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import static global.config.security.JwtConstants.*;
+import static com.modular.restfulserver.global.config.security.JwtConstants.*;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
   private final JwtProvider jwtProvider;
@@ -45,7 +44,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     }
 
     String token = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
-    String email = jwtProvider.extractEmail(token);
+    String email = jwtProvider.getUserEmailByToken(token);
     UserDetails userDetails = userDetailsService.loadUserByUsername(email);
     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
       new UsernamePasswordAuthenticationToken(
@@ -56,6 +55,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     );
     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     filterChain.doFilter(request, response);
-
   }
+
 }

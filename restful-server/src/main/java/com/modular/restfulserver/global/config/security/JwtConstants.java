@@ -1,4 +1,4 @@
-package global.config.security;
+package com.modular.restfulserver.global.config.security;
 
 
 public class JwtConstants {
