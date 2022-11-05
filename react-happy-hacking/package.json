@@ -5,6 +5,17 @@
     "node": ">=18.9.0",
     "npm": ">=8.19.1"
   },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development && react-scripts start",
+    "start": "react-scripts start",
+    "build": "cross-env NODE_ENV=development react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@loadable/component": "^5.15.2",
@@ -25,17 +36,6 @@
     "recoil": "^0.7.5",
     "shortid": "^2.2.16",
     "web-vitals": "^3.0.2"
-  },
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development && react-scripts start",
-    "start": "react-scripts start",
-    "build": "cross-env NODE_ENV=development react-scripts build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^4.3.9",
