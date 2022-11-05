@@ -3,6 +3,7 @@ package com.modular.restfulserver.auth.api;
 import com.modular.restfulserver.auth.application.AuthService;
 import com.modular.restfulserver.auth.dto.UserLoginRequestDto;
 import com.modular.restfulserver.auth.dto.UserSignupRequestDto;
+import com.modular.restfulserver.auth.exception.NoneTokenOnHeaderException;
 import com.modular.restfulserver.global.exception.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import static com.modular.restfulserver.global.config.security.JwtConstants.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthApi {
 
   private final AuthService authService;
@@ -35,7 +36,7 @@ public class AuthApi {
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  protected ResponseEntity<?> handleDtoMethodArgumentNotValidExceptionHandler(
+  protected ResponseEntity<ErrorResponse> handleDtoMethodArgumentNotValidExceptionHandler(
     MethodArgumentNotValidException ex
   ) {
     return ErrorResponse.toResponseEntityByArgumentNotValidException(ex);
@@ -60,7 +61,7 @@ public class AuthApi {
       authorizationHeader == null
       || !authorizationHeader.startsWith(TOKEN_HEADER_PREFIX)
     )
-      throw new RuntimeException("JWT Token이 존재하지 않습니다.");
+      throw new NoneTokenOnHeaderException();
 
     String refreshToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
     Map<String, String> tokens = authService.refresh(refreshToken);
