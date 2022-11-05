@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { Hashtag } from '.';
 
-export const HashtagList = ({ tags }) => (
+const HashtagList = ({ tags }) => (
   <>
     {tags.map((tag) => (
       <Hashtag key={shortid.generate()} tag={tag} />
