@@ -10,7 +10,7 @@ export const postHandlers = [
         images: [mock.imageUrl, mock.imageUrl, mock.imageUrl],
         writer: 'galaxy4276',
         content: '오늘 하루도 고생하셨습니다.',
-        hashtags: ['#응기', '#응기잇', '#흥기엣'],
+        hashtags: mock.hashtags,
         likeCount: 44,
         comments: [
           {
