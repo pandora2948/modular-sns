@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.modular.restfulserver.global.config.security.JwtConstants.*;
@@ -52,8 +53,8 @@ public class AuthApi {
       .body(data);
   }
 
-  @GetMapping("/refresh")
-  public ResponseEntity<Map<String, String>> refresh(
+  @GetMapping("/reissue")
+  public ResponseEntity<Map<String, Map<String, String>>> refresh(
     HttpServletRequest req, HttpServletResponse res
   ) {
     String authorizationHeader = req.getHeader("AUTHORIZATION");
@@ -65,8 +66,10 @@ public class AuthApi {
 
     String refreshToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
     Map<String, String> tokens = authService.refresh(refreshToken);
+    Map<String, Map<String, String>> response = new HashMap<>();
+    response.put("data", tokens);
 
-    return ResponseEntity.ok(tokens);
+    return ResponseEntity.ok(response);
   }
 
 }

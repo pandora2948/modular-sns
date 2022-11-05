@@ -32,7 +32,7 @@ public class User extends CreateAndModifiedTimeAuditEntity {
   @Column(nullable = false)
   private String password;
 
-  @Column(nullable = true)
+  @Column
   private String refreshToken;
 
   @Builder(

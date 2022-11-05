@@ -4,6 +4,7 @@ import com.modular.restfulserver.auth.dto.TokenResponseDto;
 import com.modular.restfulserver.auth.dto.UserLoginRequestDto;
 import com.modular.restfulserver.auth.dto.UserSignupRequestDto;
 import com.modular.restfulserver.auth.exception.AlreadyExistsUserException;
+import com.modular.restfulserver.auth.exception.InvalidTokenException;
 import com.modular.restfulserver.auth.exception.PasswordNotMatchException;
 import com.modular.restfulserver.global.config.security.CustomEmailPasswordAuthToken;
 import com.modular.restfulserver.global.config.security.JwtProvider;
@@ -31,7 +32,6 @@ public class AuthService {
   private final JwtProvider jwtProvider;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
-
 
   public void saveUser(UserSignupRequestDto dto) {
     boolean isExistsEmail = userRepository.existsByEmail(dto.getEmail());
@@ -74,8 +74,16 @@ public class AuthService {
   }
 
   public Map<String, String> refresh(String refreshToken) {
-    Map<String, String> accessTokenResponseMap = new HashMap<>();
-    return accessTokenResponseMap;
+    boolean isValidToken = jwtProvider.validateToken(refreshToken);
+    if (!isValidToken) throw new InvalidTokenException();
+    String email = jwtProvider.getUserEmailByToken(refreshToken);
+    Map<String, String> response = new HashMap<>();
+    String newAccessToken = jwtProvider.createAccessToken(email);
+    String userRegisteredToken = userRepository.getUserRefreshToken(email);
+    if (!refreshToken.equals(userRegisteredToken))
+      throw new InvalidTokenException();
+    response.put("accessToken", newAccessToken);
+    return response;
   }
 
 }
