@@ -1,12 +1,11 @@
+import { Link } from 'react-router-dom';
 import { Typography } from 'antd';
 import { WarningFilled } from '@ant-design/icons';
-
-import { AppLayout } from '../layouts/AppLayout';
-import { Link } from 'react-router-dom';
+import AppLayout from 'layouts/AppLayout';
 
 const { Text } = Typography;
 
-export const Error = () => (
+const Error = () => (
   <AppLayout>
     <section className="w-full h-full flex flex-col items-center justify-center">
       <WarningFilled style={{ fontSize: '5rem' }} />
@@ -22,3 +21,5 @@ export const Error = () => (
     </section>
   </AppLayout>
 );
+
+export default Error;

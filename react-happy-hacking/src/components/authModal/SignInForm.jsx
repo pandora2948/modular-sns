@@ -2,8 +2,7 @@ import { Button, Checkbox, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
-export const SigninForm = ({ hidden, children }) => {
-
+const SignInForm = ({ hidden, children }) => {
   /**
    * @param formValue 입력받은 폼 요소의 값들
    * @desc 여기서 값을 전달받아서 로그인, 회원가입 처리
@@ -66,7 +65,9 @@ export const SigninForm = ({ hidden, children }) => {
   );
 };
 
-SigninForm.propTypes = {
+SignInForm.propTypes = {
   children: PropTypes.array.isRequired,
   hidden: PropTypes.bool.isRequired,
 };
+
+export default SignInForm;

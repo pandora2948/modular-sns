@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import shortid from 'shortid';
+import { getPosts } from 'api/post';
+import AppLayout from 'layouts/AppLayout';
+import Article from 'components/article/Article';
 
-import { AppLayout } from '../layouts/AppLayout';
-import { getPosts } from '../api/post';
-import { Article } from '../components/Article';
-
-export const Feed = () => {
+const Feed = () => {
   const [feedCount, setFeedCount] = useState(3);
   const {
     data: feeds = []
@@ -40,3 +39,5 @@ export const Feed = () => {
     </AppLayout>
   );
 };
+
+export default Feed;

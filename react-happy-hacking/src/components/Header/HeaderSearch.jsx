@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Input, message } from 'antd';
 
-export const Search = ({ open, setOpen }) => {
+const HeaderSearch = ({ open, setOpen }) => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -39,7 +39,9 @@ export const Search = ({ open, setOpen }) => {
   );
 };
 
-Search.propTypes = {
+HeaderSearch.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
 };
+
+export default HeaderSearch;

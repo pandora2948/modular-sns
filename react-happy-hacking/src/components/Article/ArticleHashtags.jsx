@@ -4,7 +4,7 @@ import { Typography } from 'antd';
 
 const { Text } = Typography;
 
-export const Hashtags = ({ tags }) => (
+const ArticleHashtags = ({ tags }) => (
   <>
     {tags.map(tag =>
       <Text className="text-sky-500 pr-0.5" key={shortid.generate()}>
@@ -15,6 +15,8 @@ export const Hashtags = ({ tags }) => (
   </>
 );
 
-Hashtags.propTypes = {
+ArticleHashtags.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
+export default ArticleHashtags;

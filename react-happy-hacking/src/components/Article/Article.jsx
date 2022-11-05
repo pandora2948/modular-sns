@@ -9,15 +9,15 @@ import {
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 
-import { ArticleCarousel } from './ArticleCarousel';
-import { InteractButton } from './InteractButton';
-import { Hashtags } from './Hashtags';
-import { CommentBox } from './CommentBox';
-import { CommentList } from './CommentList';
+import ArticleCarousel from './ArticleCarousel';
+import ArticleButton from './ArticleButton';
+import ArticleHashtags from './ArticleHashtags';
+import ArticleCommentBox from './ArticleCommentBox';
+import ArticleCommentList from './ArticleCommentList';
 
 const { Text } = Typography;
 
-export const Article = (
+const Article = (
   {
     images,
     likeCount,
@@ -42,7 +42,7 @@ export const Article = (
         </div>
         <div>
           <Text className="pr-2">{content}</Text>
-          <Hashtags tags={hashtags} />
+          <ArticleHashtags tags={hashtags} />
         </div>
       </section>
 
@@ -55,20 +55,20 @@ export const Article = (
       <Divider className="m-0" />
 
       <section className="flex interact-space">
-        <InteractButton onClick={onClickLikeBox}>
+        <ArticleButton onClick={onClickLikeBox}>
           <LikeOutlined className="pr-1" />
           <Text>좋아요</Text>
-        </InteractButton>
-        <InteractButton onClick={handleCommentBox}>
+        </ArticleButton>
+        <ArticleButton onClick={handleCommentBox}>
           <CommentOutlined className="pr-1" />
           <Text>{isOpenCommentBox ? '댓글 닫기' : '댓글 달기'}</Text>
-        </InteractButton>
+        </ArticleButton>
       </section>
 
       <Divider className="m-0" />
 
-      <CommentBox open={isOpenCommentBox} />
-      <CommentList comments={comments} />
+      <ArticleCommentBox open={isOpenCommentBox} />
+      <ArticleCommentList comments={comments} />
     </div>
   );
 };
@@ -86,3 +86,5 @@ Article.propTypes = {
     })
   ),
 };
+
+export default Article;

@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-import { SigninForm } from './SigninForm';
-import { useState } from 'react';
-import { SignUpForm } from './SignUpForm';
 
-export const SignModal = ({ isOpen, onClick }) => {
+import SignInForm from './SignInForm';
+import SignUpForm from './SignUpForm';
+
+const AuthModal = ({ isOpen, onClick }) => {
   const [showSignOut, setShowSignOut] = useState(false);
 
   const onClickShowSignOutButton = () => setShowSignOut(true);
@@ -19,7 +20,7 @@ export const SignModal = ({ isOpen, onClick }) => {
       closable={false}
       footer={null}
     >
-      <SigninForm hidden={showSignOut}>
+      <SignInForm hidden={showSignOut}>
         Or{' '}
         <button
           type="button"
@@ -28,7 +29,7 @@ export const SignModal = ({ isOpen, onClick }) => {
         >
           register now!
         </button>
-      </SigninForm>
+      </SignInForm>
       <SignUpForm show={showSignOut}>
         Or{' '}
         <button
@@ -43,7 +44,9 @@ export const SignModal = ({ isOpen, onClick }) => {
   );
 };
 
-SignModal.propTypes = {
+AuthModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
+
+export default AuthModal;

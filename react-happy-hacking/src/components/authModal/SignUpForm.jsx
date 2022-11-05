@@ -34,7 +34,7 @@ const tailFormItemLayout = {
   },
 };
 
-export const SignUpForm = ({ show, children }) => {
+const SignUpForm = ({ show, children }) => {
   const [form] = Form.useForm();
   if (!show) return null;
 
@@ -170,3 +170,5 @@ SignUpForm.propTypes = {
   show: PropTypes.bool.isRequired,
   children: PropTypes.array.isRequired,
 };
+
+export default SignUpForm;

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const InteractButton = ({ children, onClick }) => (
+const ArticleButton = ({ children, onClick }) => (
   <button
     type="button"
     className="p-2 w-full flex-all bg-white hover:bg-gray-100"
@@ -10,8 +10,10 @@ export const InteractButton = ({ children, onClick }) => (
   </button>
 );
 
-InteractButton.propTypes = {
+ArticleButton.propTypes = {
   children: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
+
+export default ArticleButton;

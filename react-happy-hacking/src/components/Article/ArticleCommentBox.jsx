@@ -3,10 +3,9 @@ import { useMutation } from 'react-query';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import { postComment } from 'api/post';
 
-import { postComment } from '../../api/post';
-
-export const CommentBox = ({ open }) => {
+const ArticleCommentBox = ({ open }) => {
   const inputRef = useRef(null);
 
   const { mutate: createComment, isSuccess, isError } = useMutation(
@@ -62,6 +61,8 @@ export const CommentBox = ({ open }) => {
   );
 };
 
-CommentBox.propTypes = {
+ArticleCommentBox.propTypes = {
   open: PropTypes.bool.isRequired,
 };
+
+export default ArticleCommentBox;

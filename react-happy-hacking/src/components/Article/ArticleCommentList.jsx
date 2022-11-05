@@ -6,7 +6,7 @@ import shortid from 'shortid';
 
 const { Text } = Typography;
 
-const Comment = ({ comment }) => (
+const ArticleComment = ({ comment }) => (
   <div className="flex items-center gap-x-3">
     <div className="flex gap-x-1 items-center">
       <UserOutlined />
@@ -16,7 +16,14 @@ const Comment = ({ comment }) => (
   </div>
 );
 
-export const CommentList = ({ comments }) => {
+ArticleComment.propTypes = {
+  comment: PropTypes.shape({
+    writer: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const ArticleCommentList = ({ comments }) => {
   const [expand, setExpand] = useState(false);
 
   const onClickHandleExpand = () => setExpand(prev => !prev);
@@ -26,14 +33,14 @@ export const CommentList = ({ comments }) => {
     <section className="flex flex-col justify-center p-3">
       {notExpand && (
         <div key={shortid.generate()}>
-          <Comment comment={comments[0]} />
+          <ArticleComment comment={comments[0]} />
         </div>
       )
       }
       {expand &&
         comments?.map(comment => (
           <div key={shortid.generate()}>
-            <Comment keyId={shortid.generate()} comment={comment} />
+            <ArticleComment keyId={shortid.generate()} comment={comment} />
           </div>
         ))
       }
@@ -55,7 +62,7 @@ export const CommentList = ({ comments }) => {
   );
 };
 
-CommentList.propTypes = {
+ArticleCommentList.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       writer:PropTypes.string.isRequired,
@@ -64,9 +71,4 @@ CommentList.propTypes = {
   ),
 };
 
-Comment.propTypes = {
-  comment: PropTypes.shape({
-    writer: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
-};
+export default ArticleCommentList;

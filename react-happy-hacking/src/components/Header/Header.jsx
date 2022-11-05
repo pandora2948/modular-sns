@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Avatar } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
-import { Search } from './Search';
-import { SignModal } from '../SignModal';
-import { useModal } from '../../hooks/useModal';
+import AuthModal from 'components/authModal/AuthModal';
+import { useModal } from 'hooks/useModal';
 import { Link } from 'react-router-dom';
 
-export const Header = () => {
+import HeaderSearch from './HeaderSearch';
+
+const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const { open, handleFlip, handleOpen } = useModal();
 
@@ -14,7 +15,7 @@ export const Header = () => {
 
   return (
     <header>
-      <SignModal onClick={handleFlip} isOpen={open} />
+      <AuthModal onClick={handleFlip} isOpen={open} />
       <section
         className="
         flex h-14 bg-white justify-between px-4 items-center shadow-md
@@ -40,8 +41,10 @@ export const Header = () => {
             onClick={handleShowSearch}
           />
         </nav>
-        <Search open={openSearch} setOpen={setOpenSearch} />
+        <HeaderSearch open={openSearch} setOpen={setOpenSearch} />
       </section>
     </header>
   );
 };
+
+export default Header;

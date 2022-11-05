@@ -3,28 +3,28 @@ import { createRoot } from 'react-dom/client';
 import qs from 'qs';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { worker } from 'mocks/worker';
+import FeedPage from 'pages/feed';
+import SearchHashtagPage from 'pages/search';
+import Error from 'pages/error';
 
 import './config/styles.css';
-import { worker } from './mocks/worker';
-import { Feed } from './pages/Feed';
-import { SearchHashtag } from './pages/SearchHashtag';
-import { Error } from './pages/Error';
 
-
-const isDevelopment = process.env.NODE_ENV === 'development';
-if (isDevelopment) worker.start();
+if (process.env.NODE_ENV === 'development') {
+  worker.start().then();
+}
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path:'/',
-    element: <Feed />,
+    element: <FeedPage />,
     errorElement: <Error />
   },
   {
    path: '/search',
-    element: <SearchHashtag />,
+    element: <SearchHashtagPage />,
     loader: ({ request }) => {
       const temp = Object.entries(qs.parse(request.url))
         .map(([__, value]) => value);
@@ -38,7 +38,7 @@ root.render(
   <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}>
         <React.StrictMode>
-          <Feed />
+          <FeedPage />
         </React.StrictMode>
       </RouterProvider>
   </QueryClientProvider>

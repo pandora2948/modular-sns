@@ -1,18 +1,17 @@
-import { AppLayout } from '../layouts/AppLayout';
+import AppLayout from 'layouts/AppLayout';
 import { useLoaderData } from 'react-router';
 import { useQuery } from 'react-query';
-import { getSearchPosts } from '../api/post';
-import { Article } from '../components/Article';
+import { getSearchPosts } from 'api/post';
+import Article from 'components/article/Article';
 import PropTypes from 'prop-types';
 
-const Tag = ({ name }) =>
-  <h3
-    className="text-sky-500 text-base md:text-lg"
-  >
+const Tag = ({ name }) => (
+  <h3 className="text-sky-500 text-base md:text-lg">
     { name }
-  </h3>;
+  </h3>
+);
 
-export const SearchHashtag = () => {
+const SearchHashtag = () => {
   const query = useLoaderData();
   const { data: posts = [] } = useQuery(
     'search-posts',
@@ -40,3 +39,5 @@ export const SearchHashtag = () => {
 Tag.propTypes = {
   name: PropTypes.string.isRequired,
 };
+
+export default SearchHashtag;
