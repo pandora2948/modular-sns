@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const getURLByEnvironment = () =>
+const API_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
     : '<production_url>';
 
 export const apiClient = axios.create({
-  baseURL: getURLByEnvironment(),
+  baseURL: API_URL,
   timeout: 5000,
 });
