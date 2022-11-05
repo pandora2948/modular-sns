@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Avatar } from 'antd';
+import { Button } from 'antd';
 import AuthModal from 'components/authModal/AuthModal';
 import { useModal } from 'hooks/useModal';
 import HeaderSearch from './HeaderSearch';
@@ -10,7 +10,11 @@ const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const { open, handleFlip, handleOpen } = useModal();
 
-  const handleShowSearch = () => setOpenSearch((prev) => !prev);
+  const closeSearchVisible = useCallback(() => setOpenSearch(false), []);
+  const toggleSearchVisible = useCallback(
+    () => setOpenSearch((prev) => !prev),
+    []
+  );
 
   return (
     <header>
@@ -25,20 +29,19 @@ const Header = () => {
           <Link to="/">sns-modular</Link>
         </h1>
         <nav className="flex gap-x-2">
-          <Avatar
-            className="cursor-pointer"
-            onClick={handleOpen}
-            icon={<UserOutlined />}
-          />
           <Button
-            color="#0ea5e9"
-            type="default"
             shape="circle"
             icon={<SearchOutlined />}
-            onClick={handleShowSearch}
+            onClick={toggleSearchVisible}
+          />
+          <Button
+            shape="circle"
+            icon={<UserOutlined color="black" />}
+            onClick={handleOpen}
           />
         </nav>
-        <HeaderSearch open={openSearch} setOpen={setOpenSearch} />
+
+        {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}
       </section>
     </header>
   );
