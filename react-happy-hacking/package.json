@@ -6,9 +6,18 @@
     "npm": ">=8.19.1"
   },
   "scripts": {
+    "prepare": "cd && husky install",
+    "lint:staged": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint . --fix --ext .js,.jsx"
+    "lint": "eslint . --fix --ext .js,.jsx",
+    "clean": "rimraf node_modules"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -40,9 +49,12 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
     "msw": "^0.47.3",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "tailwindcss": "^3.1.8"
   },
   "msw": {
