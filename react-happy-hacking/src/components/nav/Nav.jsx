@@ -9,7 +9,7 @@ const Nav = () => {
   return (
     <nav>
       <Marketplace isOpen={isModalOpen} onClick={toggleModal} />
-      <section className="h-12 inset-x-0 bottom-0 bg-white px-4 py-2 flex justify-between">
+      <section className="fixed h-12 inset-x-0 bottom-0 bg-white px-4 py-2 flex justify-between">
         {Array(5)
           .fill(0)
           .map(() => (
