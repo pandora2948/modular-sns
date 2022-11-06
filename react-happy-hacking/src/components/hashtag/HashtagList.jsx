@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
-import { Hashtag } from '.';
+import Hashtag from './Hashtag';
 
 const HashtagList = ({ tags }) => (
   <>
