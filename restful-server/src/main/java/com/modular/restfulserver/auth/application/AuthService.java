@@ -54,7 +54,7 @@ public class AuthService {
       throw new PasswordNotMatchException();
 
     CustomEmailPasswordAuthToken emailPasswordAuthToken =
-      new CustomEmailPasswordAuthToken(dto.getEmail(), dto.getPassword());
+      new CustomEmailPasswordAuthToken(dto.getEmail());
     Authentication authentication = authenticationManager
       .authenticate(emailPasswordAuthToken);
 
