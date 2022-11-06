@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
@@ -21,23 +21,15 @@ const AuthModal = ({ isOpen, onClick }) => {
     >
       <SignInForm hidden={showSignOut}>
         Or{' '}
-        <button
-          type="button"
-          onClick={onClickShowSignOutButton}
-          className="text-sky-600"
-        >
+        <Button type="link" onClick={onClickShowSignOutButton}>
           register now!
-        </button>
+        </Button>
       </SignInForm>
       <SignUpForm show={showSignOut}>
         Or{' '}
-        <button
-          type="button"
-          onClick={onClickShowSignInButton}
-          className="text-sky-600 bg-[#1890ff]"
-        >
+        <Button type="link" onClick={onClickShowSignInButton}>
           register now!
-        </button>
+        </Button>
       </SignUpForm>
     </Modal>
   );
