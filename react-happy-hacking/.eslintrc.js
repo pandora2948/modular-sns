@@ -16,6 +16,7 @@ module.exports = {
     },
   },
   rules: {
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-else-return': 2,
     'react/prop-types': 2,
     'react/jsx-no-target-blank': 0,
