@@ -8,7 +8,7 @@ import HeaderSearch from './HeaderSearch';
 
 const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
-  const { open, handleFlip, handleOpen } = useModal();
+  const { isModalOpen, toggleModal, openModal } = useModal();
 
   const closeSearchVisible = useCallback(() => setOpenSearch(false), []);
   const toggleSearchVisible = useCallback(
@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <header>
-      <AuthModal onClick={handleFlip} isOpen={open} />
+      <AuthModal onClick={toggleModal} isOpen={isModalOpen} />
       <section
         className="
         flex h-14 bg-white justify-between px-4 items-center shadow-md
@@ -37,7 +37,7 @@ const Header = () => {
           <Button
             shape="circle"
             icon={<UserOutlined color="black" />}
-            onClick={handleOpen}
+            onClick={openModal}
           />
         </nav>
 
