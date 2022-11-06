@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
-import { createUserApi } from 'api/user';
+import { Button, Checkbox, Col, Form, Input, message, Row } from 'antd';
+import { UserService } from 'api/services';
 
 const formItemLayout = {
   labelCol: {
@@ -40,7 +40,11 @@ const SignUpForm = ({ show, children }) => {
   const [form] = Form.useForm();
 
   const createUser = useCallback(async (values) => {
-    await createUserApi(values);
+    try {
+      await UserService.createUser(values);
+    } catch (err) {
+      await message.error(err.message);
+    }
   }, []);
 
   if (!show) return null;

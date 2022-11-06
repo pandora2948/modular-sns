@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { loginUserApi } from 'api/user';
+import { Button, Checkbox, Form, Input, message } from 'antd';
+import { UserService } from 'api/services';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
 const REMEMBER_CHECKED_STORAGE_KEY = 'remember-checked';
@@ -16,8 +16,12 @@ const SignInForm = ({ hidden, children }) => {
 
   const onFinish = useCallback(
     async ({ email, password }) => {
-      await loginUserApi(email, password);
-      setEmail(email);
+      try {
+        await UserService.login({ email, password });
+        setEmail(email);
+      } catch (err) {
+        await message.error(err.message);
+      }
     },
     [setEmail]
   );

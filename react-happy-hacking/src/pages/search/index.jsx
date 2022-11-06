@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getSearchPosts } from 'api/post';
+import { PostsService } from 'api/services';
 import Article from 'components/article/Article';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
@@ -12,8 +12,9 @@ const Tag = ({ name }) => (
 
 const SearchHashtag = () => {
   const query = useLoaderData();
-  const { data: posts = [] } = useQuery('search-posts', () =>
-    getSearchPosts(query)
+  const { data: posts = [] } = useQuery(
+    'search-posts',
+    PostsService.getSearchPosts
   );
 
   return (

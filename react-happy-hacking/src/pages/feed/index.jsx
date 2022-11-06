@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { getPosts } from 'api/post';
+import { PostsService } from 'api/services';
 import Article from 'components/article/Article';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import shortid from 'shortid';
 
+const FEED_KEY = 'main-feed';
+
 const Feed = () => {
   const [feedCount] = useState(3);
-  const { data: feeds = [] } = useQuery(['main-feed', feedCount], () =>
-    getPosts(feedCount)
+  const { data: feeds = [] } = useQuery(
+    [FEED_KEY, feedCount],
+    PostsService.getPosts(feedCount)
   );
   const containerRef = useRef(null);
 

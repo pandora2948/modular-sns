@@ -1,12 +1,13 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
+import { message } from 'antd';
 import { worker } from 'api/mocks/worker';
 import Error from 'pages/error';
 import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 
 import './styles/styles.css';
 
@@ -14,7 +15,11 @@ if (process.env.NODE_ENV === 'development') {
   worker.start().then();
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => message.error(error.message),
+  }),
+});
 
 const router = createBrowserRouter([
   {
