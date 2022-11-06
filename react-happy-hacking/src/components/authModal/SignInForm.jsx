@@ -3,18 +3,24 @@ import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { loginUserApi } from 'api/user';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+
+const REMEMBER_CHECKED_STORAGE_KEY = 'remember-checked';
 
 const SignInForm = ({ hidden, children }) => {
-  /**
-   * @param formValue 입력받은 폼 요소의 값들
-   * @desc 여기서 값을 전달받아서 로그인, 회원가입 처리
-   */
-  const rememberChecked = localStorage.getItem('remember') === 'true';
+  const [email, setEmail] = useLocalStorage(REMEMBER_CHECKED_STORAGE_KEY, '');
+  const [rememberChecked, setRememberChecked] = useLocalStorage(
+    REMEMBER_CHECKED_STORAGE_KEY,
+    false
+  );
 
-  const onFinish = useCallback(async (formValues) => {
-    await loginUserApi(formValues.email, formValues.password);
-    localStorage.setItem('email', formValues.email);
-  }, []);
+  const onFinish = useCallback(
+    async ({ email, password }) => {
+      await loginUserApi(email, password);
+      setEmail(email);
+    },
+    [setEmail]
+  );
 
   if (hidden) return null;
 
@@ -26,7 +32,7 @@ const SignInForm = ({ hidden, children }) => {
         className="login-form pt-10"
         initialValues={{
           remember: rememberChecked,
-          email: rememberChecked ? localStorage.getItem('email') : '',
+          email,
         }}
         onFinish={onFinish}
       >
@@ -54,7 +60,7 @@ const SignInForm = ({ hidden, children }) => {
             <Checkbox
               checked={rememberChecked}
               onClick={(e) => {
-                localStorage.setItem('remember', e.target.checked);
+                setRememberChecked(e.target.checked);
               }}
             >
               Remember me
