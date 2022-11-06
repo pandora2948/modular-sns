@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,9 @@ import java.util.Map;
 @EnableWebSecurity
 public class SpringSecurityConfiguration {
 
-//  private final CustomAuthenticationFilter customAuthenticationFilter;
-//  private final CustomAuthorizationFilter customAuthorizationFilter;
+  private final JwtFilter jwtFilter;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
   private final CustomAuthProvider customAuthProvider;
 
 
@@ -31,18 +33,21 @@ public class SpringSecurityConfiguration {
   public WebSecurityCustomizer webSecurityCustomizer() {
     return (web) -> web
       .ignoring()
-      .antMatchers("/api/auth/**", "/auth/**");
+      .antMatchers("/api/auth/login", "/auth/signup");
   }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
       .csrf().disable()
+      .exceptionHandling()
+      .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+      .accessDeniedHandler(jwtAccessDeniedHandler)
+      .and()
       .authorizeRequests()
-      .antMatchers("/auth/**")
-      .hasAnyRole()
-      .anyRequest()
-      .permitAll()
+      .antMatchers("/api/auth/signup").permitAll()
+      .antMatchers("/api/auth/login").permitAll()
+      .anyRequest().authenticated()
       .and()
       .sessionManagement(
         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -50,14 +55,9 @@ public class SpringSecurityConfiguration {
       .httpBasic()
       .and()
       .formLogin().disable()
-      .cors().disable();
-//      .addFilter(customAuthenticationFilter)
-//      .addFilterBefore(
-//        customAuthorizationFilter,
-//        UsernamePasswordAuthenticationFilter.class
-//      )
+      .cors().disable()
+      .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-    log.info("[SpringSecurityConfiguration] Spring Security 설정 완료");
     return http.build();
   }
 
