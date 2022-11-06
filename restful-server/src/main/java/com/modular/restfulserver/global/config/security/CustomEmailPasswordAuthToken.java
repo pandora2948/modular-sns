@@ -7,15 +7,11 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 public class CustomEmailPasswordAuthToken extends AbstractAuthenticationToken {
 
   private final String principal;
-  private final String credentials;
+  private final String credentials = null;
 
-  public CustomEmailPasswordAuthToken(
-    String principal,
-    String credentials
-  ) {
+  public CustomEmailPasswordAuthToken(String principal) {
     super(null);
     this.principal = principal;
-    this.credentials = credentials;
     setAuthenticated(false);
   }
 }

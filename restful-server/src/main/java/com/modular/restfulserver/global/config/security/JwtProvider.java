@@ -5,7 +5,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -15,14 +15,11 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-  private final UserDetailsService userDetailsService;
   private final Key jwtSecretKey;
 
   public JwtProvider(
-    @Value("${jwt.secret}") String registeredSecretKey,
-    UserDetailsService userDetailsService
+    @Value("${jwt.secret}") String registeredSecretKey
   ) {
-    this.userDetailsService = userDetailsService;
     byte[] keyBytes = Decoders.BASE64.decode(registeredSecretKey);
     this.jwtSecretKey = Keys.hmacShaKeyFor(keyBytes);
   }
@@ -48,6 +45,17 @@ public class JwtProvider {
       log.error(ex.getMessage());
       return false;
     }
+  }
+
+  public Authentication getAuthentication(String token) {
+    Claims claims = Jwts
+      .parserBuilder()
+      .setSigningKey(jwtSecretKey)
+      .build()
+      .parseClaimsJws(token)
+      .getBody();
+
+    return new CustomEmailPasswordAuthToken(claims.getSubject());
   }
 
   public String getUserEmailByToken(String token) {
