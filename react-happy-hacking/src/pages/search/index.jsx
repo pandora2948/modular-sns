@@ -12,10 +12,9 @@ const Tag = ({ name }) => (
 
 const SearchHashtag = () => {
   const query = useLoaderData();
-  const { data: posts = [] } = useQuery(
-    'search-posts',
-    PostsService.getSearchPosts
-  );
+  const { data: posts = [] } = useQuery('search-posts', async () => {
+    return await PostsService.getSearchPosts(query);
+  });
 
   return (
     <AppLayout>

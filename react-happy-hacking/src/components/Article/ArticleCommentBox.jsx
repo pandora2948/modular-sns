@@ -9,7 +9,9 @@ const ArticleCommentBox = ({ open }) => {
   const inputRef = useRef(null);
 
   const { mutate: createComment, isError: createCommentFailure } = useMutation(
-    ({ id, comment }) => CommentsService.postComment({ id, comment })
+    async ({ id, comment }) => {
+      return await CommentsService.postComment({ id, comment });
+    }
   );
 
   const onEnterComment = useCallback(

@@ -9,10 +9,9 @@ const FEED_KEY = 'main-feed';
 
 const Feed = () => {
   const [feedCount] = useState(3);
-  const { data: feeds = [] } = useQuery(
-    [FEED_KEY, feedCount],
-    PostsService.getPosts(feedCount)
-  );
+  const { data: feeds = [] } = useQuery([FEED_KEY, feedCount], async () => {
+    return await PostsService.getPosts(feedCount);
+  });
   const containerRef = useRef(null);
 
   useEffect(() => {
