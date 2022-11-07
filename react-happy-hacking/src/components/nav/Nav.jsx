@@ -1,4 +1,5 @@
 import { PlusCircleFilled } from '@ant-design/icons';
+import { Button } from 'antd';
 import { useModal } from 'hooks/useModal';
 import shortid from 'shortid';
 import Marketplace from './Marketplace';
@@ -16,9 +17,13 @@ const Nav = () => {
         {Array(5)
           .fill(0)
           .map(() => (
-            <button key={shortid.generate()} onClick={openMarketPlaceModal}>
+            <Button
+              type="text"
+              key={shortid.generate()}
+              onClick={openMarketPlaceModal}
+            >
               <PlusCircleFilled style={{ fontSize: '1.8em' }} />
-            </button>
+            </Button>
           ))}
       </section>
 
