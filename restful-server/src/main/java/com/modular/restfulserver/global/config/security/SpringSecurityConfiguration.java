@@ -25,7 +25,6 @@ public class SpringSecurityConfiguration {
 
   private final JwtFilter jwtFilter;
   private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-  private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
   private final CustomAuthProvider customAuthProvider;
 
 
@@ -33,7 +32,10 @@ public class SpringSecurityConfiguration {
   public WebSecurityCustomizer webSecurityCustomizer() {
     return (web) -> web
       .ignoring()
-      .antMatchers("/api/auth/login", "/api/auth/signup");
+      .antMatchers(
+        "/api/auth/login",
+        "/api/auth/signup"
+      );
   }
 
   @Bean
@@ -53,7 +55,6 @@ public class SpringSecurityConfiguration {
     http
       .exceptionHandling()
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-      .accessDeniedHandler(jwtAccessDeniedHandler)
       .and()
       .authorizeRequests()
       .anyRequest().authenticated()
