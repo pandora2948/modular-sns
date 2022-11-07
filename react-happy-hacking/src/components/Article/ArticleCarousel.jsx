@@ -6,13 +6,25 @@ const ArticleCarousel = ({ images }) => {
   if (!images || images.length === 0) return null;
 
   return (
-    <Carousel>
-      {images.map((url) => (
-        <div key={shortid.generate()}>
-          <Image src={url} width="100%" height="320px" />
-        </div>
-      ))}
-    </Carousel>
+    <>
+      <Carousel>
+        {images.map((url) => (
+          <div key={shortid.generate()} className="bg-black/90">
+            <div className="flex justify-center">
+              <Image
+                src={url}
+                width="100%"
+                height="auto"
+                className="max-h-80 object-contain"
+                style={{
+                  minHeight: '18rem',
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </Carousel>
+    </>
   );
 };
 
