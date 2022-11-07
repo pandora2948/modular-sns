@@ -16,22 +16,30 @@ import java.util.Date;
 public class JwtProvider {
 
   private final Key jwtSecretKey;
+  private final Long accessTokenExpTime;
+  private final Long refreshTokenExpTime;
+
 
   public JwtProvider(
-    @Value("${jwt.secret}") String registeredSecretKey
-  ) {
+    @Value("${jwt.secret}") String registeredSecretKey,
+    @Value("${jwt.accessTokenExpTime}") Long accessTokenExpTime,
+    @Value("${jwt.refreshTokenExpTime}") Long refreshTokenExpTime
+
+    ) {
     byte[] keyBytes = Decoders.BASE64.decode(registeredSecretKey);
     this.jwtSecretKey = Keys.hmacShaKeyFor(keyBytes);
+    this.accessTokenExpTime = accessTokenExpTime;
+    this.refreshTokenExpTime = refreshTokenExpTime;
   }
 
   public String createAccessToken(String email) {
     Claims claims = Jwts.claims().setSubject(email);
-    return createToken(claims, 60 * 60 * 100L);
+    return createToken(claims, accessTokenExpTime);
   }
 
   public String createRefreshToken(String email) {
     Claims claims = Jwts.claims().setSubject(email);
-    return createToken(claims, 7 * 24 * 60 * 60 * 1000L);
+    return createToken(claims, refreshTokenExpTime);
   }
 
   public boolean validateToken(String token) {

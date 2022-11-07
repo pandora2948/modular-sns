@@ -1,5 +1,7 @@
-jwt.secret:
-
+jwt:
+  secret: {key}
+  accessTokenExpTime: {ms}
+  refreshTokenExpTime: {ms}
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
