@@ -38,8 +38,19 @@ public class SpringSecurityConfiguration {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    /* off security features **/
     http
       .csrf().disable()
+      .formLogin().disable()
+      .cors().disable()
+      .sessionManagement(
+        session -> session.sessionCreationPolicy(
+          SessionCreationPolicy.STATELESS
+        )
+      );
+
+    /* config **/
+    http
       .exceptionHandling()
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)
       .accessDeniedHandler(jwtAccessDeniedHandler)
@@ -47,13 +58,8 @@ public class SpringSecurityConfiguration {
       .authorizeRequests()
       .anyRequest().authenticated()
       .and()
-      .sessionManagement(
-        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      )
       .httpBasic()
       .and()
-      .formLogin().disable()
-      .cors().disable()
       .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
