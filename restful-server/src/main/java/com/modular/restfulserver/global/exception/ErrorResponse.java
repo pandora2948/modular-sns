@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,11 +15,11 @@ import java.util.stream.Collectors;
 @Builder(setterPrefix = "add")
 public class ErrorResponse {
 
-  private final Map<String, List<String>> error;
+  private final Map<String, String> error;
 
   public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode code) {
-    var responseMap = new HashMap<String, List<String>>();
-    responseMap.put("message", List.of(code.getDetails()));
+    var responseMap = new HashMap<String, String>();
+    responseMap.put("message", code.getDetails());
 
     return ResponseEntity
       .status(code.getStatus())
@@ -34,11 +33,12 @@ public class ErrorResponse {
   public static ResponseEntity<ErrorResponse> toResponseEntityByArgumentNotValidException(
     MethodArgumentNotValidException ex
   ) {
-    var responseMap = new HashMap<String, List<String>>();
-    List<String> fieldErrorList = ex.getFieldErrors()
+    var responseMap = new HashMap<String, String>();
+    String fieldErrorList = ex.getFieldErrors()
         .stream()
           .map(DefaultMessageSourceResolvable::getDefaultMessage)
-          .collect(Collectors.toList());
+          .collect(Collectors.toList())
+          .get(0); // 다중 에러는 항상 첫번 째 것만 반환한다.
     responseMap.put("message", fieldErrorList);
 
     return ResponseEntity
