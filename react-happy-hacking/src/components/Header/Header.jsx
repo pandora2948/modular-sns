@@ -25,7 +25,7 @@ const Header = () => {
         relative font-semibold
       "
       >
-        <h1 className="text-lg text-slate-600 whitespace-nowrap">
+        <h1 className="m-0 text-lg text-slate-600 whitespace-nowrap">
           <Link to="/">sns-modular</Link>
         </h1>
         <nav className="flex gap-x-2">
