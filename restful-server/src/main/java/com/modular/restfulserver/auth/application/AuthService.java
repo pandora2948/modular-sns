@@ -74,8 +74,6 @@ public class AuthService {
   }
 
   public Map<String, String> refresh(String refreshToken) {
-    boolean isValidToken = jwtProvider.validateToken(refreshToken);
-    if (!isValidToken) throw new InvalidTokenException();
     String email = jwtProvider.getUserEmailByToken(refreshToken);
     Map<String, String> response = new HashMap<>();
     String newAccessToken = jwtProvider.createAccessToken(email);

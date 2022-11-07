@@ -55,15 +55,9 @@ public class AuthApi {
 
   @GetMapping("/reissue")
   public ResponseEntity<Map<String, Map<String, String>>> refresh(
-    HttpServletRequest req, HttpServletResponse res
+    HttpServletRequest req
   ) {
     String authorizationHeader = req.getHeader("AUTHORIZATION");
-    if (
-      authorizationHeader == null
-      || !authorizationHeader.startsWith(TOKEN_HEADER_PREFIX)
-    )
-      throw new NoneTokenOnHeaderException();
-
     String refreshToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
     Map<String, String> tokens = authService.refresh(refreshToken);
     Map<String, Map<String, String>> response = new HashMap<>();
