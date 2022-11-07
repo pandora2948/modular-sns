@@ -180,7 +180,7 @@ const SignUpForm = ({ show, children }) => {
 
 SignUpForm.propTypes = {
   show: PropTypes.bool.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default SignUpForm;

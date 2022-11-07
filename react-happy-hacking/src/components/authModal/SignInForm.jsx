@@ -88,7 +88,7 @@ const SignInForm = ({ hidden, children }) => {
 };
 
 SignInForm.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.node.isRequired,
   hidden: PropTypes.bool.isRequired,
 };
 

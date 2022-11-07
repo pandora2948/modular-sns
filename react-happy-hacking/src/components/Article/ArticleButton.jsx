@@ -8,7 +8,7 @@ const ArticleButton = ({ children, onClick }) => (
 );
 
 ArticleButton.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
