@@ -33,7 +33,7 @@ public class SpringSecurityConfiguration {
   public WebSecurityCustomizer webSecurityCustomizer() {
     return (web) -> web
       .ignoring()
-      .antMatchers("/api/auth/login", "/auth/signup");
+      .antMatchers("/api/auth/login", "/api/auth/signup");
   }
 
   @Bean
@@ -45,8 +45,6 @@ public class SpringSecurityConfiguration {
       .accessDeniedHandler(jwtAccessDeniedHandler)
       .and()
       .authorizeRequests()
-      .antMatchers("/api/auth/signup").permitAll()
-      .antMatchers("/api/auth/login").permitAll()
       .anyRequest().authenticated()
       .and()
       .sessionManagement(
