@@ -43,7 +43,7 @@ const HeaderSearch = ({ closeSearch }) => {
   }, [closeSearch, inputRef]);
 
   return (
-    <div className="absolute right-1 -bottom-12 z-10">
+    <div className="absolute right-1 -bottom-10 z-[999]">
       <Input.Search
         ref={inputRef}
         placeholder="#개발 #개발자"
