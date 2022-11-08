@@ -12,8 +12,8 @@ const Nav = () => {
   } = useModal();
 
   return (
-    <nav>
-      <section className="h-12 bottom-0 bg-white px-4 py-2 flex justify-between">
+    <>
+      <nav className="h-12 bottom-0 bg-white px-4 py-2 flex justify-between shadow-t-md">
         {Array(5)
           .fill(0)
           .map(() => (
@@ -25,13 +25,13 @@ const Nav = () => {
               <PlusCircleFilled style={{ fontSize: '1.8em' }} />
             </Button>
           ))}
-      </section>
+      </nav>
 
       <Marketplace
         isOpen={isMarketPlaceModalOpen}
         onClick={toggleMarketPlaceModal}
       />
-    </nav>
+    </>
   );
 };
 
