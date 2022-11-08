@@ -6,6 +6,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './tailwind/apply.css';
 
 *,
 *::before,
@@ -48,12 +49,4 @@ div#root {
 
 ::-webkit-scrollbar-thumb {
   background-color: #b2c5d2;
-}
-
-.card {
-  @apply bg-white w-full rounded-md shadow-md overflow-hidden;
-}
-
-.flex-all {
-  @apply flex justify-center items-center;
 }

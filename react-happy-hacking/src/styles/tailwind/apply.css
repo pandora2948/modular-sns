@@ -1,0 +1,7 @@
+.card {
+  @apply bg-white w-full shadow-md overflow-hidden;
+}
+
+.flex-all {
+  @apply flex justify-center items-center;
+}
