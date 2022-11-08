@@ -18,15 +18,16 @@ const SearchHashtag = () => {
 
   return (
     <AppLayout>
-      <section className="flex flex-col items-center">
+      <section className="flex flex-col items-center py-8">
         <div className="flex gap-x-1">
           {query.map((tag) => (
             <Tag key={shortid.generate()} name={tag} />
           ))}
           <span className="text-base md:text-lg">로 검색하신 결과입니다.</span>
         </div>
-        <span className="text-base pb-5">총 {posts.length}건</span>
+        <span className="text-base">총 {posts.length}건</span>
       </section>
+
       <section>
         <article className="flex flex-col gap-y-7">
           {posts.map((post) => (
