@@ -32,8 +32,7 @@ const Article = ({
   return (
     <div key={shortid.generate()} className="card">
       <ArticleCarousel images={images} />
-
-      <section className="px-4 pt-2 pt-4 pb-2">
+      <section className="px-4 pt-4 pb-2">
         <div className="flex gap-x-3 items-center pb-0.5">
           <UserOutlined size="32px" />
           <Text>{writer}</Text>
