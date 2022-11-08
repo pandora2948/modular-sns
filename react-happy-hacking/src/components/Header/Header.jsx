@@ -21,8 +21,8 @@ const Header = () => {
       <AuthModal onClick={toggleModal} isOpen={isModalOpen} />
       <section
         className="
-        flex h-14 bg-white justify-between px-4 items-center shadow-md
-        relative font-semibold
+        flex h-12 bg-white justify-between px-4 items-center shadow-md
+        font-semibold absolute z-[16] w-full
       "
       >
         <h1 className="m-0 text-lg text-slate-600 whitespace-nowrap">

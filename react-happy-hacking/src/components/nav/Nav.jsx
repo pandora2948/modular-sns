@@ -13,7 +13,7 @@ const Nav = () => {
 
   return (
     <nav>
-      <section className="fixed h-12 inset-x-0 bottom-0 bg-white px-4 py-2 flex justify-between">
+      <section className="h-12 bottom-0 bg-white px-4 py-2 flex justify-between z-[16] absolute w-full">
         {Array(5)
           .fill(0)
           .map(() => (
