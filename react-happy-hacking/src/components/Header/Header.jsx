@@ -17,9 +17,8 @@ const Header = () => {
   );
 
   return (
-    <header>
-      <AuthModal onClick={toggleModal} isOpen={isModalOpen} />
-      <section
+    <>
+      <header
         className="
         flex h-12 bg-white justify-between px-4 items-center shadow-md
         font-semibold relative
@@ -42,8 +41,10 @@ const Header = () => {
         </nav>
 
         {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}
-      </section>
-    </header>
+      </header>
+
+      <AuthModal onClick={toggleModal} isOpen={isModalOpen} />
+    </>
   );
 };
 
