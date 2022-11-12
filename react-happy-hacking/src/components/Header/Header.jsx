@@ -8,7 +8,7 @@ import HeaderSearch from './HeaderSearch';
 
 const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
-  const { isModalOpen, toggleModal, openModal } = useModal();
+  const { isModalOpen, closeModal, openModal } = useModal();
 
   const closeSearchVisible = useCallback(() => setOpenSearch(false), []);
   const toggleSearchVisible = useCallback(
@@ -43,7 +43,7 @@ const Header = () => {
         {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}
       </header>
 
-      <AuthModal isOpen={isModalOpen} toggle={toggleModal} />
+      <AuthModal isOpen={isModalOpen} close={closeModal} />
     </>
   );
 };

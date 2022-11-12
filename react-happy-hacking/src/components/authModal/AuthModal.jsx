@@ -4,13 +4,13 @@ import { Button, Divider, message, Modal } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
-const AuthModal = ({ isOpen, toggle }) => {
+const AuthModal = ({ isOpen, close }) => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   const onModalCancel = useCallback(() => {
     setShowSignUpForm(false);
-    toggle();
-  }, [toggle]);
+    close();
+  }, [close]);
 
   const openFindPasswordModal = useCallback(() => {
     /* TODO: 패스워드 찾기 모달 추가 */
@@ -63,14 +63,14 @@ const AuthModal = ({ isOpen, toggle }) => {
         }
       ></SignInForm>
 
-      <SignUpForm show={showSignUpForm} />
+      <SignUpForm show={showSignUpForm} closeModal={close} />
     </Modal>
   );
 };
 
 AuthModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 export default AuthModal;

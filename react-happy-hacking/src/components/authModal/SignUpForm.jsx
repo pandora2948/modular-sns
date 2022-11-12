@@ -1,184 +1,126 @@
 import { useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, Checkbox, Col, Form, Input, message, Row } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { UserService } from 'api/services';
+import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
+import { passwordRegex, usernameRegex } from 'utils';
+import { requiredRule } from 'utils/formRules';
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const SignUpForm = ({ show }) => {
+const SignUpForm = ({ show, closeModal }) => {
   const [form] = Form.useForm();
+  const { formValidateTrigger, onFormFinishFailed, hasFeedback } =
+    useFormValidateTrigger();
 
-  const createUser = useCallback(async (values) => {
-    try {
-      await UserService.createUser(values);
-    } catch (err) {
-      await message.error(err.message);
-    }
-  }, []);
+  const createUser = useCallback(
+    async (values) => {
+      try {
+        await UserService.createUser(values);
+        await message.success('회원가입 성공');
+        closeModal();
+      } catch (err) {
+        console.log(err);
+        await message.error(err.message);
+      }
+    },
+    [closeModal]
+  );
 
   if (!show) return null;
 
   return (
-    <div>
-      <h1 className="text-2xl">sign up</h1>
+    <section>
+      <h1 className="text-2xl mt-3 mb-5 text-center">회원가입</h1>
+
       <Form
-        {...formItemLayout}
         form={form}
-        name="register"
-        initialValues={{
-          prefix: '82',
-        }}
-        scrollToFirstError
+        validateTrigger={formValidateTrigger}
         onFinish={createUser}
+        onFinishFailed={onFormFinishFailed}
+        scrollToFirstError
       >
         <Form.Item
           name="email"
-          label="E-mail"
+          label="이메일"
           rules={[
             {
               type: 'email',
               message: '올바른 이메일을 입력해주세요',
             },
-            {
-              required: true,
-              message: '이메일을 입력해주세요',
-            },
+            requiredRule,
           ]}
-          hasFeedback
+          hasFeedback={hasFeedback}
         >
-          <Input />
+          <Input allowClear />
         </Form.Item>
         <Form.Item
           name="password"
-          label="Password"
+          label="비밀번호"
           rules={[
             {
-              required: true,
-              message: '비밀번호를 입력해주세요',
+              pattern: passwordRegex,
+              message: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요',
             },
+            requiredRule,
           ]}
-          hasFeedback
+          hasFeedback={hasFeedback}
         >
-          <Input.Password />
+          <Input.Password allowClear />
         </Form.Item>
         <Form.Item
-          name="confirm"
-          label="Confirm Password"
+          name="password-confirm"
+          label="비밀번호 확인"
           dependencies={['password']}
-          hasFeedback
+          hasFeedback={hasFeedback}
           rules={[
-            {
-              required: true,
-              message: '비밀번호를 입력해주세요',
-            },
+            requiredRule,
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue('password') === value) {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(new Error('비밀번호를 확인해주세요'));
+                return Promise.reject(
+                  new Error('비밀번호가 일치하지 않습니다.')
+                );
               },
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password allowClear />
         </Form.Item>
         <Form.Item
           name="username"
-          label="Username"
-          tooltip="사용하실 이름을 입력해주세요"
+          label="사용자 아이디"
+          hasFeedback={hasFeedback}
+          tip="다른 사람들에게 보여질 사용자명입니다."
           rules={[
+            requiredRule,
             {
-              required: true,
-              message: '이름을 입력해주세요',
-              whitespace: true,
+              pattern: usernameRegex,
+              message: '4~15자 영문 대 소문자, 숫자, 밑줄을 사용하세요',
             },
           ]}
         >
-          <Input />
+          <Input allowClear />
         </Form.Item>
-        <Form.Item label="Captcha" extra="당신은 사람입니까?">
-          <Row gutter={8}>
-            <Col span={12}>
-              <Form.Item
-                name="captcha"
-                noStyle
-                rules={[
-                  {
-                    required: true,
-                    message: '사람임을 검증해주세요',
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
-        </Form.Item>
-        <Form.Item
-          name="agreement"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : Promise.reject(new Error('Should accept agreement')),
-            },
-          ]}
-          {...tailFormItemLayout}
-        >
-          <Checkbox>
-            I have read the <Link to="">agreement</Link>
-          </Checkbox>
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Register
+        <Form.Item>
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            className="w-full mt-4"
+          >
+            가입하기
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
 
 SignUpForm.propTypes = {
   show: PropTypes.bool.isRequired,
+  closeModal: PropTypes.bool.isRequired,
 };
 
 export default SignUpForm;

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { UserService } from 'api/services';
+import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { alertNotImpl } from 'utils';
+import { requiredRule } from 'utils/formRules';
 
 const SignInForm = ({ hidden, footerRender }) => {
+  const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
   const onFinish = useCallback(async ({ email, password, rememberChecked }) => {
     try {
       const token = await UserService.login({
@@ -30,23 +33,19 @@ const SignInForm = ({ hidden, footerRender }) => {
   return (
     <section>
       <h1 className="text-2xl mt-3 mb-7 text-center">로그인</h1>
-      <Form name="normal_login" className="login-form" onFinish={onFinish}>
-        <Form.Item
-          name="email"
-          rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="이메일"
-            allowClear
-          />
+
+      <Form
+        onFinish={onFinish}
+        validateTrigger={formValidateTrigger}
+        onFinishFailed={onFormFinishFailed}
+        scrollToFirstError
+      >
+        <Form.Item name="email" rules={[requiredRule]}>
+          <Input prefix={<UserOutlined />} placeholder="이메일" allowClear />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: '패스워드를 입력해주세요.' }]}
-        >
+        <Form.Item name="password" rules={[requiredRule]}>
           <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
+            prefix={<LockOutlined />}
             type="password"
             placeholder="비밀번호"
             allowClear

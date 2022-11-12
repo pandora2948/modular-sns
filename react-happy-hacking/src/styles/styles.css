@@ -1,6 +1,7 @@
 @import '~antd/dist/antd.css';
 @import './antd/card.css';
 @import './antd/image.css';
+@import './antd/form-item.css';
 @import './fonts/font-face.css';
 
 @tailwind base;
