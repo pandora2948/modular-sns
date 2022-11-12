@@ -40,7 +40,7 @@ const axiosWrapper = async (method, route, body, config) => {
 
     return data;
   } catch (e) {
-    throw new Error(e.error.message ?? e.error ?? e);
+    throw new Error(e.error?.message ?? e.error ?? e);
   }
 };
 
