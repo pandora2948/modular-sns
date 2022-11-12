@@ -3,4 +3,4 @@ export const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 
 // 유저명 - 4~15자 영문 대 소문자, 숫자, 밑줄
-export const usernameRegex = /\w{4,15}/;
+export const usernameRegex = /^(?=.*\w)\w{4,15}$/;

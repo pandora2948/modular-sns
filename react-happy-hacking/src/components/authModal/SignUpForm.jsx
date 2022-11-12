@@ -92,7 +92,7 @@ const SignUpForm = ({ show, closeModal }) => {
           name="username"
           label="사용자 아이디"
           hasFeedback={hasFeedback}
-          tip="다른 사람들에게 보여질 사용자명입니다."
+          tooltip="다른 사람들에게 보여질 사용자명입니다."
           rules={[
             requiredRule,
             {

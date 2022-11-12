@@ -7,7 +7,7 @@ import SignUpForm from './SignUpForm';
 const AuthModal = ({ isOpen, close }) => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
 
-  const onModalCancel = useCallback(() => {
+  const closeModal = useCallback(() => {
     setShowSignUpForm(false);
     close();
   }, [close]);
@@ -27,7 +27,7 @@ const AuthModal = ({ isOpen, close }) => {
   return (
     <Modal
       open={isOpen}
-      onCancel={onModalCancel}
+      onCancel={closeModal}
       centered
       footer={null}
       destroyOnClose
@@ -63,7 +63,7 @@ const AuthModal = ({ isOpen, close }) => {
         }
       ></SignInForm>
 
-      <SignUpForm show={showSignUpForm} closeModal={close} />
+      <SignUpForm show={showSignUpForm} closeModal={closeModal} />
     </Modal>
   );
 };
