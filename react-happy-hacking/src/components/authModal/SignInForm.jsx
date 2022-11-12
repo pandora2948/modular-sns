@@ -3,91 +3,75 @@ import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { UserService } from 'api/services';
-import { useLocalStorage } from 'hooks/useLocalStorage';
-
-const STORAGE_KEY = {
-  email: 'sign-in-email',
-  remember: 'sign-in-remember',
-};
+import { alertNotImpl } from 'utils';
 
 const SignInForm = ({ hidden, footerRender }) => {
-  const [email, setEmail] = useLocalStorage(STORAGE_KEY.email, '');
-  const [rememberChecked, setRememberChecked] = useLocalStorage(
-    STORAGE_KEY.remember,
-    false
-  );
+  const onFinish = useCallback(async ({ email, password, rememberChecked }) => {
+    try {
+      const token = await UserService.login({
+        email,
+        password,
+      });
 
-  const onFinish = useCallback(
-    async ({ email, password, rememberChecked }) => {
-      try {
-        await UserService.login({
-          email,
-          password,
-        });
+      console.log('token:', token);
 
-        if (rememberChecked) {
-          setEmail(email);
-        }
-      } catch (err) {
-        await message.error(err.message);
+      if (rememberChecked) {
+        /* TODO: 토큰 기억 할거면 로컬스토리지 */
+      } else {
+        /* TODO: 기억 안할거면 세션스토리지에 저장하기 */
       }
-    },
-    [setEmail]
-  );
+    } catch (err) {
+      await message.error(err.message);
+    }
+  }, []);
 
   if (hidden) return null;
 
   return (
     <section>
-      <h1 className="text-2xl">sign in</h1>
-      <Form
-        name="normal_login"
-        className="login-form pt-10"
-        initialValues={{
-          remember: rememberChecked,
-          email,
-        }}
-        onFinish={onFinish}
-      >
+      <h1 className="text-2xl mt-3 mb-7 text-center">로그인</h1>
+      <Form name="normal_login" className="login-form" onFinish={onFinish}>
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Please write your email' }]}
+          rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email"
+            placeholder="이메일"
+            allowClear
           />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Please write your password' }]}
+          rules={[{ required: true, message: '패스워드를 입력해주세요.' }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
+            allowClear
           />
         </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox
-              checked={rememberChecked}
-              onClick={(e) => {
-                setRememberChecked(e.target.checked);
-              }}
-            >
-              Remember me
-            </Checkbox>
-          </Form.Item>
-
-          <a className="float-right" href="/#">
-            Forgot password
-          </a>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox
+            onChange={(e) => {
+              if (e.target.checked) {
+                alertNotImpl();
+              }
+            }}
+          >
+            로그인 상태 유지
+          </Checkbox>
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
-            Log in
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            className="w-full mt-5"
+          >
+            로그인
           </Button>
         </Form.Item>
 

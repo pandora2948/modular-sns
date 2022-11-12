@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal } from 'antd';
+import { Button, Divider, message, Modal } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
@@ -12,7 +12,15 @@ const AuthModal = ({ isOpen, toggle }) => {
     toggle();
   }, [toggle]);
 
-  const handleRegisterLinkClick = useCallback(() => {
+  const openFindPasswordModal = useCallback(() => {
+    /* TODO: 패스워드 찾기 모달 추가 */
+    message.info('Not implemented');
+  }, []);
+  const openFindEmailModal = useCallback(() => {
+    /* TODO: 이메일 찾기 모달 추가 */
+    message.info('Not implemented');
+  }, []);
+  const openSignUpModal = useCallback(() => {
     setShowSignUpForm(true);
   }, []);
 
@@ -27,18 +35,34 @@ const AuthModal = ({ isOpen, toggle }) => {
       <SignInForm
         hidden={showSignUpForm}
         footerRender={
-          <>
-            Or
+          <div className="flex items-center justify-center pr-3">
             <Button
-              type="link"
-              style={{ padding: '5px' }}
-              onClick={handleRegisterLinkClick}
+              type="text"
+              className="p-0 text-gray-600"
+              onClick={openFindPasswordModal}
             >
-              register now!
+              비밀번호 찾기
             </Button>
-          </>
+            <Divider type="vertical" className="mt-0.5 border-gray-300" />
+            <Button
+              type="text"
+              className="p-0 text-gray-600"
+              onClick={openFindEmailModal}
+            >
+              이메일 찾기
+            </Button>
+            <Divider type="vertical" className="mt-0.5 border-gray-300" />
+            <Button
+              type="text"
+              className="p-0 text-gray-600"
+              onClick={openSignUpModal}
+            >
+              회원가입
+            </Button>
+          </div>
         }
       ></SignInForm>
+
       <SignUpForm show={showSignUpForm} />
     </Modal>
   );
