@@ -15,7 +15,7 @@ export const userHandlers = [
     )
   ),
   rest.patch('/api/user', (__, res, ctx) => res(ctx.status(201))),
-  rest.patch('/api/user/register', (__, res, ctx) =>
+  rest.post('/api/user/register', (__, res, ctx) =>
     res(
       ctx.status(201),
       ctx.json({
