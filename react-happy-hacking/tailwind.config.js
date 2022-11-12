@@ -20,4 +20,5 @@ module.exports = {
   corePlugins: {
     preflight: false, // <== disable this!
   },
+  important: true,
 };
