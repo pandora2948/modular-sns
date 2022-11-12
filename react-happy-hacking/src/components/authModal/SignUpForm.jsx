@@ -36,7 +36,7 @@ const tailFormItemLayout = {
   },
 };
 
-const SignUpForm = ({ show, children }) => {
+const SignUpForm = ({ show }) => {
   const [form] = Form.useForm();
 
   const createUser = useCallback(async (values) => {
@@ -173,14 +173,12 @@ const SignUpForm = ({ show, children }) => {
           </Button>
         </Form.Item>
       </Form>
-      {children}
     </div>
   );
 };
 
 SignUpForm.propTypes = {
   show: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default SignUpForm;

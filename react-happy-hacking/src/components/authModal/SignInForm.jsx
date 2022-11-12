@@ -5,20 +5,29 @@ import { Button, Checkbox, Form, Input, message } from 'antd';
 import { UserService } from 'api/services';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
-const REMEMBER_CHECKED_STORAGE_KEY = 'remember-checked';
+const STORAGE_KEY = {
+  email: 'sign-in-email',
+  remember: 'sign-in-remember',
+};
 
-const SignInForm = ({ hidden, children }) => {
-  const [email, setEmail] = useLocalStorage(REMEMBER_CHECKED_STORAGE_KEY, '');
+const SignInForm = ({ hidden, footerRender }) => {
+  const [email, setEmail] = useLocalStorage(STORAGE_KEY.email, '');
   const [rememberChecked, setRememberChecked] = useLocalStorage(
-    REMEMBER_CHECKED_STORAGE_KEY,
+    STORAGE_KEY.remember,
     false
   );
 
   const onFinish = useCallback(
-    async ({ email, password }) => {
+    async ({ email, password, rememberChecked }) => {
       try {
-        await UserService.login({ email, password });
-        setEmail(email);
+        await UserService.login({
+          email,
+          password,
+        });
+
+        if (rememberChecked) {
+          setEmail(email);
+        }
       } catch (err) {
         await message.error(err.message);
       }
@@ -81,14 +90,15 @@ const SignInForm = ({ hidden, children }) => {
             Log in
           </Button>
         </Form.Item>
-        {children}
+
+        {footerRender}
       </Form>
     </section>
   );
 };
 
 SignInForm.propTypes = {
-  children: PropTypes.node.isRequired,
+  footerRender: PropTypes.node.isRequired,
   hidden: PropTypes.bool.isRequired,
 };
 

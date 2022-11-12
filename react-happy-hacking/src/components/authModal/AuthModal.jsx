@@ -1,43 +1,52 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
-const AuthModal = ({ isOpen, onClick }) => {
-  const [showSignOut, setShowSignOut] = useState(false);
+const AuthModal = ({ isOpen, toggle }) => {
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
 
-  const onClickShowSignOutButton = () => setShowSignOut(true);
-  const onClickShowSignInButton = () => setShowSignOut(false);
+  const onModalCancel = useCallback(() => {
+    setShowSignUpForm(false);
+    toggle();
+  }, [toggle]);
+
+  const handleRegisterLinkClick = useCallback(() => {
+    setShowSignUpForm(true);
+  }, []);
 
   return (
     <Modal
       open={isOpen}
-      onCancel={onClick}
-      onOk={onClick}
+      onCancel={onModalCancel}
       centered
-      closable={false}
       footer={null}
+      destroyOnClose
     >
-      <SignInForm hidden={showSignOut}>
-        Or{' '}
-        <Button type="link" onClick={onClickShowSignOutButton}>
-          register now!
-        </Button>
-      </SignInForm>
-      <SignUpForm show={showSignOut}>
-        Or{' '}
-        <Button type="link" onClick={onClickShowSignInButton}>
-          register now!
-        </Button>
-      </SignUpForm>
+      <SignInForm
+        hidden={showSignUpForm}
+        footerRender={
+          <>
+            Or
+            <Button
+              type="link"
+              style={{ padding: '5px' }}
+              onClick={handleRegisterLinkClick}
+            >
+              register now!
+            </Button>
+          </>
+        }
+      ></SignInForm>
+      <SignUpForm show={showSignUpForm} />
     </Modal>
   );
 };
 
 AuthModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  toggle: PropTypes.func.isRequired,
 };
 
 export default AuthModal;

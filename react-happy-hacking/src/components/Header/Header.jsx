@@ -43,7 +43,7 @@ const Header = () => {
         {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}
       </header>
 
-      <AuthModal onClick={toggleModal} isOpen={isModalOpen} />
+      <AuthModal isOpen={isModalOpen} toggle={toggleModal} />
     </>
   );
 };
