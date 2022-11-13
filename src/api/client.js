@@ -10,6 +10,11 @@ export const _axios = axios.create({
   timeout: 5000,
 });
 
+/** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
+_axios.interceptors.request.use((config) => {
+  config.headers['authorization'] = '{accessToken}';
+});
+
 const axiosWrapper = async (method, route, body, config) => {
   let bodyArr = [];
   switch (method) {
