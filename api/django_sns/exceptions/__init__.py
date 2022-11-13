@@ -1,1 +1,0 @@
-from .handlers import application_exception_handler
