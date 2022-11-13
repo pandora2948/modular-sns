@@ -7,8 +7,10 @@ export const TokenService = {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async refreshAccessToken({ refresh }) {
-    return await api.post('/token/refresh', {
-      refresh,
+    return await api.get('/token/reissue', {
+      headers: {
+        authorization: `Bearer ${refresh}`,
+      },
     });
   },
 };
