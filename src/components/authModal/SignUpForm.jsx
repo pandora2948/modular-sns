@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Input, message } from 'antd';
-import { UserService } from 'api/services';
+import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { passwordRegex, usernameRegex } from 'utils';
 import { requiredRule } from 'utils/formRules';
@@ -14,7 +14,7 @@ const SignUpForm = ({ show, closeModal }) => {
   const createUser = useCallback(
     async (values) => {
       try {
-        await UserService.createUser(values);
+        await AuthService.createUser(values);
         await message.success('회원가입 성공');
         closeModal();
       } catch (err) {

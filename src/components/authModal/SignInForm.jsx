@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, message } from 'antd';
-import { UserService } from 'api/services';
+import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { alertNotImpl } from 'utils';
 import { requiredRule } from 'utils/formRules';
@@ -11,7 +11,7 @@ const SignInForm = ({ hidden, footerRender }) => {
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
   const onFinish = useCallback(async ({ email, password, rememberChecked }) => {
     try {
-      const token = await UserService.login({
+      const token = await AuthService.login({
         email,
         password,
       });
