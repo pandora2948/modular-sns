@@ -12,7 +12,8 @@ export const _axios = axios.create({
 
 /** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
 _axios.interceptors.request.use((config) => {
-  config.headers['authorization'] = '{accessToken}';
+  config.headers['authorization'] = 'Bearer {token}';
+  return config;
 });
 
 const axiosWrapper = async (method, route, body, config) => {
