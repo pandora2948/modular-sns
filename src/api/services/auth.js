@@ -1,14 +1,6 @@
 import { api } from 'api/client';
 
-export const UserService = {
-  /**
-   * @description 사용자 정보를 불러옵니다.
-   * @returns {Promise<AxiosResponse<any>>}
-   */
-  async getUser() {
-    return await api.get('/user');
-  },
-
+export const AuthService = {
   /**
    * @description 사용자 회원가입 요청입니다. 사용 전 폼 검증 필수입니다.
    * @param username 회원가입 받을 사용자 이름
@@ -17,7 +9,7 @@ export const UserService = {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async createUser({ username, email, password }) {
-    return await api.post('/user/register', {
+    return await api.post('/auth/signup', {
       username,
       email,
       password,
@@ -31,9 +23,22 @@ export const UserService = {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async login({ email, password }) {
-    return await api.post('/user/login', {
+    return await api.post('/auth/login', {
       email,
       password,
+    });
+  },
+
+  /**
+   * @description refreshToken 을 헤더에 포함시켜 accessToken 을 새로 발급 받습니다.
+   * @param refresh refresToken 값
+   * @returns {Promise<AxiosResponse<{ data: { accessToken: string } }>>}
+   */
+  async reIssueAccessTokenByRefreshToken({ refresh }) {
+    return await api.get('/token/reissue', {
+      headers: {
+        authorization: `Bearer ${refresh}`,
+      },
     });
   },
 };
