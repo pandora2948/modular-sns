@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : '<production_url>';
+const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
 
 export const _axios = axios.create({
   baseURL: API_URL,
@@ -9,7 +9,10 @@ export const _axios = axios.create({
 
 /** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
 _axios.interceptors.request.use((config) => {
-  config.headers['authorization'] = 'Bearer {token}';
+  if (!['/auth/login', '/auth/signup'].includes(config.url)) {
+    config.headers['authorization'] = 'Bearer {token}';
+  }
+
   return config;
 });
 
