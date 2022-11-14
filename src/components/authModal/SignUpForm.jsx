@@ -112,7 +112,7 @@ const SignUpForm = ({ show, closeModal }) => {
 
 SignUpForm.propTypes = {
   show: PropTypes.bool.isRequired,
-  closeModal: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
