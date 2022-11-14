@@ -2,8 +2,8 @@
   "name": "modulear-sns-front",
   "version": "0.1.0",
   "engines": {
-    "node": ">=18.9.0",
-    "npm": ">=8.19.1"
+    "node": ">=18.3.0",
+    "npm": ">=8.11.0"
   },
   "scripts": {
     "prepare": "cd && husky install",
