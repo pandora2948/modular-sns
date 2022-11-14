@@ -14,23 +14,12 @@ const mockItems = [
 
 const Marketplace = ({ isOpen, onClick }) => {
   return (
-    <Modal
-      open={isOpen}
-      centered
-      onCancel={onClick}
-      onOk={onClick}
-      closable={false}
-      footer={null}
-    >
+    <Modal open={isOpen} centered onCancel={onClick} onOk={onClick} closable={false} footer={null}>
       <div className="h-96 overflow-y-scroll">
         <Collapse accordion>
           {mockItems.map(({ name, description }) => {
             return (
-              <CollapsePanel
-                key={shortid.generate()}
-                header={name}
-                showArrow={false}
-              >
+              <CollapsePanel key={shortid.generate()} header={name} showArrow={false}>
                 <MarketItem name={name} description={description} />
               </CollapsePanel>
             );

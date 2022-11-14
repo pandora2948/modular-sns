@@ -31,9 +31,7 @@ const router = createBrowserRouter([
     path: '/search',
     element: <SearchHashtagPage />,
     loader: ({ request }) => {
-      const temp = Object.entries(qs.parse(request.url)).map(
-        ([__, value]) => value
-      );
+      const temp = Object.entries(qs.parse(request.url)).map(([__, value]) => value);
       return [temp[temp.length - 1], ...temp].slice(0, temp.length);
     },
   },

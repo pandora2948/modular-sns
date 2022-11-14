@@ -6,9 +6,7 @@ import { useQuery } from 'react-query';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
 
-const Tag = ({ name }) => (
-  <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>
-);
+const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 
 const SearchHashtag = () => {
   const query = useLoaderData();

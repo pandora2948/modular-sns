@@ -5,12 +5,6 @@ import { tokenHandlers } from 'api/mocks/handlers/token';
 import { userHandlers } from 'api/mocks/handlers/user';
 import { setupWorker } from 'msw';
 
-const handlers = [
-  ...tokenHandlers,
-  ...userHandlers,
-  ...postHandlers,
-  ...postsHandlers,
-  ...commentsHandlers,
-];
+const handlers = [...tokenHandlers, ...userHandlers, ...postHandlers, ...postsHandlers, ...commentsHandlers];
 
 export const worker = setupWorker(...handlers);

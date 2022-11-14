@@ -20,9 +20,7 @@ const HeaderSearch = ({ closeSearch }) => {
         return message.error('해시태그로 검색해주세요.');
       }
 
-      const filteredHashTags = [
-        ...new Set(hashtags.map((v) => v.replace(/#{2,}/g, '#'))),
-      ];
+      const filteredHashTags = [...new Set(hashtags.map((v) => v.replace(/#{2,}/g, '#')))];
 
       if (filteredHashTags.length > 5) {
         return message.error('해시태그는 5개 이상 검색할 수 없습니다.');
@@ -44,12 +42,7 @@ const HeaderSearch = ({ closeSearch }) => {
 
   return (
     <div className="absolute right-1 -bottom-10 z-[999]">
-      <Input.Search
-        ref={inputRef}
-        placeholder="#개발 #개발자"
-        size="large"
-        onSearch={onSearch}
-      />
+      <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={onSearch} />
     </div>
   );
 };

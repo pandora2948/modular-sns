@@ -8,8 +8,7 @@ import { requiredRule } from 'utils/formRules';
 
 const SignUpForm = ({ show, closeModal }) => {
   const [form] = Form.useForm();
-  const { formValidateTrigger, onFormFinishFailed, hasFeedback } =
-    useFormValidateTrigger();
+  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const createUser = useCallback(
     async (values) => {
@@ -79,9 +78,7 @@ const SignUpForm = ({ show, closeModal }) => {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(
-                  new Error('비밀번호가 일치하지 않습니다.')
-                );
+                return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
               },
             }),
           ]}
@@ -104,12 +101,7 @@ const SignUpForm = ({ show, closeModal }) => {
           <Input allowClear />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            size="large"
-            htmlType="submit"
-            className="w-full mt-4"
-          >
+          <Button type="primary" size="large" htmlType="submit" className="w-full mt-4">
             가입하기
           </Button>
         </Form.Item>

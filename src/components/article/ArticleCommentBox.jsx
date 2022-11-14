@@ -8,11 +8,9 @@ import { useMutation } from 'react-query';
 const ArticleCommentBox = ({ open }) => {
   const inputRef = useRef(null);
 
-  const { mutate: createComment, isError: createCommentFailure } = useMutation(
-    async ({ id, comment }) => {
-      return await CommentsService.postComment({ id, comment });
-    }
-  );
+  const { mutate: createComment, isError: createCommentFailure } = useMutation(async ({ id, comment }) => {
+    return await CommentsService.postComment({ id, comment });
+  });
 
   const onEnterComment = useCallback(
     async ({ key }) => {

@@ -44,12 +44,7 @@ const SignInForm = ({ hidden, footerRender }) => {
           <Input prefix={<UserOutlined />} placeholder="이메일" allowClear />
         </Form.Item>
         <Form.Item name="password" rules={[requiredRule]}>
-          <Input
-            prefix={<LockOutlined />}
-            type="password"
-            placeholder="비밀번호"
-            allowClear
-          />
+          <Input prefix={<LockOutlined />} type="password" placeholder="비밀번호" allowClear />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox
@@ -64,12 +59,7 @@ const SignInForm = ({ hidden, footerRender }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            type="primary"
-            size="large"
-            htmlType="submit"
-            className="w-full mt-5"
-          >
+          <Button type="primary" size="large" htmlType="submit" className="w-full mt-5">
             로그인
           </Button>
         </Form.Item>

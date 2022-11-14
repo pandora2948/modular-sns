@@ -9,16 +9,13 @@ import { useState } from 'react';
 export const useLocalStorage = (key, initialValue) => {
   // 값을 저장할 상태
   // 로직이 한 번만 실행되도록 초기 상태 함수를 useState 에 전달합니다.
-  const [storedValue, setStoredValue] = useState(() =>
-    getStoredValue(key, initialValue)
-  );
+  const [storedValue, setStoredValue] = useState(() => getStoredValue(key, initialValue));
   // useState 의 setter 함수의 래핑된 버전을 반환합니다.
   // ... 새 값을 localStorage 에 유지합니다.
   const setValue = (value) => {
     try {
       // 값이 함수가 되도록 허용하여 useState 와 동일한 API 를 갖습니다.
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
       // 상태 저장
       setStoredValue(valueToStore);
       // localStorage 에 저장

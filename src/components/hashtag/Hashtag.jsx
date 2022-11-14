@@ -11,17 +11,10 @@ const Hashtag = ({ tag }) => {
   const navigate = useNavigate();
   const query = useMemo(() => qs.stringify([tag]), [tag]);
 
-  const onClickTag = useCallback(
-    () => navigate(`/search?${query}`),
-    [navigate, query]
-  );
+  const onClickTag = useCallback(() => navigate(`/search?${query}`), [navigate, query]);
 
   return (
-    <Text
-      onClick={onClickTag}
-      className="text-sky-500 pr-0.5 cursor-pointer"
-      key={shortid.generate()}
-    >
+    <Text onClick={onClickTag} className="text-sky-500 pr-0.5 cursor-pointer" key={shortid.generate()}>
       {tag}
     </Text>
   );

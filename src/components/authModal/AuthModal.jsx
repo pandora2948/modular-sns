@@ -25,38 +25,20 @@ const AuthModal = ({ isOpen, close }) => {
   }, []);
 
   return (
-    <Modal
-      open={isOpen}
-      onCancel={closeModal}
-      centered
-      footer={null}
-      destroyOnClose
-    >
+    <Modal open={isOpen} onCancel={closeModal} centered footer={null} destroyOnClose>
       <SignInForm
         hidden={showSignUpForm}
         footerRender={
           <div className="flex items-center justify-center pr-3">
-            <Button
-              type="text"
-              className="p-0 text-gray-600"
-              onClick={openFindPasswordModal}
-            >
+            <Button type="text" className="p-0 text-gray-600" onClick={openFindPasswordModal}>
               비밀번호 찾기
             </Button>
             <Divider type="vertical" className="mt-0.5 border-gray-300" />
-            <Button
-              type="text"
-              className="p-0 text-gray-600"
-              onClick={openFindEmailModal}
-            >
+            <Button type="text" className="p-0 text-gray-600" onClick={openFindEmailModal}>
               이메일 찾기
             </Button>
             <Divider type="vertical" className="mt-0.5 border-gray-300" />
-            <Button
-              type="text"
-              className="p-0 text-gray-600"
-              onClick={openSignUpModal}
-            >
+            <Button type="text" className="p-0 text-gray-600" onClick={openSignUpModal}>
               회원가입
             </Button>
           </div>

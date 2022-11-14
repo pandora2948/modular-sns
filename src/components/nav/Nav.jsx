@@ -17,20 +17,13 @@ const Nav = () => {
         {Array(5)
           .fill(0)
           .map(() => (
-            <Button
-              type="text"
-              key={shortid.generate()}
-              onClick={openMarketPlaceModal}
-            >
+            <Button type="text" key={shortid.generate()} onClick={openMarketPlaceModal}>
               <PlusCircleFilled style={{ fontSize: '1.8em' }} />
             </Button>
           ))}
       </nav>
 
-      <Marketplace
-        isOpen={isMarketPlaceModalOpen}
-        onClick={toggleMarketPlaceModal}
-      />
+      <Marketplace isOpen={isMarketPlaceModalOpen} onClick={toggleMarketPlaceModal} />
     </>
   );
 };

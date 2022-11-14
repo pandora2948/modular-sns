@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-const API_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/api'
-    : '<production_url>';
+const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : '<production_url>';
 
 export const _axios = axios.create({
   baseURL: API_URL,

@@ -11,10 +11,7 @@ const Header = () => {
   const { isModalOpen, closeModal, openModal } = useModal();
 
   const closeSearchVisible = useCallback(() => setOpenSearch(false), []);
-  const toggleSearchVisible = useCallback(
-    () => setOpenSearch((prev) => !prev),
-    []
-  );
+  const toggleSearchVisible = useCallback(() => setOpenSearch((prev) => !prev), []);
 
   return (
     <>
@@ -28,16 +25,8 @@ const Header = () => {
           <Link to="/">sns-modular</Link>
         </h1>
         <nav className="flex gap-x-2">
-          <Button
-            shape="circle"
-            icon={<SearchOutlined />}
-            onClick={toggleSearchVisible}
-          />
-          <Button
-            shape="circle"
-            icon={<UserOutlined color="black" />}
-            onClick={openModal}
-          />
+          <Button shape="circle" icon={<SearchOutlined />} onClick={toggleSearchVisible} />
+          <Button shape="circle" icon={<UserOutlined color="black" />} onClick={openModal} />
         </nav>
 
         {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}

@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:react-hooks/recommended',
+    'prettier',
   ],
   plugins: ['unused-imports', 'import'],
   parserOptions: {
@@ -67,12 +68,7 @@ module.exports = {
             position: 'before',
           },
         ],
-        pathGroupsExcludedImportTypes: [
-          'react',
-          'react-router-dom',
-          'react-dom/client',
-          'prop-types',
-        ],
+        pathGroupsExcludedImportTypes: ['react', 'react-router-dom', 'react-dom/client', 'prop-types'],
         alphabetize: {
           order: 'asc',
           caseInsensitive: false,

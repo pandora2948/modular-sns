@@ -21,11 +21,7 @@ const ArticleCommentList = ({ comments }) => {
           <ArticleComment keyId={shortid.generate()} comment={comment} />
         </div>
       ))}
-      <Text
-        key={shortid.generate()}
-        className="text-sky-500 cursor-pointer w-fit"
-        onClick={onClickHandleExpand}
-      >
+      <Text key={shortid.generate()} className="text-sky-500 cursor-pointer w-fit" onClick={onClickHandleExpand}>
         {isExpand ? '댓글 닫기' : '댓글 더보기'}
       </Text>
     </section>
