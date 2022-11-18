@@ -2,15 +2,20 @@ import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
 
-export const _axios = axios.create({
+const _axios = axios.create({
   baseURL: API_URL,
   timeout: 5000,
 });
 
 /** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
 _axios.interceptors.request.use((config) => {
-  if (!['/auth/login', '/auth/signup'].includes(config.url)) {
-    config.headers['authorization'] = 'Bearer {token}';
+  const token = sessionStorage.getItem('ACCESS_TOKEN');
+  try {
+    if (!['/auth/login', '/auth/signup'].includes(config.url)) {
+      config.headers['authorization'] = `Bearer ${token}`;
+    }
+  } catch (e) {
+    console.log(e);
   }
 
   return config;
@@ -38,7 +43,9 @@ const axiosWrapper = async (method, route, body, config) => {
   }
 
   try {
-    const { data } = await _axios[method](...bodyArr);
+    const {
+      data: { data },
+    } = await _axios[method](...bodyArr);
 
     if (data.error) {
       throw data;

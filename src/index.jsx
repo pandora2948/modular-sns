@@ -8,6 +8,7 @@ import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
+import Profile from './pages/profile';
 
 import './styles/styles.css';
 
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
       const temp = Object.entries(qs.parse(request.url)).map(([__, value]) => value);
       return [temp[temp.length - 1], ...temp].slice(0, temp.length);
     },
+  },
+  {
+    path: '/user-info',
+    element: <Profile />,
+    errorElement: <Error />,
   },
 ]);
 

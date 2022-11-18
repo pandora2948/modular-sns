@@ -28,6 +28,7 @@ const AuthModal = ({ isOpen, close }) => {
     <Modal open={isOpen} onCancel={closeModal} centered footer={null} destroyOnClose>
       <SignInForm
         hidden={showSignUpForm}
+        handleModalClose={closeModal}
         footerRender={
           <div className="flex items-center justify-center pr-3">
             <Button type="text" className="p-0 text-gray-600" onClick={openFindPasswordModal}>

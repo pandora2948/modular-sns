@@ -4,25 +4,20 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
-import { alertNotImpl } from 'utils';
+import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
 const SignInForm = ({ hidden, footerRender }) => {
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
-  const onFinish = useCallback(async ({ email, password, rememberChecked }) => {
+  const onFinish = useCallback(async ({ email, password, remember }) => {
     try {
-      const token = await AuthService.login({
+      const { accessToken, refreshToken } = await AuthService.login({
         email,
         password,
       });
 
-      console.log('token:', token);
-
-      if (rememberChecked) {
-        /* TODO: 토큰 기억 할거면 로컬스토리지 */
-      } else {
-        /* TODO: 기억 안할거면 세션스토리지에 저장하기 */
-      }
+      token.refreshToken.set(refreshToken, remember);
+      token.accessToken.set(accessToken);
     } catch (err) {
       await message.error(err.message);
     }
@@ -47,15 +42,7 @@ const SignInForm = ({ hidden, footerRender }) => {
           <Input prefix={<LockOutlined />} type="password" placeholder="비밀번호" allowClear />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox
-            onChange={(e) => {
-              if (e.target.checked) {
-                alertNotImpl();
-              }
-            }}
-          >
-            로그인 상태 유지
-          </Checkbox>
+          <Checkbox>로그인 상태 유지</Checkbox>
         </Form.Item>
 
         <Form.Item>

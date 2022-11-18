@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import AuthModal from 'components/authModal/AuthModal';
 import { useModal } from 'hooks/useModal';
+import { token } from 'utils';
 import HeaderSearch from './HeaderSearch';
 
 const Header = () => {
@@ -12,6 +13,12 @@ const Header = () => {
 
   const closeSearchVisible = useCallback(() => setOpenSearch(false), []);
   const toggleSearchVisible = useCallback(() => setOpenSearch((prev) => !prev), []);
+
+  const navigate = useNavigate();
+
+  const handleUserIcon = useCallback(() => {
+    token.accessToken.get() ? navigate('/user-info') : openModal();
+  }, [navigate, openModal]);
 
   return (
     <>
@@ -26,7 +33,7 @@ const Header = () => {
         </h1>
         <nav className="flex gap-x-2">
           <Button shape="circle" icon={<SearchOutlined />} onClick={toggleSearchVisible} />
-          <Button shape="circle" icon={<UserOutlined color="black" />} onClick={openModal} />
+          <Button shape="circle" icon={<UserOutlined color="black" />} onClick={handleUserIcon} />
         </nav>
 
         {openSearch && <HeaderSearch closeSearch={closeSearchVisible} />}
