@@ -13,11 +13,6 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   async (config) => {
-    // auth 요청이면 토큰 당연히 없으므로 패스
-    if (authRoutes.includes(config.url)) {
-      return config;
-    }
-
     const { accessToken, refreshToken } = token.get();
 
     // 둘 다 없으면 에러 날거 알지만 받는 곳에서 에러 컨트롤 할거니까 일단 패스
@@ -34,7 +29,7 @@ _axios.interceptors.request.use(
 
     try {
       // accessToken 없다면 리프레쉬 토큰으로 새 토큰 받아서 세팅 후 요청
-      const newAccessToken = AuthService.reIssueAccessToken({ refreshToken });
+      const newAccessToken = await AuthService.reIssueAccessToken({ refreshToken });
       token.accessToken.set(newAccessToken);
       config.headers['authorization'] = `Bearer ${newAccessToken}`;
       return config;
@@ -46,6 +41,10 @@ _axios.interceptors.request.use(
   undefined,
   {
     synchronous: true,
+    runWhen: (config) => {
+      // auth 요청이면 토큰 당연히 없으므로 패스
+      return !authRoutes.includes(config.url);
+    },
   }
 );
 
@@ -85,6 +84,7 @@ const axiosWrapper = async (method, route, body, config) => {
       window.location = '/';
       return;
     }
+    console.log(e);
     throw new Error(e.error?.message ?? e.error ?? e);
   }
 };
