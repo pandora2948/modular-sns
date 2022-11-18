@@ -29,7 +29,9 @@ _axios.interceptors.request.use(
 
     try {
       // accessToken 없다면 리프레쉬 토큰으로 새 토큰 받아서 세팅 후 요청
-      const newAccessToken = await AuthService.reIssueAccessToken({ refreshToken });
+      const {
+        data: { accessToken: newAccessToken },
+      } = await AuthService.reIssueAccessToken({ refreshToken });
       token.accessToken.set(newAccessToken);
       config.headers['authorization'] = `Bearer ${newAccessToken}`;
       return config;
