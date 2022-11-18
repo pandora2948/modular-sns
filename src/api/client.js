@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { ACCESS_TOKEN_KEY } from 'utils';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
+const authRoutes = ['/auth/login', '/auth/signup'];
 
 const _axios = axios.create({
   baseURL: API_URL,
@@ -9,13 +11,9 @@ const _axios = axios.create({
 
 /** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
 _axios.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('ACCESS_TOKEN');
-  try {
-    if (!['/auth/login', '/auth/signup'].includes(config.url)) {
-      config.headers['authorization'] = `Bearer ${token}`;
-    }
-  } catch (e) {
-    console.log(e);
+  const token = sessionStorage.getItem(ACCESS_TOKEN_KEY);
+  if (!authRoutes.includes(config.url)) {
+    config.headers['authorization'] = `Bearer ${token}`;
   }
 
   return config;
