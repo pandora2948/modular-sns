@@ -1,9 +1,6 @@
-export const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN';
-export const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN';
-
 export const token = {
   accessToken: {
-    key: ACCESS_TOKEN_KEY,
+    key: 'ACCESS_TOKEN',
 
     set(v) {
       sessionStorage.setItem(this.key, v);
@@ -19,7 +16,7 @@ export const token = {
   },
 
   refreshToken: {
-    key: REFRESH_TOKEN_KEY,
+    key: 'REFRESH_TOKEN',
     isRemember: false,
 
     get storage() {
@@ -42,6 +39,13 @@ export const token = {
     delete() {
       this.storage.removeItem(this.key);
     },
+  },
+
+  get() {
+    return {
+      accessToken: this.accessToken.get(),
+      refreshToken: this.refreshToken.get(),
+    };
   },
 
   clear() {

@@ -1,23 +1,53 @@
+import { AuthService } from 'api/services';
 import axios from 'axios';
-import { ACCESS_TOKEN_KEY } from 'utils';
+import { token } from 'utils';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
 const authRoutes = ['/auth/login', '/auth/signup'];
+const authErrorStatusList = [401, 403];
 
 const _axios = axios.create({
   baseURL: API_URL,
   timeout: 5000,
 });
 
-/** @inheritDoc accessToken 값에 스토어 값을 불러와서 토큰 값을 기입하세요. **/
-_axios.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem(ACCESS_TOKEN_KEY);
-  if (!authRoutes.includes(config.url)) {
-    config.headers['authorization'] = `Bearer ${token}`;
-  }
+_axios.interceptors.request.use(
+  async (config) => {
+    // auth 요청이면 토큰 당연히 없으므로 패스
+    if (authRoutes.includes(config.url)) {
+      return config;
+    }
 
-  return config;
-});
+    const { accessToken, refreshToken } = token.get();
+
+    // 둘 다 없으면 에러 날거 알지만 받는 곳에서 에러 컨트롤 할거니까 일단 패스
+    // TODO: abort | cancel 하면서 리디렉션 처리 가능?
+    if (!accessToken && !refreshToken) {
+      return config;
+    }
+
+    // accessToken 있다면 헤더에 세팅 후 요청
+    if (accessToken) {
+      config.headers['authorization'] = `Bearer ${accessToken}`;
+      return config;
+    }
+
+    try {
+      // accessToken 없다면 리프레쉬 토큰으로 새 토큰 받아서 세팅 후 요청
+      const newAccessToken = AuthService.reIssueAccessToken({ refreshToken });
+      token.accessToken.set(newAccessToken);
+      config.headers['authorization'] = `Bearer ${newAccessToken}`;
+      return config;
+    } catch {
+      // 에러 날거 알지만 받는 곳에서 에러 컨트롤 할거니까 일단 패스
+      return config;
+    }
+  },
+  undefined,
+  {
+    synchronous: true,
+  }
+);
 
 const axiosWrapper = async (method, route, body, config) => {
   let bodyArr = [];
@@ -51,6 +81,10 @@ const axiosWrapper = async (method, route, body, config) => {
 
     return data;
   } catch (e) {
+    if (e.isAxiosError && authErrorStatusList.includes(e.status)) {
+      window.location = '/';
+      return;
+    }
     throw new Error(e.error?.message ?? e.error ?? e);
   }
 };

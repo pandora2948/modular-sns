@@ -34,10 +34,10 @@ export const AuthService = {
    * @param refresh refresToken 값
    * @returns {Promise<AxiosResponse<{ data: { accessToken: string } }>>}
    */
-  async reIssueAccessTokenByRefreshToken({ refresh }) {
+  async reIssueAccessToken({ refreshToken }) {
     return await api.get('/token/reissue', {
       headers: {
-        authorization: `Bearer ${refresh}`,
+        authorization: `Bearer ${refreshToken}`,
       },
     });
   },
