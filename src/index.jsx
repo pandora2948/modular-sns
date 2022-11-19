@@ -1,8 +1,9 @@
+import 'styles/styles.css';
+
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { message } from 'antd';
-import { worker } from 'api/mocks/worker';
 import FindEmail from 'pages/auth/find-email';
 import FindPassword from 'pages/auth/find-password';
 import SignIn from 'pages/auth/sign-in';
@@ -13,12 +14,6 @@ import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 import Profile from './pages/profile';
-
-import './styles/styles.css';
-
-if (process.env.NODE_ENV === 'development') {
-  worker.start().then();
-}
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
