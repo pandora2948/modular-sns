@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Input, message } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Button, Input, message, Modal } from 'antd';
+import { useModal } from 'hooks/useModal';
 import qs from 'qs';
 
-const HeaderSearch = ({ closeSearch }) => {
+const HeaderSearch = () => {
   const navigate = useNavigate();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef(null);
 
   const onSearch = useCallback(
@@ -26,29 +28,22 @@ const HeaderSearch = ({ closeSearch }) => {
         return message.error('해시태그는 5개 이상 검색할 수 없습니다.');
       }
 
-      closeSearch();
       navigate(`/search?${qs.stringify(filteredHashTags)}`);
     },
-    [navigate, closeSearch]
+    [navigate]
   );
-
-  useEffect(() => {
-    if (!inputRef.current) return;
-
-    const search = inputRef.current.input;
-    search.focus();
-    search.onblur = closeSearch;
-  }, [closeSearch, inputRef]);
 
   return (
-    <div className="absolute right-1 -bottom-10 z-[999]">
-      <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={onSearch} />
-    </div>
+    <>
+      <Button shape="circle" icon={<SearchOutlined />} onClick={openModal} />
+
+      <Modal title="해쉬태그 검색" open={isModalOpen} onCancel={closeModal} footer={null} centered>
+        <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={onSearch} />
+      </Modal>
+    </>
   );
 };
 
-HeaderSearch.propTypes = {
-  closeSearch: PropTypes.func.isRequired,
-};
+HeaderSearch.propTypes = {};
 
 export default HeaderSearch;
