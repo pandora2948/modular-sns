@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { PostsService } from 'api/services';
+import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/postCard/PostCard';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
@@ -35,13 +36,17 @@ const Feed = () => {
 
   return (
     <AppLayout>
-      <section className="flex flex-col gap-y-7" ref={containerRef}>
-        {feeds.length === 0 ? (
-          <div>컨텐츠 없음</div>
-        ) : (
-          feeds.map((feed) => <PostCard key={shortid.generate()} {...feed} />)
-        )}
-      </section>
+      {feeds.length === 0 ? (
+        <section className="h-full flex flex-col justify-center">
+          <EmptyFeed />
+        </section>
+      ) : (
+        <section className="flex flex-col gap-y-7" ref={containerRef}>
+          {feeds.map((feed) => (
+            <PostCard key={shortid.generate()} {...feed} />
+          ))}
+        </section>
+      )}
     </AppLayout>
   );
 };
