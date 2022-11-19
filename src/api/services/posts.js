@@ -84,6 +84,6 @@ export const PostsService = {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async getPostsByHashtags({ hashtags }) {
-    return await api.post('/posts/search', { hashtags });
+    return await api.get('/posts/search', { hashtags });
   },
 };

@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { PostsService } from 'api/services';
 import PostCard from 'components/post/postCard/PostCard';
+import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import AppLayout from 'layouts/AppLayout';
 import { isNil } from 'lodash';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
+import { alertNotImpl } from 'utils';
 
 const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 
@@ -14,11 +15,14 @@ const SearchHashtag = () => {
   const [posts, _setPosts] = useState(undefined);
 
   // TODO: 스크롤링 페이지네이션 fetch 적용하기
-  useEffect(() => {
-    PostsService.getPostsByHashtags({ hashtags }).then((v) => {
-      console.log(v);
-    });
-  }, [hashtags]);
+  const getPosts = useCallback(async () => {
+    // const { ... } = await PostsService.getPostsByHashtags({ hashtags });
+    alertNotImpl();
+  }, []);
+
+  useDidMountEffect(() => {
+    getPosts().then();
+  });
 
   return (
     <AppLayout>
