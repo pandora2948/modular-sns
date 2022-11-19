@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Carousel, Image } from 'antd';
 import shortid from 'shortid';
 
-const ArticleCarousel = ({ images }) => {
+const PostCardCarousel = ({ images }) => {
   if (!images || images.length === 0) return null;
 
   return (
@@ -28,8 +28,8 @@ const ArticleCarousel = ({ images }) => {
   );
 };
 
-ArticleCarousel.propTypes = {
+PostCardCarousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default ArticleCarousel;
+export default PostCardCarousel;

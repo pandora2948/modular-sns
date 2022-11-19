@@ -4,7 +4,7 @@ import shortid from 'shortid';
 
 const { Text } = Typography;
 
-const ArticleHashtags = ({ tags }) => (
+const PostCardHashtags = ({ tags }) => (
   <>
     {tags.map((tag) => (
       <Text className="text-sky-500 pr-0.5" key={shortid.generate()}>
@@ -14,8 +14,8 @@ const ArticleHashtags = ({ tags }) => (
   </>
 );
 
-ArticleHashtags.propTypes = {
+PostCardHashtags.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default ArticleHashtags;
+export default PostCardHashtags;

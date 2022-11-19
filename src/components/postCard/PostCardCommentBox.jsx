@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { CommentsService } from 'api/services';
 import { useMutation } from 'react-query';
 
-const ArticleCommentBox = ({ open }) => {
+const PostCardCommentBox = ({ open }) => {
   const inputRef = useRef(null);
 
   const { mutate: createComment, isError: createCommentFailure } = useMutation(async ({ id, comment }) => {
@@ -58,8 +58,8 @@ const ArticleCommentBox = ({ open }) => {
   );
 };
 
-ArticleCommentBox.propTypes = {
+PostCardCommentBox.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
-export default ArticleCommentBox;
+export default PostCardCommentBox;

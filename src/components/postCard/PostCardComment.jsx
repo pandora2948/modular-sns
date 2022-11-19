@@ -5,7 +5,7 @@ import { Typography } from 'antd';
 
 const { Text } = Typography;
 
-const ArticleComment = ({ comment }) => (
+const PostCardComment = ({ comment }) => (
   <div className="flex items-center gap-x-3">
     <div className="flex gap-x-1 items-center">
       <UserOutlined />
@@ -15,11 +15,11 @@ const ArticleComment = ({ comment }) => (
   </div>
 );
 
-ArticleComment.propTypes = {
+PostCardComment.propTypes = {
   comment: PropTypes.shape({
     writer: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default memo(ArticleComment);
+export default memo(PostCardComment);

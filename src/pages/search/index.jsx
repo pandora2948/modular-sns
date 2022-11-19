@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { PostsService } from 'api/services';
-import Article from 'components/article/Article';
+import PostCard from 'components/postCard/PostCard';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import { useLoaderData } from 'react-router';
@@ -29,7 +29,7 @@ const SearchHashtag = () => {
       <section>
         <article className="flex flex-col gap-y-7">
           {posts.map((post) => (
-            <Article key={shortid.generate()} {...post} />
+            <PostCard key={shortid.generate()} {...post} />
           ))}
         </article>
       </section>

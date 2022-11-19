@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from 'antd';
-import ArticleComment from 'components/article/ArticleComment';
+import PostCardComment from 'components/postCard/PostCardComment';
 import shortid from 'shortid';
 
 const { Text } = Typography;
 
-const ArticleCommentList = ({ comments }) => {
+const PostCardCommentList = ({ comments }) => {
   const [isExpand, setIsExpand] = useState(false);
   const displayComments = isExpand ? comments : [comments[0]];
 
@@ -18,7 +18,7 @@ const ArticleCommentList = ({ comments }) => {
     <section className="flex flex-col justify-center p-3">
       {displayComments?.map((comment) => (
         <div key={shortid.generate()}>
-          <ArticleComment keyId={shortid.generate()} comment={comment} />
+          <PostCardComment keyId={shortid.generate()} comment={comment} />
         </div>
       ))}
       <Text key={shortid.generate()} className="text-sky-500 cursor-pointer w-fit" onClick={onClickHandleExpand}>
@@ -28,7 +28,7 @@ const ArticleCommentList = ({ comments }) => {
   );
 };
 
-ArticleCommentList.propTypes = {
+PostCardCommentList.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       writer: PropTypes.string.isRequired,
@@ -37,4 +37,4 @@ ArticleCommentList.propTypes = {
   ),
 };
 
-export default ArticleCommentList;
+export default PostCardCommentList;

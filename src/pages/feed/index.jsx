@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { PostsService } from 'api/services';
-import Article from 'components/article/Article';
+import PostCard from 'components/postCard/PostCard';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import shortid from 'shortid';
@@ -35,11 +35,13 @@ const Feed = () => {
 
   return (
     <AppLayout>
-      <article className="flex flex-col gap-y-7" ref={containerRef}>
-        {feeds.map((feed) => (
-          <Article key={shortid.generate()} {...feed} />
-        ))}
-      </article>
+      <section className="flex flex-col gap-y-7" ref={containerRef}>
+        {feeds.length === 0 ? (
+          <div>컨텐츠 없음</div>
+        ) : (
+          feeds.map((feed) => <PostCard key={shortid.generate()} {...feed} />)
+        )}
+      </section>
     </AppLayout>
   );
 };

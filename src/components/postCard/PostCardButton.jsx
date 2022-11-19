@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 
-const ArticleButton = ({ children, onClick }) => (
+const PostCardButton = ({ children, onClick }) => (
   <Button className="p-2 w-full flex-all" onClick={onClick}>
     {children}
   </Button>
 );
 
-ArticleButton.propTypes = {
+PostCardButton.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-export default ArticleButton;
+export default PostCardButton;

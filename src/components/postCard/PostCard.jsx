@@ -4,14 +4,14 @@ import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-
 import { Typography, Divider, Popover } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import shortid from 'shortid';
-import ArticleButton from './ArticleButton';
-import ArticleCarousel from './ArticleCarousel';
-import ArticleCommentBox from './ArticleCommentBox';
-import ArticleCommentList from './ArticleCommentList';
+import PostCardButton from './PostCardButton';
+import PostCardCarousel from './PostCardCarousel';
+import PostCardCommentBox from './PostCardCommentBox';
+import PostCardCommentList from './PostCardCommentList';
 
 const { Text } = Typography;
 
-const Article = ({ images, likeCount, writer, content, hashtags, comments }) => {
+const PostCard = ({ images, likeCount, writer, content, hashtags, comments }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
@@ -19,7 +19,7 @@ const Article = ({ images, likeCount, writer, content, hashtags, comments }) => 
 
   return (
     <div key={shortid.generate()} className="card">
-      <ArticleCarousel images={images} />
+      <PostCardCarousel images={images} />
       <section className="px-4 pt-4 pb-2">
         <div className="flex gap-x-3 items-center pb-0.5">
           <UserOutlined size="32px" />
@@ -40,25 +40,25 @@ const Article = ({ images, likeCount, writer, content, hashtags, comments }) => 
       <Divider className="m-0" />
 
       <section className="flex interact-space">
-        <ArticleButton onClick={onClickLikeBox}>
+        <PostCardButton onClick={onClickLikeBox}>
           <LikeOutlined className="pr-1" />
           <Text>좋아요</Text>
-        </ArticleButton>
-        <ArticleButton onClick={handleCommentBox}>
+        </PostCardButton>
+        <PostCardButton onClick={handleCommentBox}>
           <CommentOutlined className="pr-1" />
           <Text>{isOpenCommentBox ? '댓글 닫기' : '댓글 달기'}</Text>
-        </ArticleButton>
+        </PostCardButton>
       </section>
 
       <Divider className="m-0" />
 
-      <ArticleCommentBox open={isOpenCommentBox} />
-      <ArticleCommentList comments={comments} />
+      <PostCardCommentBox open={isOpenCommentBox} />
+      <PostCardCommentList comments={comments} />
     </div>
   );
 };
 
-Article.propTypes = {
+PostCard.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string),
   writer: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
@@ -72,4 +72,4 @@ Article.propTypes = {
   ),
 };
 
-export default Article;
+export default PostCard;
