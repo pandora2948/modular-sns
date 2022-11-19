@@ -37,6 +37,7 @@ export const token = {
     },
 
     delete() {
+      this.isRemember = false;
       this.storage.removeItem(this.key);
     },
   },
