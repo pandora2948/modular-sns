@@ -26,7 +26,7 @@ export const PostsService = {
    * @param postId 게시글 id (고유 번호)
    * @returns 게시글 데이터를 반환합니다. {Promise<any>}
    */
-  async getPostById({ postId }) {
+  async getPostsById({ postId }) {
     return await api.get(`/posts/${postId}`);
   },
 
@@ -37,8 +37,13 @@ export const PostsService = {
    * @param size 가져올 게시글 개수
    * @returns {Promise<any>}
    */
-  async getLoginedUserPosts({ page, size }) {
-    return await api.get(`/posts/token?page=${page}&size=${size}`);
+  async getUserPosts({ page, size }) {
+    return await api.get(
+      `/posts/token?${qs.stringify({
+        page,
+        size,
+      })}`
+    );
   },
 
   /**
@@ -74,7 +79,7 @@ export const PostsService = {
    * @param hashtags 배열로 구성된 해시태그 문자열
    * @returns {Promise<AxiosResponse<any>>}
    */
-  async getSearchPosts({ hashtags }) {
+  async getPostsByHashtags({ hashtags }) {
     return await api.post('/posts/search', { hashtags });
   },
 };

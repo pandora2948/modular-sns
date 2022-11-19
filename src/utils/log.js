@@ -7,15 +7,23 @@ const color = {
 
 export function printRequestLog({ method, endPoint, requestObj, config }) {
   console.log(
-    `%c${method.toUpperCase()} ${endPoint} [REQ]`,
+    `%c${method.toUpperCase()} ${endPoint} [REQ BODY]`,
     `color: ${color.info};font-weight: bold;`,
     requestObj ?? ''
   );
-  console.log(`%c${method.toUpperCase()} ${endPoint} [CONFIG]`, `color: ${color.info};font-weight: bold;`, config);
+  console.log(
+    `%c${method.toUpperCase()} ${endPoint} [REQ HEADERS]`,
+    `color: ${color.info};font-weight: bold;`,
+    config.headers
+  );
 }
 
 export function printResponseLog({ method, endPoint, responseObj }) {
-  console.log(`%c${method.toUpperCase()} ${endPoint} [RES]`, `color: ${color.success};font-weight: bold`, responseObj);
+  console.log(
+    `%c${method.toUpperCase()} ${endPoint} [RES BODY]`,
+    `color: ${color.success};font-weight: bold`,
+    responseObj
+  );
 }
 
 export function printErrorLog({ method, endPoint, errorMessage, errorObj }) {
