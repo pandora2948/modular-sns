@@ -1,4 +1,5 @@
 import { api } from 'api/client';
+import qs from 'qs';
 
 /**
  * @suppress 파일 업로드, 파일 get 관련 기능은 아직 지원하지 않습니다. 2022-11-15
@@ -12,7 +13,12 @@ export const PostsService = {
    * @returns {Promise<any>}
    */
   async getPosts({ page, size }) {
-    return await api.get(`/posts/list?page=${page}&size=${size}`);
+    return await api.get(
+      `/posts/list?${qs.stringify({
+        page,
+        size,
+      })}`
+    );
   },
 
   /**

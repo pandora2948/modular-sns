@@ -10,7 +10,7 @@ const FEED_KEY = 'main-feed';
 const Feed = () => {
   const [feedCount] = useState(3);
   const { data: feeds = [] } = useQuery([FEED_KEY, feedCount], async () => {
-    return await PostsService.getPosts(feedCount);
+    return await PostsService.getPosts({ page: 1, size: feedCount });
   });
   const containerRef = useRef(null);
 
