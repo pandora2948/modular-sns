@@ -1,5 +1,5 @@
 import { AuthService } from 'api/services';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { token, printRequestLog, printResponseLog, printErrorLog } from 'utils';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
@@ -91,12 +91,14 @@ const axiosWrapper = async (method, route, body, config = {}) => {
     } = e;
 
     const errorMessage =
-      data.data.message /* server error */ ??
-      data.data.error /* server error */ ??
-      data.error.message /* http error */ ??
-      data.message /* http error */ ??
-      data.error /* http error */ ??
-      e.message; /* http error */
+      data?.data?.message /* server error */ ??
+      data?.data?.error /* server error */ ??
+      data?.error?.message /* server error */ ??
+      data?.error /* server error */ ??
+      data?.message /* http error */ ??
+      data?.error /* http error */ ??
+      e.message /* http error */ ??
+      'Unknown error occurred';
 
     printErrorLog({
       method,
@@ -105,7 +107,7 @@ const axiosWrapper = async (method, route, body, config = {}) => {
       errorObj: e,
     });
 
-    if (e instanceof AxiosError && tokenErrorStatusList.includes(status)) {
+    if (tokenErrorStatusList.includes(status)) {
       console.warn('토큰 에러 발생: 401, 403');
       window.location = '/auth/sign-in';
       return;
