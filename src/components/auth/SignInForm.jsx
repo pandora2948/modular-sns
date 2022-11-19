@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
@@ -8,20 +8,28 @@ import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
-  const onFinish = useCallback(async ({ email, password, remember }) => {
-    try {
-      const { accessToken, refreshToken } = await AuthService.login({
-        email,
-        password,
-      });
+  const onFinish = useCallback(
+    async ({ email, password, remember }) => {
+      try {
+        token.clear();
 
-      token.refreshToken.set(refreshToken, remember);
-      token.accessToken.set(accessToken);
-    } catch (err) {
-      await message.error(err.message);
-    }
-  }, []);
+        const { accessToken, refreshToken } = await AuthService.login({
+          email,
+          password,
+        });
+
+        token.refreshToken.set(refreshToken, remember);
+        token.accessToken.set(accessToken);
+
+        navigate('/');
+      } catch (err) {
+        await message.error(err.message);
+      }
+    },
+    [navigate]
+  );
 
   return (
     <section className="w-full">

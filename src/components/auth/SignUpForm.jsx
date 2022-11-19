@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
@@ -11,18 +12,22 @@ const layout = {
 };
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
-  const createUser = useCallback(async (values) => {
-    try {
-      await AuthService.createUser(values);
-      await message.success('회원가입 성공');
-    } catch (err) {
-      console.log(err);
-      await message.error(err.message);
-    }
-  }, []);
+  const createUser = useCallback(
+    async (values) => {
+      try {
+        await AuthService.createUser(values);
+        await message.success('회원가입 성공');
+        navigate('/auth/sign-in');
+      } catch (err) {
+        await message.error(err.message);
+      }
+    },
+    [navigate]
+  );
 
   return (
     <section className="w-full">
