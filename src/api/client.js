@@ -3,7 +3,7 @@ import axios from 'axios';
 import { token, printRequestLog, printResponseLog, printErrorLog } from 'utils';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
-const authRoutes = ['/auth/login', '/auth/signup', '/token/reissue'];
+const routesWithoutAccessToken = ['/auth/login', '/auth/signup', '/auth/reissue'];
 const tokenErrorStatusList = [401, 403];
 
 const _axios = axios.create({
@@ -19,64 +19,52 @@ _axios.interceptors.request.use(async (config) => {
     config,
   });
 
-  if (authRoutes.includes(config.url)) {
-    // console.warn('auth 요청이면 토큰 당연히 없으므로 패스');
+  if (routesWithoutAccessToken.includes(config.url)) {
     return config;
   }
 
-  const { accessToken, refreshToken } = token.get();
+  const accessToken = token.accessToken.get();
 
-  // TODO: abort | cancel 하면서 리디렉션 처리 가능?
-  if (!accessToken && !refreshToken) {
-    // console.warn('둘 다 없으면 에러 날거 알지만 받는 곳에서 에러 컨트롤 할거니까 일단 패스');
+  if (!accessToken) {
     return config;
   }
 
-  if (accessToken) {
-    // console.warn('accessToken 있다면 헤더에 세팅 후 요청');
-    config.headers['authorization'] = `Bearer ${accessToken}`;
-    return config;
-  }
-
-  try {
-    // console.warn('accessToken 없다면 리프레쉬 토큰으로 새 토큰 받아서 세팅 후 요청');
-    const {
-      data: { accessToken: newAccessToken },
-    } = await AuthService.reIssueAccessToken({ refreshToken });
-    token.accessToken.set(newAccessToken);
-    config.headers['authorization'] = `Bearer ${newAccessToken}`;
-    return config;
-  } catch {
-    // console.warn('에러 날거 알지만 받는 곳에서 에러 컨트롤 할거니까 일단 패스');
-    return config;
-  }
+  config.headers['authorization'] = `Bearer ${accessToken}`;
+  return config;
 }, undefined);
 
-const axiosWrapper = async (method, route, body, config = {}) => {
-  let bodyArr = [];
+function getRequestArgs(method, route, body, config = {}) {
+  let args = [];
+
   switch (method) {
     case 'get':
     case 'delete':
     case 'head':
-      bodyArr = [route, config];
+      args = [route, config];
       break;
     case 'post':
     case 'put':
     case 'patch':
-      bodyArr = [route, body, config];
+      args = [route, body, config];
       break;
     default:
       break;
   }
 
-  if (!bodyArr.length) {
+  return args;
+}
+
+const axiosWrapper = async (method, route, body, config = {}) => {
+  const args = getRequestArgs(method, route, body, config);
+
+  if (!args.length) {
     throw new Error('Invalid axios method');
   }
 
   try {
     const {
       data: { data },
-    } = await _axios[method](...bodyArr);
+    } = await _axios[method](...args);
 
     printResponseLog({
       method,
@@ -107,13 +95,54 @@ const axiosWrapper = async (method, route, body, config = {}) => {
       errorObj: e,
     });
 
-    if (tokenErrorStatusList.includes(status)) {
-      console.warn('토큰 에러 발생: 401, 403');
-      window.location = '/auth/sign-in';
-      return;
+    if (!tokenErrorStatusList.includes(status) || route === '/auth/reissue') {
+      throw new Error(errorMessage);
     }
 
-    throw new Error(errorMessage);
+    try {
+      const refreshToken = token.refreshToken.get();
+      if (!refreshToken) {
+        throw new Error(errorMessage);
+      }
+
+      const { accessToken: newAccessToken } = await AuthService.reIssueAccessToken({ refreshToken });
+
+      token.accessToken.set(newAccessToken);
+
+      const {
+        data: { data },
+      } = await _axios[method](...args);
+
+      printResponseLog({
+        method,
+        endPoint: route,
+        responseObj: data,
+      });
+
+      return data;
+    } catch (e) {
+      const data = e?.response?.data;
+
+      const errorMessage =
+        data?.data?.message /* server error */ ??
+        data?.data?.error /* server error */ ??
+        data?.error?.message /* server error */ ??
+        data?.error /* server error */ ??
+        data?.message /* http error */ ??
+        data?.error /* http error */ ??
+        e.message /* http error */ ??
+        'Unknown error occurred';
+
+      printErrorLog({
+        method,
+        endPoint: route,
+        errorMessage,
+        errorObj: e,
+      });
+
+      token.clear();
+      window.location = '/auth/sign-in';
+    }
   }
 };
 
