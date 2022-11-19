@@ -19,8 +19,8 @@ const Feed = () => {
     if (containerRef.current) {
       observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach(({ isIntersecting, boundingClientRect, intersectionRect }) => {
-            console.log(isIntersecting, boundingClientRect, intersectionRect);
+          entries.forEach(({ _isIntersecting, _boundingClientRect, _intersectionRect }) => {
+            // console.log(isIntersecting, boundingClientRect, intersectionRect);
           });
         },
         {
