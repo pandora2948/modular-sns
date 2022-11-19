@@ -3,6 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { message } from 'antd';
 import { worker } from 'api/mocks/worker';
+import FindEmail from 'pages/auth/find-email';
+import FindPassword from 'pages/auth/find-password';
+import SignIn from 'pages/auth/sign-in';
+import SignUp from 'pages/auth/sign-up';
 import Error from 'pages/error';
 import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
@@ -29,6 +33,22 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
+    path: '/auth/sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: '/auth/sign-up',
+    element: <SignUp />,
+  },
+  {
+    path: '/auth/find-email',
+    element: <FindEmail />,
+  },
+  {
+    path: '/auth/find-password',
+    element: <FindPassword />,
+  },
+  {
     path: '/search',
     element: <SearchHashtagPage />,
     loader: ({ request }) => {
@@ -37,7 +57,7 @@ const router = createBrowserRouter([
     },
   },
   {
-    path: '/user-info',
+    path: 'profile',
     element: <Profile />,
     errorElement: <Error />,
   },

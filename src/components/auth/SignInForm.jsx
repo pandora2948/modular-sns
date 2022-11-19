@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
-const SignInForm = ({ hidden, footerRender }) => {
+const SignInForm = () => {
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
   const onFinish = useCallback(async ({ email, password, remember }) => {
     try {
@@ -23,10 +23,8 @@ const SignInForm = ({ hidden, footerRender }) => {
     }
   }, []);
 
-  if (hidden) return null;
-
   return (
-    <section>
+    <section className="w-full">
       <h1 className="text-2xl mt-3 mb-7 text-center">로그인</h1>
 
       <Form
@@ -51,15 +49,24 @@ const SignInForm = ({ hidden, footerRender }) => {
           </Button>
         </Form.Item>
 
-        {footerRender}
+        <div className="flex items-center justify-center pr-3">
+          <Link to="/auth/find-password" className="p-0 text-gray-600">
+            비밀번호 찾기
+          </Link>
+          <Divider type="vertical" className="mt-0.5 border-gray-300" />
+          <Link to="/auth/find-email" className="p-0 text-gray-600">
+            이메일 찾기
+          </Link>
+          <Divider type="vertical" className="mt-0.5 border-gray-300" />
+          <Link to="/auth/sign-up" className="p-0 text-gray-600">
+            회원가입
+          </Link>
+        </div>
       </Form>
     </section>
   );
 };
 
-SignInForm.propTypes = {
-  footerRender: PropTypes.node.isRequired,
-  hidden: PropTypes.bool.isRequired,
-};
+SignInForm.propTypes = {};
 
 export default SignInForm;

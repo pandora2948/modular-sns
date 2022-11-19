@@ -1,33 +1,31 @@
 import { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { passwordRegex, usernameRegex } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
-const SignUpForm = ({ show, closeModal }) => {
+const layout = {
+  labelCol: { span: 24 },
+  wrapperCol: { span: 24 },
+};
+
+const SignUpForm = () => {
   const [form] = Form.useForm();
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
-  const createUser = useCallback(
-    async (values) => {
-      try {
-        await AuthService.createUser(values);
-        await message.success('회원가입 성공');
-        closeModal();
-      } catch (err) {
-        console.log(err);
-        await message.error(err.message);
-      }
-    },
-    [closeModal]
-  );
-
-  if (!show) return null;
+  const createUser = useCallback(async (values) => {
+    try {
+      await AuthService.createUser(values);
+      await message.success('회원가입 성공');
+    } catch (err) {
+      console.log(err);
+      await message.error(err.message);
+    }
+  }, []);
 
   return (
-    <section>
+    <section className="w-full">
       <h1 className="text-2xl mt-3 mb-5 text-center">회원가입</h1>
 
       <Form
@@ -36,6 +34,7 @@ const SignUpForm = ({ show, closeModal }) => {
         onFinish={createUser}
         onFinishFailed={onFormFinishFailed}
         scrollToFirstError
+        {...layout}
       >
         <Form.Item
           name="email"
@@ -110,9 +109,6 @@ const SignUpForm = ({ show, closeModal }) => {
   );
 };
 
-SignUpForm.propTypes = {
-  show: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired,
-};
+SignUpForm.propTypes = {};
 
 export default SignUpForm;
