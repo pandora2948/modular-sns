@@ -32,7 +32,7 @@ const axiosWrapper = async (method, route, body, config = {}) => {
     return data;
   } catch (e) {
     const {
-      config: { url, method },
+      config: { url },
       response: { status },
     } = e;
 
@@ -68,7 +68,7 @@ export const api = {
   get: (route, config) => axiosWrapper('get', route, {}, config),
   head: (route, config) => axiosWrapper('head', route, {}, config),
   delete: (route, config) => axiosWrapper('delete', route, {}, config),
-  post: (route, body, config) => axiosWrapper('post', route, body, config),
-  put: (route, body, config) => axiosWrapper('put', route, body, config),
-  patch: (route, body, config) => axiosWrapper('patch', route, body, config),
+  post: (route, body, config) => axiosWrapper('post', route, body ?? {}, config),
+  put: (route, body, config) => axiosWrapper('put', route, body ?? {}, config),
+  patch: (route, body, config) => axiosWrapper('patch', route, body ?? {}, config),
 };

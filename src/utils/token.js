@@ -17,27 +17,22 @@ export const token = {
 
   refreshToken: {
     key: 'REFRESH_TOKEN',
-    isRemember: false,
-
-    get storage() {
-      if (this.isRemember) {
-        return localStorage;
-      }
-      return sessionStorage;
-    },
 
     set(v, isRemember) {
-      this.isRemember = isRemember;
-      this.storage.setItem(this.key, v);
+      if (isRemember) {
+        localStorage.setItem(this.key, v);
+      } else {
+        sessionStorage.setItem(this.key, v);
+      }
     },
 
     get() {
-      return this.storage.getItem(this.key);
+      return localStorage.getItem(this.key) ?? sessionStorage.getItem(this.key);
     },
 
     delete() {
-      this.storage.removeItem(this.key);
-      this.isRemember = false;
+      localStorage.removeItem(this.key);
+      sessionStorage.removeItem(this.key);
     },
   },
 
