@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-design/icons';
 import { Typography, Divider, Popover } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
+import PostCardButton from 'components/post/postCard/PostCardButton';
+import PostCardCarousel from 'components/post/postCard/PostCardCarousel';
+import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
+import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
 import shortid from 'shortid';
-import PostCardButton from './PostCardButton';
-import PostCardCarousel from './PostCardCarousel';
-import PostCardCommentBox from './PostCardCommentBox';
-import PostCardCommentList from './PostCardCommentList';
 
 const { Text } = Typography;
 

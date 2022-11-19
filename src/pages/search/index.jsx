@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { PostsService } from 'api/services';
-import PostCard from 'components/postCard/PostCard';
+import PostCard from 'components/post/postCard/PostCard';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import { useLoaderData } from 'react-router';

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
-import PostCard from 'components/postCard/PostCard';
+import PostCard from 'components/post/postCard/PostCard';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import shortid from 'shortid';
