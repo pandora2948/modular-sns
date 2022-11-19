@@ -28,7 +28,6 @@ export const token = {
 
     set(v, isRemember) {
       this.isRemember = isRemember;
-
       this.storage.setItem(this.key, v);
     },
 
@@ -37,8 +36,8 @@ export const token = {
     },
 
     delete() {
-      this.isRemember = false;
       this.storage.removeItem(this.key);
+      this.isRemember = false;
     },
   },
 
