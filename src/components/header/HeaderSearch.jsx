@@ -37,7 +37,7 @@ const HeaderSearch = () => {
     <>
       <Button shape="circle" icon={<SearchOutlined />} onClick={openModal} />
 
-      <Modal title="해쉬태그 검색" open={isModalOpen} onCancel={closeModal} footer={null} centered>
+      <Modal title="해쉬태그 검색" open={isModalOpen} onCancel={closeModal} footer={null} centered destroyOnClose>
         <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={onSearch} />
       </Modal>
     </>

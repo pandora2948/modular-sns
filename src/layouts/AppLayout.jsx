@@ -9,7 +9,7 @@ const AppLayout = ({ children }) => (
 );
 
 AppLayout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default AppLayout;
