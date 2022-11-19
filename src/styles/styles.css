@@ -2,6 +2,7 @@
 @import './antd/card.css';
 @import './antd/image.css';
 @import './antd/form-item.css';
+@import './antd/modal.css';
 @import './fonts/font-face.css';
 
 @tailwind base;

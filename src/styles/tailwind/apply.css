@@ -2,6 +2,14 @@
   @apply bg-white w-full shadow-md overflow-hidden;
 }
 
-.flex-all {
+.flex-center {
   @apply flex justify-center items-center;
+}
+
+textarea {
+  @apply text-base;
+}
+
+textarea::placeholder {
+  @apply text-base text-gray-500;
 }

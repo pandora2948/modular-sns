@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'antd';
 
 const PostCardButton = ({ children, onClick }) => (
-  <Button className="p-2 w-full flex-all" onClick={onClick}>
+  <Button className="p-2 w-full flex-center" onClick={onClick}>
     {children}
   </Button>
 );

@@ -51,8 +51,12 @@ export const PostsService = {
    * @param data 게시글 생성 데이터
    * @returns 생성된 데이터를 반환합니다. {Promise<any>}
    */
-  async createPost({ data }) {
-    return await api.post(`/posts`, { data });
+  async createPost({ title = '임시제목', textContent, hashtags = ['#임시해시태그'] }) {
+    return await api.post(`/posts`, {
+      title,
+      textContent,
+      hashtags,
+    });
   },
 
   /**

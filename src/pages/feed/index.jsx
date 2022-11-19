@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
+import PostForm from 'components/post/postForm/PostForm';
 import AppLayout from 'layouts/AppLayout';
 import { useQuery } from 'react-query';
 import shortid from 'shortid';
@@ -36,6 +37,8 @@ const Feed = () => {
 
   return (
     <AppLayout>
+      <PostForm />
+
       {feeds.length === 0 ? (
         <section className="h-full flex flex-col justify-center">
           <EmptyFeed />
