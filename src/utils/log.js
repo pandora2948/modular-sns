@@ -16,6 +16,7 @@ export function printRequestLog({ method, endPoint, requestObj, config }) {
     `color: ${color.info};font-weight: bold;`,
     config.headers
   );
+  console.log(`%c${method.toUpperCase()} ${endPoint} [REQ CONFIG]`, `color: ${color.info};font-weight: bold;`, config);
 }
 
 export function printResponseLog({ method, endPoint, responseObj }) {
