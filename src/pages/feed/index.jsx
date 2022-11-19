@@ -20,7 +20,7 @@ const Feed = () => {
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach(({ _isIntersecting, _boundingClientRect, _intersectionRect }) => {
-            // console.log(isIntersecting, boundingClientRect, intersectionRect);
+            // log.info(isIntersecting, boundingClientRect, intersectionRect);
           });
         },
         {

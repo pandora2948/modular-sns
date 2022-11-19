@@ -16,6 +16,9 @@ module.exports = {
       jsx: true,
     },
   },
+  globals: {
+    log: 'readonly',
+  },
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-else-return': 2,

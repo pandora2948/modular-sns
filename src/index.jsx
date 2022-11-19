@@ -1,3 +1,4 @@
+import 'setup';
 import 'styles/styles.css';
 
 import React from 'react';

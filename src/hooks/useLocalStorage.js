@@ -22,7 +22,7 @@ export const useLocalStorage = (key, initialValue) => {
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // 오류 케이스를 처리하도록 구현할 수 있습니다.
-      // console.log('setValue', error)
+      // log.error('setValue', error)
     }
   };
   return [storedValue, setValue];
