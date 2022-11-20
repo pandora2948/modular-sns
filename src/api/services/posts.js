@@ -51,9 +51,8 @@ export const PostsService = {
    * @param data 게시글 생성 데이터
    * @returns 생성된 데이터를 반환합니다. {Promise<any>}
    */
-  async createPost({ title = '임시제목', textContent, hashTagList = [] }) {
+  async createPost({ textContent, hashTagList = [] }) {
     return await api.post(`/posts`, {
-      title,
       textContent,
       hashTagList,
     });

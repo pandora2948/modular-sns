@@ -9,16 +9,23 @@ const PostCardComment = ({ comment }) => (
   <div className="flex items-center gap-x-3">
     <div className="flex gap-x-1 items-center">
       <UserOutlined />
-      <Text>{comment.writer}</Text>
+      <Text>{comment.userInfo.username}</Text>
     </div>
-    <Text>{comment.content}</Text>
+    <Text>{comment.textContent}</Text>
   </div>
 );
 
 PostCardComment.propTypes = {
   comment: PropTypes.shape({
-    writer: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    commentId: PropTypes.number.isRequired,
+    articleId: PropTypes.number.isRequired,
+    replyUserId: PropTypes.number.isRequired,
+    textContent: PropTypes.string.isRequired,
+    userInfo: PropTypes.shape({
+      userId: PropTypes.number.isRequired,
+      email: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
