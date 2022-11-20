@@ -7,9 +7,17 @@
 }
 
 textarea {
-  @apply text-base;
+  @apply text-lg;
 }
 
 textarea::placeholder {
-  @apply text-base text-gray-500;
+  @apply text-lg text-gray-500;
+}
+
+.ant-input-textarea textarea {
+  @apply text-lg;
+}
+
+.ant-input-textarea textarea::placeholder {
+  @apply text-lg text-gray-500;
 }
