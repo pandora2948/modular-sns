@@ -15,6 +15,7 @@ import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 import Profile from './pages/profile';
+import UserConfig from './pages/profile/user-config';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
     path: 'profile',
     element: <Profile />,
     errorElement: <Error />,
+  },
+  {
+    path: '/profile/config',
+    element: <UserConfig />,
   },
 ]);
 
