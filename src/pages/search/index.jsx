@@ -41,7 +41,7 @@ const SearchHashtag = () => {
           <section>
             <article className="flex flex-col gap-y-7">
               {posts.map((post) => (
-                <PostCard key={shortid.generate()} {...post} />
+                <PostCard key={shortid.generate()} post={post} />
               ))}
             </article>
           </section>

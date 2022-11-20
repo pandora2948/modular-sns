@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 const PostCardCommentList = ({ comments }) => {
   const [isExpand, setIsExpand] = useState(false);
-  const displayComments = isExpand ? comments : [comments[0]];
+  const displayComments = isExpand ? comments : [comments[0]].filter(Boolean);
 
   const onClickHandleExpand = useCallback(() => {
     setIsExpand((prev) => !prev);
@@ -31,10 +31,17 @@ const PostCardCommentList = ({ comments }) => {
 PostCardCommentList.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      writer: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-    })
-  ),
+      commentId: PropTypes.number.isRequired,
+      articleId: PropTypes.number.isRequired,
+      replyUserId: PropTypes.number.isRequired,
+      textContent: PropTypes.string.isRequired,
+      userInfo: PropTypes.shape({
+        userId: PropTypes.number.isRequired,
+        email: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+      }),
+    }).isRequired
+  ).isRequired,
 };
 
 export default PostCardCommentList;

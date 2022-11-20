@@ -10,9 +10,9 @@ import shortid from 'shortid';
 const FEED_KEY = 'main-feed';
 
 const Feed = () => {
-  const [feedCount] = useState(3);
-  const { data: feeds = [] } = useQuery([FEED_KEY, feedCount], async () => {
-    return await PostsService.getPosts({ page: 0, size: feedCount });
+  const [postCount] = useState(3);
+  const { data: posts = [] } = useQuery([FEED_KEY, postCount], async () => {
+    return await PostsService.getPosts({ page: 0, size: postCount });
   });
   const containerRef = useRef(null);
 
@@ -39,14 +39,14 @@ const Feed = () => {
     <AppLayout>
       <PostForm />
 
-      {feeds.length === 0 ? (
+      {posts.length === 0 ? (
         <section className="h-full flex flex-col justify-center">
           <EmptyFeed />
         </section>
       ) : (
         <section className="flex flex-col gap-y-7" ref={containerRef}>
-          {feeds.map((feed) => (
-            <PostCard key={shortid.generate()} {...feed} />
+          {posts.map((post) => (
+            <PostCard key={shortid.generate()} post={post} />
           ))}
         </section>
       )}

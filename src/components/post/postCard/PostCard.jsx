@@ -4,14 +4,13 @@ import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-
 import { Typography, Divider, Popover } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardButton from 'components/post/postCard/PostCardButton';
-import PostCardCarousel from 'components/post/postCard/PostCardCarousel';
 import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
 import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
 import shortid from 'shortid';
 
 const { Text } = Typography;
 
-const PostCard = ({ images, likeCount, writer, content, hashtags, comments }) => {
+const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
@@ -19,14 +18,14 @@ const PostCard = ({ images, likeCount, writer, content, hashtags, comments }) =>
 
   return (
     <div key={shortid.generate()} className="card">
-      <PostCardCarousel images={images} />
+      {/*<PostCardCarousel images={images} />*/}
       <section className="px-4 pt-4 pb-2">
         <div className="flex gap-x-3 items-center pb-0.5">
           <UserOutlined size="32px" />
-          <Text>{writer}</Text>
+          <Text>{userInfo.username}</Text>
         </div>
         <div>
-          <Text className="pr-2">{content}</Text>
+          <Text className="pr-2">{textContent}</Text>
           <HashtagList tags={hashtags} />
         </div>
       </section>
@@ -59,17 +58,31 @@ const PostCard = ({ images, likeCount, writer, content, hashtags, comments }) =>
 };
 
 PostCard.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string),
-  writer: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  likeCount: PropTypes.number.isRequired,
-  hashtags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      writer: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-    })
-  ),
+  post: PropTypes.shape({
+    // images: PropTypes.arrayOf(PropTypes.string),
+    postId: PropTypes.number.isRequired,
+    userInfo: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      userId: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+    }).isRequired,
+    textContent: PropTypes.string.isRequired,
+    likeCount: PropTypes.number.isRequired,
+    hashtags: PropTypes.arrayOf(PropTypes.string),
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        commentId: PropTypes.number.isRequired,
+        articleId: PropTypes.number.isRequired,
+        replyUserId: PropTypes.number.isRequired,
+        textContent: PropTypes.string.isRequired,
+        userInfo: PropTypes.shape({
+          userId: PropTypes.number.isRequired,
+          email: PropTypes.string.isRequired,
+          username: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired
+    ),
+  }).isRequired,
 };
 
 export default PostCard;
