@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button, message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
-// import { UserService } from '../../api/services';
 import { UserService } from '../../api/services';
-import { userDataState } from '../auth/SignInForm';
+import { loginInfoState } from '../auth/SignInForm';
 import ProfileStat from './ProfileStat';
 import UserIcon from './UserIcon';
 
@@ -23,22 +22,22 @@ const userStatInitialData = {
 
 const UserPanel = () => {
   const navigate = useNavigate();
-  const userData = useRecoilValue(userDataState);
+  const loginInfo = useRecoilValue(loginInfoState);
   const handleProfileChange = () => navigate('/profile/config');
   const [userStat, setUserStat] = useState(userStatInitialData);
 
   useEffect(() => {
     UserService.getLoginedUser()
-      .then((userInfo) => setUserStat(userInfo))
+      .then((userStat) => setUserStat(userStat))
       .catch((e) => message.error(e));
   }, []);
 
   const contents = [
-    { title: '팔로잉', count: '31' },
-    { title: '팔로워', count: '12' },
+    { title: '팔로잉', count: userStat.allFollowingCount },
+    { title: '팔로워', count: userStat.allFollowerCount },
   ];
 
-  const userName = userData.userName;
+  const userName = loginInfo.userName;
 
   return (
     <>

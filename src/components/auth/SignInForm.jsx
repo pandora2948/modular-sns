@@ -8,15 +8,15 @@ import { atom, useSetRecoilState } from 'recoil';
 import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
-export const userDataState = atom({
-  key: 'userDataState',
+export const loginInfoState = atom({
+  key: 'loginInfoState',
   default: {},
 });
 
 const SignInForm = () => {
   const navigate = useNavigate();
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
-  const setUserDateState = useSetRecoilState(userDataState);
+  const setLoginInfo = useSetRecoilState(loginInfoState);
 
   const onFinish = useCallback(
     async ({ email, password, remember }) => {
@@ -32,7 +32,7 @@ const SignInForm = () => {
           password,
         });
 
-        setUserDateState(() => {
+        setLoginInfo(() => {
           return { userMail: respondedUserEmail, userId: respondedUserId, userName: respondedUserName };
         });
 
@@ -44,7 +44,7 @@ const SignInForm = () => {
         await message.error(err.message);
       }
     },
-    [navigate, setUserDateState]
+    [navigate, setLoginInfo]
   );
 
   return (

@@ -4,20 +4,20 @@ import { useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
 import { passwordRegex, requiredRule, usernameRegex } from '../../utils';
-import { userDataState } from '../auth/SignInForm';
+import { loginInfoState } from '../auth/SignInForm';
 
 const UserConfigForm = () => {
-  const userData = useRecoilValue(userDataState);
+  const loginInfo = useRecoilValue(loginInfoState);
 
   const submitUserConfig = useCallback(
     async ({ userName, password }) => {
       try {
-        UserService.updateLoginedUser(userData.userMail, userName, password);
+        UserService.updateLoginedUser(loginInfo.userMail, userName, password);
       } catch (error) {
         await message.error(error.message);
       }
     },
-    [userData.userMail]
+    [loginInfo.userMail]
   );
 
   const layout = {
@@ -40,7 +40,7 @@ const UserConfigForm = () => {
           name="userName"
           label="사용자 아이디"
           hasFeedback={hasFeedback}
-          initialValue={userData.userName}
+          initialValue={loginInfo.userName}
           rules={[
             requiredRule,
             {
