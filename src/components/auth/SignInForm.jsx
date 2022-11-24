@@ -17,6 +17,7 @@ const SignInForm = () => {
   const navigate = useNavigate();
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
   const setUserDateState = useSetRecoilState(userDataState);
+
   const onFinish = useCallback(
     async ({ email, password, remember }) => {
       try {
@@ -25,14 +26,14 @@ const SignInForm = () => {
         const {
           accessToken,
           refreshToken,
-          userInfo: { email: userMail, userId, username },
+          userInfo: { email: respondedUserEmail, userId: respondedUserId, username: respondedUserName },
         } = await AuthService.login({
           email,
           password,
         });
 
         setUserDateState(() => {
-          return { userMail: userMail, userId: userId, userName: username };
+          return { userMail: respondedUserEmail, userId: respondedUserId, userName: respondedUserName };
         });
 
         token.refreshToken.set(refreshToken, remember);

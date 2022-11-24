@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import { AuthService } from 'api/services';
+import { useSetRecoilState } from 'recoil';
 import { token } from 'utils';
+import { userDataState } from '../auth/SignInForm';
 
 const MenuKey = {
   Profile: '1',
@@ -25,6 +27,7 @@ const menuItems = [
 
 const HeaderUserDropdown = ({ isUser }) => {
   const navigate = useNavigate();
+  const setUserDataState = useSetRecoilState(userDataState);
 
   const moveToSignInPage = useCallback(() => {
     navigate('/auth/sign-in');
@@ -39,6 +42,7 @@ const HeaderUserDropdown = ({ isUser }) => {
         }
         case MenuKey.SignOut: {
           await AuthService.logout();
+          setUserDataState(() => {});
           token.clear();
           moveToSignInPage();
           return;
@@ -48,7 +52,7 @@ const HeaderUserDropdown = ({ isUser }) => {
         }
       }
     },
-    [moveToSignInPage, navigate]
+    [moveToSignInPage, navigate, setUserDataState]
   );
 
   if (!isUser) {

@@ -1,17 +1,24 @@
 import { useCallback } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
-import { passwordRegex, requiredRule } from '../../utils';
+import { passwordRegex, requiredRule, usernameRegex } from '../../utils';
 import { userDataState } from '../auth/SignInForm';
 
 const UserConfigForm = () => {
   const userData = useRecoilValue(userDataState);
 
-  const submitUserConfig = useCallback(({ email, userName, password }) => {
-    UserService.updateLoginedUser(email, userName, password);
-  }, []);
+  const submitUserConfig = useCallback(
+    async ({ userName, password }) => {
+      try {
+        UserService.updateLoginedUser(userData.userMail, userName, password);
+      } catch (error) {
+        await message.error(error.message);
+      }
+    },
+    [userData.userMail]
+  );
 
   const layout = {
     labelCol: { span: 24 },
@@ -29,7 +36,19 @@ const UserConfigForm = () => {
         scrollToFirstError
         {...layout}
       >
-        <Form.Item name="userName" label="사용자 아이디" hasFeedback={hasFeedback} initialValue={userData.userName}>
+        <Form.Item
+          name="userName"
+          label="사용자 아이디"
+          hasFeedback={hasFeedback}
+          initialValue={userData.userName}
+          rules={[
+            requiredRule,
+            {
+              pattern: usernameRegex,
+              message: '4~15자 영문 대 소문자, 숫자, 밑줄을 사용하세요',
+            },
+          ]}
+        >
           <Input allowClear />
         </Form.Item>
         <Form.Item
@@ -39,29 +58,9 @@ const UserConfigForm = () => {
           rules={[
             {
               pattern: passwordRegex,
-              message: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요',
+              message: '비밀번호를 입력 해주세요',
             },
             requiredRule,
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          name="confirmPassword"
-          label="비밀번호 확인"
-          hasFeedback={hasFeedback}
-          dependencies={['password']}
-          rules={[
-            requiredRule,
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-
-                return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
-              },
-            }),
           ]}
         >
           <Input.Password />

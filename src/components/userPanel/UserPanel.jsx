@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import { UserService } from '../../api/services';
@@ -15,18 +15,20 @@ const UserPanel = () => {
     navigate('/profile/config');
   }, [navigate]);
 
-  const userStat = useEffect(() => {
-    UserService.getLoginedUser();
-    return;
-  });
+  useEffect(() => {
+    try {
+      const userStat = UserService.getLoginedUser();
+      log.info('userStat', userStat);
+      console.log(userStat);
+    } catch (err) {
+      message.error(err);
+    }
+  }, []);
 
   const contents = [
     { title: '팔로잉', count: '31' },
     { title: '팔로워', count: '12' },
   ];
-
-  log.info('userStat', userStat);
-  console.log(userStat);
 
   const userName = userData.userName;
 
