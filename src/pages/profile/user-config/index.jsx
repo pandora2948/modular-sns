@@ -1,11 +1,11 @@
 import UserConfigForm from '../../../components/userPanel/UserConfigForm';
-import AppLayout from '../../../layouts/AppLayout';
+import AuthLayout from '../../../layouts/AuthLayout';
 
 const UserConfig = () => {
   return (
-    <AppLayout>
+    <AuthLayout>
       <UserConfigForm />
-    </AppLayout>
+    </AuthLayout>
   );
 };
 

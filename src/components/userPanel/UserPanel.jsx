@@ -1,31 +1,34 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import { UserService } from '../../api/services';
+import { userDataState } from '../auth/SignInForm';
 import ProfileStat from './ProfileStat';
 import UserIcon from './UserIcon';
 
 const UserPanel = () => {
   const navigate = useNavigate();
+  const userData = useRecoilValue(userDataState);
   const handleProfileChange = useCallback(() => {
     navigate('/profile/config');
   }, [navigate]);
-  const userStat = UserService.getLoginedUser()
-    .then((v) => v)
-    .catch((err) => {
-      console.error(err);
-    });
+
+  const userStat = useEffect(() => {
+    UserService.getLoginedUser();
+    return;
+  });
 
   const contents = [
-    { title: '팔로잉', count: '13' },
+    { title: '팔로잉', count: '31' },
     { title: '팔로워', count: '12' },
   ];
 
   log.info('userStat', userStat);
   console.log(userStat);
 
-  const userName = 'tmpUser';
+  const userName = userData.userName;
 
   return (
     <>

@@ -14,6 +14,7 @@ import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
 import Profile from './pages/profile';
 import UserConfig from './pages/profile/user-config';
 
@@ -66,11 +67,13 @@ const router = createBrowserRouter([
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router}>
-      <React.StrictMode>
-        <FeedPage />
-      </React.StrictMode>
-    </RouterProvider>
-  </QueryClientProvider>
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}>
+        <React.StrictMode>
+          <FeedPage />
+        </React.StrictMode>
+      </RouterProvider>
+    </QueryClientProvider>
+  </RecoilRoot>
 );

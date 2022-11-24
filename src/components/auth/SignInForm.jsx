@@ -4,20 +4,35 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
+import { atom, useSetRecoilState } from 'recoil';
 import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
+
+export const userDataState = atom({
+  key: 'userDataState',
+  default: {},
+});
 
 const SignInForm = () => {
   const navigate = useNavigate();
   const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
+  const setUserDateState = useSetRecoilState(userDataState);
   const onFinish = useCallback(
     async ({ email, password, remember }) => {
       try {
         token.clear();
 
-        const { accessToken, refreshToken } = await AuthService.login({
+        const {
+          accessToken,
+          refreshToken,
+          userInfo: { email: userMail, userId, username },
+        } = await AuthService.login({
           email,
           password,
+        });
+
+        setUserDateState(() => {
+          return { userMail: userMail, userId: userId, userName: username };
         });
 
         token.refreshToken.set(refreshToken, remember);
@@ -28,7 +43,7 @@ const SignInForm = () => {
         await message.error(err.message);
       }
     },
-    [navigate]
+    [navigate, setUserDateState]
   );
 
   return (
