@@ -1,28 +1,36 @@
-import { useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
+// import { UserService } from '../../api/services';
 import { UserService } from '../../api/services';
 import { userDataState } from '../auth/SignInForm';
 import ProfileStat from './ProfileStat';
 import UserIcon from './UserIcon';
 
+const userStatInitialData = {
+  allFollowerCount: 0,
+  allFollowingCount: 0,
+  allGivenLikeCount: 0,
+  allPostCount: 0,
+  userInfo: {
+    userId: 0,
+    email: '',
+    username: '',
+  },
+};
+
 const UserPanel = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
-  const handleProfileChange = useCallback(() => {
-    navigate('/profile/config');
-  }, [navigate]);
+  const handleProfileChange = () => navigate('/profile/config');
+  const [userStat, setUserStat] = useState(userStatInitialData);
 
   useEffect(() => {
-    try {
-      const userStat = UserService.getLoginedUser();
-      log.info('userStat', userStat);
-      console.log(userStat);
-    } catch (err) {
-      message.error(err);
-    }
+    UserService.getLoginedUser()
+      .then((userInfo) => setUserStat(userInfo))
+      .catch((e) => message.error(e));
   }, []);
 
   const contents = [
