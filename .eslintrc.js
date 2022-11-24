@@ -28,7 +28,7 @@ module.exports = {
     'no-unused-vars': 0,
     'unused-imports/no-unused-imports': 2,
     'unused-imports/no-unused-vars': [
-      2,
+      1,
       {
         vars: 'all',
         varsIgnorePattern: '^_',
