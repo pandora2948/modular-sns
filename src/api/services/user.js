@@ -22,11 +22,19 @@ export const UserService = {
    * @description 사용자 정보를 모두 객체로 받고, 해당 정보내용대로 사용자 정보를 업데이트합니다.
    * @param email
    * @param username
-   * @param password
    * @returns {Promise<*|undefined>}
    */
-  async updateLoginedUser({ email, username, password }) {
-    return await api.put('/user', { email, username, password });
+  async updateLoginedUserData({ email, username }) {
+    return await api.put('/user', { email, username });
+  },
+
+  /**
+   * @param prvPassword
+   * @param newPassword
+   * @returns {Promise<*|undefined>}
+   */
+  async updateLoginedUserPassword({ prvPassword, newPassword }) {
+    return await api.patch('/user/password', { prvPassword, newPassword });
   },
 
   /**

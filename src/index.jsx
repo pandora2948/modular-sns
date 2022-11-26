@@ -14,6 +14,7 @@ import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { RecoilRoot } from 'recoil';
 import Profile from './pages/profile';
+import PasswordConfig from './pages/profile/password-config';
 import UserConfig from './pages/profile/user-config';
 
 const router = createBrowserRouter([
@@ -52,8 +53,12 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: '/profile/config',
+    path: '/profile/user-config',
     element: <UserConfig />,
+  },
+  {
+    path: '/profile/password-config',
+    element: <PasswordConfig />,
   },
 ]);
 
