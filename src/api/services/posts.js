@@ -39,7 +39,7 @@ export const PostsService = {
    */
   async getUserPosts({ page, size }) {
     return await api.get(
-      `/posts/token?${qs.stringify({
+      `/posts/list/token?${qs.stringify({
         page,
         size,
       })}`
