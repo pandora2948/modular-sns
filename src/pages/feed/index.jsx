@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+import { message } from 'antd';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
 import PostForm from 'components/post/postForm/PostForm';
 import AppLayout from 'layouts/AppLayout';
-import { useQuery } from 'react-query';
 import shortid from 'shortid';
-
-const FEED_KEY = 'main-feed';
 
 const Feed = () => {
   const [postCount] = useState(3);
-  const { data: posts = [] } = useQuery([FEED_KEY, postCount], async () => {
-    return await PostsService.getPosts({ page: 0, size: postCount });
-  });
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    PostsService.getPosts(0, postCount)
+      .then((posts) => {
+        setPosts(posts);
+      })
+      .catch((e) => message.error(e));
+
+    return () => {};
+  }, [postCount]);
+
   const containerRef = useRef(null);
 
   useEffect(() => {
