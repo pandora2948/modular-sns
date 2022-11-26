@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import { UserService } from '../../api/services';
 import { loginInfoState } from '../auth/SignInForm';
 import ProfileStat from './ProfileStat';
+import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';
 
 const userStatInitialData = {
@@ -21,9 +21,7 @@ const userStatInitialData = {
 };
 
 const UserPanel = () => {
-  const navigate = useNavigate();
   const loginInfo = useRecoilValue(loginInfoState);
-  const handleProfileChange = () => navigate('/profile/config');
   const [userStat, setUserStat] = useState(userStatInitialData);
 
   useEffect(() => {
@@ -44,10 +42,8 @@ const UserPanel = () => {
       <section className="bg-gray-200 my-8 px-8 pt-8 py-3">
         <div className="flex flex-col items-start">
           <div className="flex flex-row justify-end align-middle w-full relative">
-            <UserIcon userName={userName} />
-            <Button shape="round" size="large" className="text-sm" onClick={handleProfileChange}>
-              프로필 설정
-            </Button>
+            <UserIcon userName={userName} size="l" />
+            <UserConfigDropdown />
           </div>
           <span className="font-bold text-lg mt-4">{userName}</span>
         </div>
