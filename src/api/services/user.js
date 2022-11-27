@@ -33,8 +33,8 @@ export const UserService = {
    * @param newPassword
    * @returns {Promise<*|undefined>}
    */
-  async updateLoginedUserPassword({ prvPassword, newPassword }) {
-    return await api.patch('/user/password', { prvPassword, newPassword });
+  async updateLoginedUserPassword({ prevPassword, newPassword }) {
+    return await api.patch('/user/password', { prevPassword, newPassword });
   },
 
   /**
