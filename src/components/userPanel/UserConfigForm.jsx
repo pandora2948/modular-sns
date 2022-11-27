@@ -1,21 +1,28 @@
 import { useCallback } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { UserService } from '../../api/services';
 import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
 import { requiredRule, usernameRegex } from '../../utils';
 import { loginInfoState } from '../auth/SignInForm';
 
 const UserConfigForm = () => {
-  const loginInfo = useRecoilValue(loginInfoState);
+  const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
 
-  const submitUserConfig = useCallback(async ({ email, userName }) => {
-    try {
-      await UserService.updateLoginedUserData(email, userName);
-    } catch (error) {
-      await message.error(error.message);
-    }
-  }, []);
+  const submitUserConfig = useCallback(
+    async ({ email, userName: username }) => {
+      try {
+        await UserService.updateLoginedUserData({ email, username });
+        setLoginInfo((prv) => {
+          return { ...prv, userMail: email, userName: username };
+        });
+        message.success('사용자 정보가 변경되었습니다.');
+      } catch (error) {
+        await message.error(error.message);
+      }
+    },
+    [setLoginInfo]
+  );
 
   const layout = {
     labelCol: { span: 24 },

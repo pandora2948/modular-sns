@@ -29,7 +29,7 @@ export const UserService = {
   },
 
   /**
-   * @param prvPassword
+   * @param prevPassword
    * @param newPassword
    * @returns {Promise<*|undefined>}
    */
