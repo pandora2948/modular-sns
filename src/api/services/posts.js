@@ -56,7 +56,6 @@ export const PostsService = {
     const json = JSON.stringify({ textContent, hashTagList });
     formData.append('createPostRequest', json);
     formData.append('files', files);
-
     return await api.post(`/posts`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
