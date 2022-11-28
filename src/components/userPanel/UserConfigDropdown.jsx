@@ -6,12 +6,15 @@ import { Button, Dropdown } from 'antd';
 const menuKeys = {
   profileConfig: '1',
   passwordConfig: '2',
+  deleteUser: '3',
 };
 
 const menuItems = [
   { label: '프로필 변경', key: menuKeys.profileConfig },
   { type: 'divider' },
   { label: '비밀번호 변경', key: menuKeys.passwordConfig },
+  { type: 'divider' },
+  { label: '계정삭제', key: menuKeys.deleteUser, danger: true },
 ];
 
 const UserConfigDropdown = () => {
@@ -26,6 +29,11 @@ const UserConfigDropdown = () => {
 
         case menuKeys.passwordConfig: {
           navigate('/profile/password-config');
+          return;
+        }
+
+        case menuKeys.deleteUser: {
+          navigate('/profile/user-delete');
           return;
         }
 

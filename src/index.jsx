@@ -16,6 +16,7 @@ import { RecoilRoot } from 'recoil';
 import Profile from './pages/profile';
 import PasswordConfig from './pages/profile/password-config';
 import UserConfig from './pages/profile/user-config';
+import UserDelete from './pages/profile/user-delete';
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: '/profile/password-config',
     element: <PasswordConfig />,
+  },
+  {
+    path: '/profile/user-delete',
+    element: <UserDelete />,
   },
 ]);
 
