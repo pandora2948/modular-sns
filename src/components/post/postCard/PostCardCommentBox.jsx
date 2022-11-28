@@ -1,44 +1,23 @@
 import { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
-import { message } from 'antd';
-import { CommentsService } from 'api/services';
-import { useMutation } from 'react-query';
 
 const PostCardCommentBox = ({ open }) => {
   const inputRef = useRef(null);
 
-  const { mutate: createComment, isError: createCommentFailure } = useMutation(async ({ id, comment }) => {
-    return await CommentsService.postComment({ id, comment });
-  });
+  const onEnterComment = useCallback(async ({ key }) => {
+    if (key !== 'Enter') return;
 
-  const onEnterComment = useCallback(
-    async ({ key }) => {
-      if (key !== 'Enter') return;
+    const commentInput = inputRef.current;
+    const comment = commentInput?.value;
+    if (!comment || comment.trim() === '') return;
 
-      const commentInput = inputRef.current;
-      const comment = commentInput?.value;
-      if (!comment || comment.trim() === '') return;
-
-      createComment({
-        id: 1, // !TODO: 테스트므로 값 동적할당 필요
-        comment,
-      });
-
-      commentInput.value = '';
-    },
-    [createComment]
-  );
+    commentInput.value = '';
+  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
-  useEffect(() => {
-    if (createCommentFailure) {
-      message.info('댓글 작성에 실패하였습니다.');
-    }
-  }, [createCommentFailure]);
 
   if (!open) return null;
 
