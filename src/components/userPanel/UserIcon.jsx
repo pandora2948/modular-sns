@@ -26,7 +26,7 @@ const UserIcon = ({ userName, size = 's' }) => {
 
   return (
     <div className={iconSize}>
-      <span>{userName[0].toUpperCase()}</span>
+      <span>{userName.at(0).toUpperCase()}</span>
     </div>
   );
 };
