@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { UserOutlined } from '@ant-design/icons';
 
 const UserIcon = ({ userName, size = 's' }) => {
   const [iconSize, setIconSize] = useState(
@@ -24,11 +25,7 @@ const UserIcon = ({ userName, size = 's' }) => {
     }
   }, [size]);
 
-  return (
-    <div className={iconSize}>
-      <span>{userName[0].toUpperCase()}</span>
-    </div>
-  );
+  return <div className={iconSize}>{!userName ? <UserOutlined /> : <span>{userName.at(0).toUpperCase()}</span>}</div>;
 };
 
 UserIcon.propTypes = { userName: PropTypes.string, size: PropTypes.string };
