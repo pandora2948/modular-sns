@@ -108,4 +108,13 @@ export const PostsService = {
   async addLikeToPost({ postId }) {
     return await api.get(`/api/posts/like?${qs.stringify({ postId })}`);
   },
+
+  /**
+   * @description 토큰 정보로 해당 게시글 좋아요 정보를 취소합니다.
+   * @param postId 게시글 Id
+   * @returns {Promise<*|undefined>}
+   */
+  async removeLikeToPost({ postId }) {
+    return await api.delete(`/api/posts/like?${qs.stringify({ postId })}`);
+  },
 };
