@@ -16,7 +16,6 @@ const { Text } = Typography;
 const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments, postId } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const loginInfo = useRecoilValue(loginInfoState);
-
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
   const onClickLikeBox = () => {};
 
@@ -29,7 +28,7 @@ const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
           </div>
-          {userInfo.userId === loginInfo.userId ? <PostEditDropdown postId={postId} /> : null}
+          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} />}
         </div>
         <div>
           <Text className="pr-2">{textContent}</Text>
