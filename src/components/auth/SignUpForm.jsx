@@ -104,6 +104,9 @@ const SignUpForm = () => {
         >
           <Input allowClear />
         </Form.Item>
+        <Form.Item label="실명" name="realname">
+          <Input allowClear />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" size="large" htmlType="submit" className="w-full mt-4">
             가입하기
