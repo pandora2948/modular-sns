@@ -16,8 +16,6 @@ export const AuthService = {
 
   /**
    * @description 인증을 요청하여 토큰 값을 반환받습니다.
-   * @param email 로그인 이메일 정보
-   * @param password 로그인 패스워드 정보
    * @returns {Promise<AxiosResponse<any>>}
    */
   async logout() {
@@ -29,13 +27,15 @@ export const AuthService = {
    * @param username 회원가입 받을 사용자 이름
    * @param email 회원가입 받을 사용자 이메일
    * @param password 회원가입 받을 사용자 패스워드
+   * @param realname 사용자 실명
    * @returns {Promise<AxiosResponse<any>>}
    */
-  async createUser({ username, email, password }) {
+  async createUser({ username, email, password, realname }) {
     return await api.post('/auth/signup', {
       username,
       email,
       password,
+      realname,
     });
   },
 
