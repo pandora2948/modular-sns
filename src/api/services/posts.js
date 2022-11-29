@@ -99,4 +99,13 @@ export const PostsService = {
   async getPostsByHashtags({ hashtags }) {
     return await api.get('/posts/search', { hashtags });
   },
+
+  /**
+   * @description 토큰 정보로 해당 게시글에 좋아요를 수행합니다. 중복 좋아요 안됩니다.
+   * @param postId 게시글 Id
+   * @returns {Promise<*|undefined>}
+   */
+  async addLikeToPost({ postId }) {
+    return await api.get(`/api/posts/like?${qs.stringify({ postId })}`);
+  },
 };
