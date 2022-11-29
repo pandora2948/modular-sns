@@ -51,9 +51,9 @@ export const PostsService = {
    * @param data 게시글 생성 데이터
    * @returns 생성된 데이터를 반환합니다. {Promise<any>}
    */
-  async createPost({ textContent, hashTagList = [], files = null }) {
+  async createPost({ textContent, hashtags = [], files = null }) {
     const formData = new FormData();
-    const json = JSON.stringify({ textContent, hashTagList });
+    const json = JSON.stringify({ textContent, hashtags });
     formData.append('createPostRequest', json);
     formData.append('files', files);
     return await api.post(`/posts`, formData, {
