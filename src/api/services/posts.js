@@ -76,10 +76,19 @@ export const PostsService = {
    * @description 게시글을 수정합니다. 수정되지 않을 데이터를 포함해서 모든 게시글 양식을 전달받습니다. (put)
    * @param postId 수정할 게시글 id (고유 번호)
    * @param data 게시글 데이터 양식입니다. 생성 양식과 같습니다.
+   * @param files 파일 업로드 객체입니다.
    * @returns {Promise<*|undefined>}
    */
-  async updatePost({ postId, data }) {
-    return await api.put(`/posts/${postId}`, { data });
+  async updatePost({ postId, data, files = null }) {
+    const formData = new FormData();
+    formData.append('updateRequest', data);
+    formData.append('files', files);
+
+    return await api.put(`/posts/${postId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 
   /**
