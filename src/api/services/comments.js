@@ -32,4 +32,31 @@ export const CommentsService = {
   async getComment({ commentId }) {
     return await api.get(`/comments/${commentId}`);
   },
+
+  /**
+   * @description 댓글 id 정보로 댓글을 삭제합니다.
+   * @param commentId 댓글 id
+   * @returns {Promise<*|undefined>}
+   */
+  async deleteComment({ commentId }) {
+    return await api.get(`/comments/${commentId}`);
+  },
+
+  /**
+   * @description 게시글 id 를 정보로 받아 해당 게시글의 모든 댓글을 조회합니다.
+   * @param postId 게시글 id
+   * @returns {Promise<*|undefined>}
+   */
+  async getCommentsByPostId({ postId }) {
+    return await api.get(`/comments/posts/${postId}`);
+  },
+
+  /**
+   * @description 사용자 이름을 정보로 받아 해당 게시글의 모든 댓글을 조회합니다.
+   * @param username 사용자 이름
+   * @returns {Promise<*|undefined>}
+   */
+  async getCommentsByUsername({ username }) {
+    return await api.get(`/comments/username/${username}`);
+  },
 };
