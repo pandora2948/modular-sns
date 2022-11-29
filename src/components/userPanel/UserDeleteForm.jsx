@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
@@ -16,9 +15,9 @@ const UserDeleteForm = () => {
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const [form] = Form.useForm();
 
-  const deleteUser = useCallback(async ({ password }) => {
-    await UserService.deleteLoginedUser(password).catch((err) => message.error(err));
-  }, []);
+  const deleteUser = ({ password }) => {
+    UserService.deleteLoginedUser(password).catch((err) => message.error(err));
+  };
 
   return (
     <div className="w-full flex flex-col">
