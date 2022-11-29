@@ -6,12 +6,16 @@ import HashtagList from 'components/hashtag/HashtagList';
 import PostCardButton from 'components/post/postCard/PostCardButton';
 import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
 import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
+import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
+import { loginInfoState } from '../../auth/SignInForm';
+import PostEditDropdown from './PostEditDropdown';
 
 const { Text } = Typography;
 
-const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments } }) => {
+const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments, postId } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
+  const loginInfo = useRecoilValue(loginInfoState);
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
   const onClickLikeBox = () => {};
@@ -20,9 +24,12 @@ const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments
     <div key={shortid.generate()} className="card">
       {/*<PostCardCarousel images={images} />*/}
       <section className="px-4 pt-4 pb-2">
-        <div className="flex gap-x-3 items-center pb-0.5">
-          <UserOutlined size="32px" />
-          <Text>{userInfo.username}</Text>
+        <div className="flex items-center pb-0.5 justify-between">
+          <div>
+            <UserOutlined size="32px" />
+            <Text>{userInfo.username}</Text>
+          </div>
+          {userInfo.userId === loginInfo.userId ? <PostEditDropdown postId={postId} /> : null}
         </div>
         <div>
           <Text className="pr-2">{textContent}</Text>
