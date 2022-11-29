@@ -3,6 +3,8 @@ import { ArrowLeftOutlined, FormOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Modal, message } from 'antd';
 import { PostsService } from 'api/services';
 import { useModal } from 'hooks/useModal';
+import { useSetRecoilState } from 'recoil';
+import { postsState } from '../../../pages/feed';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
@@ -10,6 +12,7 @@ const PostForm = () => {
   const [form] = Form.useForm();
   const [text, setText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
+  const setPosts = useSetRecoilState(postsState);
 
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
@@ -27,12 +30,13 @@ const PostForm = () => {
         await PostsService.createPost({
           textContent,
         });
+        setPosts(await PostsService.getPosts(0, 3));
         handleCloseModal();
       } catch (e) {
         await message.error(e);
       }
     },
-    [handleCloseModal]
+    [handleCloseModal, setPosts]
   );
 
   return (

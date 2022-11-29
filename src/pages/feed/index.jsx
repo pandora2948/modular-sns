@@ -5,20 +5,23 @@ import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
 import PostForm from 'components/post/postForm/PostForm';
 import AppLayout from 'layouts/AppLayout';
+import { atom, useRecoilState } from 'recoil';
 import shortid from 'shortid';
+
+export const postsState = atom({ key: 'postsState', default: [] });
 
 const Feed = () => {
   const [postCount] = useState(3);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useRecoilState(postsState);
   useEffect(() => {
-    PostsService.getPosts(0, postCount)
+    PostsService.getPosts(0, 3)
       .then((posts) => {
         setPosts(posts);
       })
       .catch((e) => message.error(e));
 
     return () => {};
-  }, [postCount]);
+  }, [postCount, setPosts]);
 
   const containerRef = useRef(null);
 
