@@ -104,7 +104,18 @@ const SignUpForm = () => {
         >
           <Input allowClear />
         </Form.Item>
-        <Form.Item label="실명" name="realname">
+        <Form.Item
+          label="실명"
+          name="realname"
+          hasFeedback={hasFeedback}
+          rules={[
+            requiredRule,
+            {
+              pattern: usernameRegex,
+              message: '4~15자 영문 대 소문자, 숫자, 밑줄을 사용하세요',
+            },
+          ]}
+        >
           <Input allowClear />
         </Form.Item>
         <Form.Item>
