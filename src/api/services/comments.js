@@ -14,6 +14,17 @@ export const CommentsService = {
   },
 
   /**
+   * @description 댓글을 수정합니다.
+   * @param postId 게시글 id 값
+   * @param textContent 작성할 댓글 텍스트 데이터
+   * @param ownerId 댓글 작성자 id
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  async updateComment({ postId, textContent, ownerId }) {
+    return await api.put(`/comments`, { postId, textContent, ownerId, replyUserId: null });
+  },
+
+  /**
    * @description 댓글 id 정보로 댓글 객체를 조회합니다.
    * @param commentId 댓글 id
    * @returns {Promise<*|undefined>}
