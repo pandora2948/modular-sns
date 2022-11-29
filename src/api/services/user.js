@@ -42,7 +42,7 @@ export const UserService = {
    * @param password
    * @returns {Promise<*|undefined>}
    */
-  async deleteLoginedUser(password) {
+  async deleteLoginedUser({ password }) {
     return await api.delete('/users', { password });
   },
 
@@ -67,7 +67,7 @@ export const UserService = {
    * @param username 팔로우 할 대상 이름
    * @returns {Promise<void>}
    */
-  async addFollow(username) {
+  async addFollow({ username }) {
     return await api.get(`/users/follow?username=${username}`);
   },
 
@@ -76,7 +76,7 @@ export const UserService = {
    * @param username 팔로우 제거 할 대상 이름
    * @returns {Promise<void>}
    */
-  async removeFollow(username) {
+  async removeFollow({ username }) {
     return await api.delete(`/users/follow?username=${username}`);
   },
 };

@@ -16,7 +16,7 @@ const UserDeleteForm = () => {
   const [form] = Form.useForm();
 
   const deleteUser = ({ password }) => {
-    UserService.deleteLoginedUser(password).catch((err) => message.error(err));
+    UserService.deleteLoginedUser({ password }).catch((err) => message.error(err));
   };
 
   return (
