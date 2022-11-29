@@ -25,15 +25,15 @@ const PostEditDropdown = ({ postId }) => {
         case menuKeys.editPost:
           break;
 
-        case menuKeys.deletePost:
+        case menuKeys.deletePost: {
           await PostsService.deletePost({ postId })
-            .then(async () => {
-              message.success('게시글이 삭제되었습니다.');
-              setPosts(await PostsService.getPosts(0, 3));
-            })
+            .then(() => message.success('게시글이 삭제되었습니다.'))
             .catch((err) => message.error(err));
+          const posts = await PostsService.getPosts({ page: 0, size: 3 }) // TODO: 페이지네이션 부분 추 후 수정하세요 @pandora
+            .catch((err) => message.error(err));
+          setPosts(posts);
           break;
-
+        }
         default:
           break;
       }
