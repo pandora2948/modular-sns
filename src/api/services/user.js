@@ -6,7 +6,7 @@ export const UserService = {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async getLoginedUser() {
-    return await api.get('/user');
+    return await api.get('/users');
   },
 
   /**
@@ -14,8 +14,8 @@ export const UserService = {
    * @param username
    * @returns {Promise<*|undefined>}
    */
-  async getUserByUsername(username) {
-    return await api.get(`/user?username=${username}`);
+  async getUserByUsername({ username }) {
+    return await api.get(`/users/${username}`);
   },
 
   /**
@@ -25,7 +25,7 @@ export const UserService = {
    * @returns {Promise<*|undefined>}
    */
   async updateLoginedUserData({ email, username }) {
-    return await api.put('/user', { email, username });
+    return await api.put('/users', { email, username });
   },
 
   /**
@@ -34,7 +34,7 @@ export const UserService = {
    * @returns {Promise<*|undefined>}
    */
   async updateLoginedUserPassword({ prevPassword, newPassword }) {
-    return await api.patch('/user/password', { prevPassword, newPassword });
+    return await api.patch('/users/password', { prevPassword, newPassword });
   },
 
   /**
@@ -43,7 +43,7 @@ export const UserService = {
    * @returns {Promise<*|undefined>}
    */
   async deleteLoginedUser(password) {
-    return await api.delete('/user', { password });
+    return await api.delete('/users', { password });
   },
 
   /**
@@ -51,7 +51,7 @@ export const UserService = {
    * @returns {Promise<String[]>}
    */
   async getFollowerUsernameList() {
-    return await api.get('/user/follower');
+    return await api.get('/users/follower');
   },
 
   /**
@@ -59,7 +59,7 @@ export const UserService = {
    * @returns {Promise<String[]>}
    */
   async getFollowingUsernameList() {
-    return await api.get('/user/following');
+    return await api.get('/users/following');
   },
 
   /**
@@ -68,7 +68,7 @@ export const UserService = {
    * @returns {Promise<void>}
    */
   async addFollow(username) {
-    return await api.get(`/user/follow?username=${username}`);
+    return await api.get(`/users/follow?username=${username}`);
   },
 
   /**
@@ -77,6 +77,6 @@ export const UserService = {
    * @returns {Promise<void>}
    */
   async removeFollow(username) {
-    return await api.delete(`/user/follow?username=${username}`);
+    return await api.delete(`/users/follow?username=${username}`);
   },
 };
