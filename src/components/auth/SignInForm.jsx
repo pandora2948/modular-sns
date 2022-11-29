@@ -5,12 +5,16 @@ import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { atom, useSetRecoilState } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
+const { persistAtom } = recoilPersist({ key: 'loginInfo', storage: localStorage });
+
 export const loginInfoState = atom({
-  key: 'loginInfoState',
+  key: 'loginInfo',
   default: {},
+  effects: [persistAtom],
 });
 
 const SignInForm = () => {
