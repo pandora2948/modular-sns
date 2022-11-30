@@ -24,12 +24,12 @@ const Feed = () => {
   return (
     <AppLayout>
       <PostForm />
-      {posts.length === 0 && (
+      {posts?.length === 0 && (
         <section className="h-full flex flex-col justify-center">
           <EmptyFeed />
         </section>
       )}
-      {posts.length > 0 && (
+      {posts?.length > 0 && (
         <section className="flex flex-col gap-y-7" ref={containerRef}>
           {posts.map((post) => (
             <PostCard key={shortid.generate()} post={post} />
