@@ -10,11 +10,13 @@ const layout = {
 };
 
 const PasswordConfigForm = () => {
-  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const [form] = Form.useForm();
   const updatePassword = useCallback(async ({ prvPassword: prevPassword, passwordConfirm: newPassword }) => {
     await UserService.updateLoginedUserPassword({ prevPassword, newPassword })
-      .then(() => message.success('비밀번호가 변경되었습니다.'))
+      .then(() => {
+        message.success('비밀번호가 변경되었습니다.');
+      })
       .catch((error) => {
         message.error(error);
       });
@@ -27,7 +29,7 @@ const PasswordConfigForm = () => {
         form={form}
         onFinish={updatePassword}
         onFinishFailed={onFormFinishFailed}
-        scrollToFirstErrorvalidateTrigger={formValidateTrigger}
+        scrollToFirstError
         {...layout}
       >
         <Form.Item
@@ -40,6 +42,7 @@ const PasswordConfigForm = () => {
             },
             requiredRule,
           ]}
+          hasFeedback={hasFeedback}
         >
           <Input.Password />
         </Form.Item>

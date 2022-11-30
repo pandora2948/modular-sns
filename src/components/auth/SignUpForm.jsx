@@ -14,7 +14,7 @@ const layout = {
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const createUser = useCallback(
     async (values) => {
@@ -33,14 +33,7 @@ const SignUpForm = () => {
     <section className="w-full">
       <h1 className="text-2xl mt-3 mb-5 text-center">회원가입</h1>
 
-      <Form
-        form={form}
-        validateTrigger={formValidateTrigger}
-        onFinish={createUser}
-        onFinishFailed={onFormFinishFailed}
-        scrollToFirstError
-        {...layout}
-      >
+      <Form form={form} onFinish={createUser} onFinishFailed={onFormFinishFailed} scrollToFirstError {...layout}>
         <Form.Item
           name="email"
           label="이메일"

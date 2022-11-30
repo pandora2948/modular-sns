@@ -29,17 +29,11 @@ const UserConfigForm = () => {
     wrapperCol: { span: 24 },
   };
 
-  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   return (
     <section className="w-full">
-      <Form
-        onFinish={submitUserConfig}
-        validateTrigger={formValidateTrigger}
-        onFinishFailed={onFormFinishFailed}
-        scrollToFirstError
-        {...layout}
-      >
+      <Form onFinish={submitUserConfig} onFinishFailed={onFormFinishFailed} scrollToFirstError {...layout}>
         <Form.Item
           name="email"
           label="이메일"

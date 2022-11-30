@@ -19,7 +19,7 @@ export const loginInfoState = atom({
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const { formValidateTrigger, onFormFinishFailed } = useFormValidateTrigger();
+  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const setLoginInfo = useSetRecoilState(loginInfoState);
 
   const onFinish = useCallback(
@@ -55,16 +55,11 @@ const SignInForm = () => {
     <section className="w-full">
       <h1 className="text-2xl mt-3 mb-7 text-center">로그인</h1>
 
-      <Form
-        onFinish={onFinish}
-        validateTrigger={formValidateTrigger}
-        onFinishFailed={onFormFinishFailed}
-        scrollToFirstError
-      >
-        <Form.Item name="email" rules={[requiredRule]}>
+      <Form onFinish={onFinish} onFinishFailed={onFormFinishFailed} scrollToFirstError>
+        <Form.Item name="email" rules={[requiredRule]} hasFeedback={hasFeedback}>
           <Input prefix={<UserOutlined />} placeholder="이메일" allowClear />
         </Form.Item>
-        <Form.Item name="password" rules={[requiredRule]}>
+        <Form.Item name="password" rules={[requiredRule]} hasFeedback={hasFeedback}>
           <Input prefix={<LockOutlined />} type="password" placeholder="비밀번호" allowClear />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
