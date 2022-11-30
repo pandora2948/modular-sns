@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-design/icons';
 import { Typography, Divider, Popover } from 'antd';
@@ -13,11 +13,20 @@ import PostEditDropdown from './PostEditDropdown';
 
 const { Text } = Typography;
 
-const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments, postId }, pageType = 'feed' }) => {
+const PostCard = ({
+  post: { userInfo, textContent, likeCount, hashtags, comments, postId, createdDate, updatedDate },
+
+  pageType = 'feed',
+}) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
+  const [postTimeInfo, setPostTimeInfo] = useState('');
   const loginInfo = useRecoilValue(loginInfoState);
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
   const onClickLikeBox = () => {};
+  useEffect(() => {
+    const postedDate = new Date(createdDate).toLocaleString();
+    setPostTimeInfo(createdDate.includes(updatedDate) ? postedDate : postedDate + ' (수정됨)');
+  }, [createdDate, updatedDate]);
 
   return (
     <div key={shortid.generate()} className="card">
@@ -29,6 +38,9 @@ const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments
             <Text>{userInfo.username}</Text>
           </div>
           {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} pageType={pageType} />}
+        </div>
+        <div>
+          <span className="text-xs text-gray-400">{postTimeInfo}</span>
         </div>
         <div>
           <Text className="pr-2">{textContent}</Text>
@@ -88,6 +100,8 @@ PostCard.propTypes = {
         }).isRequired,
       }).isRequired
     ),
+    createdDate: PropTypes.string,
+    updatedDate: PropTypes.string,
   }).isRequired,
   pageType: PropTypes.string,
 };
