@@ -30,7 +30,7 @@ const PostForm = () => {
         await PostsService.createPost({
           textContent,
         });
-        setPosts(await PostsService.getPosts(0, 3));
+        setPosts(await PostsService.getPosts({ page: 0, size: 9999 }));
         handleCloseModal();
       } catch (e) {
         await message.error(e);
