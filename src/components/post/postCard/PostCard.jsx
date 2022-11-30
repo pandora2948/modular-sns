@@ -15,8 +15,6 @@ const { Text } = Typography;
 
 const PostCard = ({
   post: { userInfo, textContent, likeCount, hashtags, comments, postId, createdDate, updatedDate },
-
-  pageType = 'feed',
 }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [postTimeInfo, setPostTimeInfo] = useState('');
@@ -37,7 +35,7 @@ const PostCard = ({
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
           </div>
-          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} pageType={pageType} />}
+          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} />}
         </div>
         <div>
           <span className="text-xs text-gray-400">{postTimeInfo}</span>
@@ -103,7 +101,6 @@ PostCard.propTypes = {
     createdDate: PropTypes.string,
     updatedDate: PropTypes.string,
   }).isRequired,
-  pageType: PropTypes.string,
 };
 
 export default PostCard;

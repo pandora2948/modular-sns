@@ -19,11 +19,7 @@ const Profile = () => {
   return (
     <AppLayout>
       <UserPanel />
-      {posts.length === 0 ? (
-        <EmptyFeed />
-      ) : (
-        posts.map((post) => <PostCard key={shortid.generate()} post={post} pageType="profile" />)
-      )}
+      {posts.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={shortid.generate()} post={post} />)}
     </AppLayout>
   );
 };
