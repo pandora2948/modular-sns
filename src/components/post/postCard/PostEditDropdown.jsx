@@ -17,7 +17,7 @@ const menuItems = [
   { label: '게시글 삭제', key: menuKeys.deletePost },
 ];
 
-const PostEditDropdown = ({ postId }) => {
+const PostEditDropdown = ({ postId, pageType }) => {
   const setPosts = useSetRecoilState(postsState);
   const onPostEditClicked = useCallback(
     async ({ key }) => {
@@ -29,16 +29,32 @@ const PostEditDropdown = ({ postId }) => {
           await PostsService.deletePost({ postId })
             .then(() => message.success('게시글이 삭제되었습니다.'))
             .catch((err) => message.error(err));
-          const posts = await PostsService.getPosts({ page: 0, size: 3 }) // TODO: 페이지네이션 부분 추 후 수정하세요 @pandora
-            .catch((err) => message.error(err));
-          setPosts(posts);
+
+          switch (pageType) {
+            case 'feed': {
+              const posts = await PostsService.getPosts({ page: 0, size: 3 }) // TODO: 페이지네이션 부분 추 후 수정하세요 @pandora
+                .catch((err) => message.error(err));
+              setPosts(posts);
+              break;
+            }
+
+            case 'profile': {
+              const posts = await PostsService.getUserPosts({ page: 0, size: 3 }).catch((err) => message.error(err));
+              setPosts(posts);
+              break;
+            }
+
+            default:
+              break;
+          }
           break;
         }
+
         default:
           break;
       }
     },
-    [postId, setPosts]
+    [pageType, postId, setPosts]
   );
 
   return (
@@ -48,6 +64,6 @@ const PostEditDropdown = ({ postId }) => {
   );
 };
 
-PostEditDropdown.propTypes = { postId: PropTypes.number };
+PostEditDropdown.propTypes = { postId: PropTypes.number, pageType: PropTypes.string };
 
 export default PostEditDropdown;

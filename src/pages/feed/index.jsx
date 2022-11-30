@@ -55,7 +55,7 @@ const Feed = () => {
       ) : (
         <section className="flex flex-col gap-y-7" ref={containerRef}>
           {posts.map((post) => (
-            <PostCard key={shortid.generate()} post={post} />
+            <PostCard key={shortid.generate()} post={post} pageType="feed" />
           ))}
         </section>
       )}

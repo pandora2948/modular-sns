@@ -13,7 +13,7 @@ import PostEditDropdown from './PostEditDropdown';
 
 const { Text } = Typography;
 
-const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments, postId } }) => {
+const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments, postId }, pageType = 'feed' }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const loginInfo = useRecoilValue(loginInfoState);
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
@@ -28,7 +28,7 @@ const PostCard = ({ post: { userInfo, textContent, likeCount, hashtags, comments
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
           </div>
-          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} />}
+          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} pageType={pageType} />}
         </div>
         <div>
           <Text className="pr-2">{textContent}</Text>
@@ -89,6 +89,7 @@ PostCard.propTypes = {
       }).isRequired
     ),
   }).isRequired,
+  pageType: PropTypes.string,
 };
 
 export default PostCard;
