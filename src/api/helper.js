@@ -35,3 +35,14 @@ export function getErrorMessage(e) {
     'Unknown error occurred'
   );
 }
+
+export function getServerUrlByMode(mode = 'development') {
+  switch (mode) {
+    case 'production':
+      throw Error('배포 환경이 정의되지 않았습니다.');
+    case 'test':
+      return 'http://3.35.123.154:8080';
+    default:
+      return 'http://localhost:8080';
+  }
+}

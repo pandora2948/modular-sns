@@ -1,4 +1,4 @@
-import { getErrorMessage, getRequestArgs } from 'api/helper';
+import { getErrorMessage, getRequestArgs, getServerUrlByMode } from 'api/helper';
 import { setAccessToken, logRequest } from 'api/interceptors/request';
 import { logError, logResponse } from 'api/interceptors/response';
 import { AuthService } from 'api/services';
@@ -6,7 +6,9 @@ import axios from 'axios';
 import flow from 'lodash/flow';
 import { token } from 'utils';
 
-const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '<production_url>';
+const { REACT_APP_MODE } = process.env;
+
+const API_URL = getServerUrlByMode(REACT_APP_MODE);
 const tokenErrorStatusList = [401, 403];
 
 const _axios = axios.create({
