@@ -1,3 +1,5 @@
+import { ENDPOINT_LIST, MODE_NAME_LIST } from './constant';
+
 export function getRequestArgs(method, route, body, config = {}) {
   let args = [];
 
@@ -36,13 +38,15 @@ export function getErrorMessage(e) {
   );
 }
 
-export function getServerUrlByMode(mode = 'development') {
+export function getServerUrlByMode(mode = MODE_NAME_LIST.DEVELOPMENT) {
   switch (mode) {
-    case 'production':
+    case MODE_NAME_LIST.DEVELOPMENT:
+      return ENDPOINT_LIST.DEVELOPMENT;
+    case MODE_NAME_LIST.PRODUCTION:
       throw Error('배포 환경이 정의되지 않았습니다.');
-    case 'test':
-      return 'http://3.35.123.154:8080';
+    case MODE_NAME_LIST.TEST:
+      return ENDPOINT_LIST.TEST;
     default:
-      return 'http://localhost:8080';
+      return ENDPOINT_LIST.DEVELOPMENT;
   }
 }
