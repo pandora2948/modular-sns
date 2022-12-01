@@ -11,7 +11,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint ./src --fix --ext .js,.jsx",
-    "clean": "rimraf node_modules"
+    "clean": "rimraf node_modules",
+    "test": "jest",
+    "test-config-init": "jest --init"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -40,10 +42,12 @@
     "web-vitals": "^3.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.20.5",
     "@babel/eslint-parser": "^7.19.1",
+    "@babel/preset-env": "^7.20.2",
     "@tanstack/react-query-devtools": "^4.16.1",
     "autoprefixer": "^10.4.13",
+    "babel-jest": "^29.3.1",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
@@ -53,6 +57,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.2",
+    "jest": "^27.5.1",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
