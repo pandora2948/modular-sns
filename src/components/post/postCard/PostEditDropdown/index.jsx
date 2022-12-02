@@ -25,7 +25,7 @@ const PostEditDropdown = ({ postId, updateCb }) => {
 
   const mockUpdatedCb = () => message.warn('준비되지 않은 기능입니다.');
   const onPostEditClicked = useCallback(
-    ({ key }) => processQuarterOnDropDownMenu({ key, postId, deleteCb: deletePost, updateCb: mockUpdatedCb }),
+    ({ key }) => processQuarterOnDropDownMenu({ key, postId, deletePost, updatePost: mockUpdatedCb() }),
     [deletePost, postId]
   );
 
