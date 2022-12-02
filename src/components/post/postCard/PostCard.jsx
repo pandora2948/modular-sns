@@ -9,12 +9,13 @@ import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import { loginInfoState } from '../../auth/SignInForm';
+import PostCardCarousel from './PostCardCarousel';
 import PostEditDropdown from './PostEditDropdown';
 
 const { Text } = Typography;
 
 const PostCard = ({
-  post: { userInfo, textContent, likeCount, hashtags, comments, postId, createdDate, updatedDate },
+  post: { userInfo, textContent, likeCount, hashtags, comments, postId, createdDate, updatedDate, fileDownloadUrls },
 }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [postTimeInfo, setPostTimeInfo] = useState('');
@@ -28,7 +29,7 @@ const PostCard = ({
 
   return (
     <div key={shortid.generate()} className="card">
-      {/*<PostCardCarousel images={images} />*/}
+      <PostCardCarousel images={fileDownloadUrls} />
       <section className="px-4 pt-4 pb-2">
         <div className="flex items-center pb-0.5 justify-between">
           <div>
@@ -100,6 +101,7 @@ PostCard.propTypes = {
     ),
     createdDate: PropTypes.string,
     updatedDate: PropTypes.string,
+    fileDownloadUrls: PropTypes.array.isRequired,
   }).isRequired,
 };
 
