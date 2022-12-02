@@ -7,10 +7,10 @@ import EmptyFeed from '../../components/empty/EmptyFeed';
 import PostCard from '../../components/post/postCard/PostCard';
 import UserPanel from '../../components/userPanel/UserPanel';
 import AppLayout from '../../layouts/AppLayout';
-import { postsState } from '../feed';
+import atomStore from '../../store/atom';
 
 const Profile = () => {
-  const [posts, setPosts] = useRecoilState(postsState);
+  const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   useEffect(() => {
     PostsService.getUserPosts(0, 3)
       .then((data) => setPosts(data))

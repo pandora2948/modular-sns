@@ -4,7 +4,7 @@ import { MoreOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message } from 'antd';
 import { useRecoilState } from 'recoil';
 import { PostsService } from '../../../api/services';
-import { postsState } from '../../../pages/feed';
+import atomStore from '../../../store/atom';
 
 const menuKeys = {
   editPost: '0',
@@ -18,7 +18,7 @@ const menuItems = [
 ];
 
 const PostEditDropdown = ({ postId }) => {
-  const [posts, setPosts] = useRecoilState(postsState);
+  const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const onPostEditClicked = useCallback(
     async ({ key }) => {
       switch (key) {

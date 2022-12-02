@@ -4,7 +4,7 @@ import { Button, Form, Input, Modal, message } from 'antd';
 import { PostsService } from 'api/services';
 import { useModal } from 'hooks/useModal';
 import { useSetRecoilState } from 'recoil';
-import { postsState } from '../../../pages/feed';
+import atomStore from '../../../store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
@@ -12,7 +12,7 @@ const PostForm = () => {
   const [form] = Form.useForm();
   const [text, setText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
-  const setPosts = useSetRecoilState(postsState);
+  const setPosts = useSetRecoilState(atomStore.postsAtom);
 
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
