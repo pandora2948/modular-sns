@@ -4,7 +4,7 @@ import { handleErrorByAntdMessage } from '../../utils/handler';
 import { useDidMountEffect } from '../useDidMountEffect';
 
 // TODO: pagination 기능 작성하기 2022-12-02 20:06
-export default function usePostSearchedByHashtagList(hashtags) {
+export default function usePostListSearchedByHashtags(hashtags) {
   const [posts, setPosts] = useState([]);
 
   const getPosts = useCallback(async () => {
