@@ -1,27 +1,16 @@
-import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import PostCard from 'components/post/postCard/PostCard';
-import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import AppLayout from 'layouts/AppLayout';
 import { isNil } from 'lodash';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
-import { PostsService } from '../../api/services';
-import { handleErrorByAntdMessage } from '../../utils/handler';
+import usePostSearchedByHashtagList from '../../hooks/data/usePostSearchedByHashtagList';
 
 const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 
 const SearchHashtag = () => {
   const hashtags = useLoaderData();
-  const [posts, setPosts] = useState([]);
-
-  // TODO: 스크롤링 페이지네이션 fetch 적용하기
-  const getPosts = useCallback(async () => {
-    const posts = await PostsService.getPostsByHashtags({ hashtags }).catch(handleErrorByAntdMessage);
-    setPosts(posts);
-  }, [hashtags]);
-
-  useDidMountEffect(() => getPosts());
+  const [posts, _setPosts] = usePostSearchedByHashtagList(hashtags);
 
   return (
     <AppLayout>
