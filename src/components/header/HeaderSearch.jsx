@@ -4,14 +4,13 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, message, Modal } from 'antd';
 import { useModal } from 'hooks/useModal';
 import qs from 'qs';
-import { alertNotImpl } from 'utils';
 
 const HeaderSearch = () => {
   const navigate = useNavigate();
   const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef(null);
 
-  const _onSearch = useCallback(
+  const onSearch = useCallback(
     (searchText) => {
       if (!searchText) {
         return;
@@ -39,7 +38,7 @@ const HeaderSearch = () => {
       <Button shape="circle" icon={<SearchOutlined />} onClick={openModal} />
 
       <Modal title="해쉬태그 검색" open={isModalOpen} onCancel={closeModal} footer={null} centered destroyOnClose>
-        <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={alertNotImpl} />
+        <Input.Search ref={inputRef} placeholder="#개발 #개발자" size="large" onSearch={onSearch} />
       </Modal>
     </>
   );

@@ -6,23 +6,22 @@ import AppLayout from 'layouts/AppLayout';
 import { isNil } from 'lodash';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
-import { alertNotImpl } from 'utils';
+import { PostsService } from '../../api/services';
+import { handleErrorByAntdMessage } from '../../utils/handler';
 
 const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 
 const SearchHashtag = () => {
   const hashtags = useLoaderData();
-  const [posts, _setPosts] = useState(undefined);
+  const [posts, setPosts] = useState([]);
 
   // TODO: 스크롤링 페이지네이션 fetch 적용하기
   const getPosts = useCallback(async () => {
-    // const { ... } = await PostsService.getPostsByHashtags({ hashtags });
-    alertNotImpl();
-  }, []);
+    const posts = await PostsService.getPostsByHashtags({ hashtags }).catch(handleErrorByAntdMessage);
+    setPosts(posts);
+  }, [hashtags]);
 
-  useDidMountEffect(() => {
-    getPosts().then();
-  });
+  useDidMountEffect(() => getPosts());
 
   return (
     <AppLayout>
