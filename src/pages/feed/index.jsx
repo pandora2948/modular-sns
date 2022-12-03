@@ -4,7 +4,7 @@ import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
 import PostCardsSkeleton from 'components/post/postCard/PostCardSkeleton';
-import PostForm from 'components/post/postForm/PostForm';
+import PostCreateButton from 'components/post/postForm/PostCreateButton';
 import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
@@ -44,7 +44,7 @@ const Feed = () => {
   }
   return (
     <AppLayout>
-      <PostForm />
+      <PostCreateButton />
 
       {posts.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={post.postId} post={post} />)}
     </AppLayout>
