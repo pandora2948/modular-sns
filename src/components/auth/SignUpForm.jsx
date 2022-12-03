@@ -20,10 +20,10 @@ const SignUpForm = () => {
     async (values) => {
       try {
         await AuthService.createUser(values);
-        await message.success('회원가입 성공');
+        message.success('회원가입 성공');
         navigate('/auth/sign-in');
       } catch (err) {
-        await message.error(err.message);
+        message.error(err.message);
       }
     },
     [navigate]

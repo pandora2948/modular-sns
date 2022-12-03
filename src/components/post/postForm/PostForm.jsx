@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { ArrowLeftOutlined, FormOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, message } from 'antd';
+import { Button, Form, Input, message, Modal } from 'antd';
 import { PostsService } from 'api/services';
 import { useModal } from 'hooks/useModal';
 import { useSetRecoilState } from 'recoil';
@@ -33,7 +33,7 @@ const PostForm = () => {
         setPosts(await PostsService.getPosts({ page: 0, size: 9999 }));
         handleCloseModal();
       } catch (e) {
-        await message.error(e);
+        message.error(e);
       }
     },
     [handleCloseModal, setPosts]
@@ -42,11 +42,14 @@ const PostForm = () => {
   return (
     <>
       <Button
-        className="fixed right-6 bottom-6 w-14 h-14"
+        className="fixed right-6 bottom-6 w-14 h-14 z-[9999]"
         type="primary"
         shape="circle"
         icon={<FormOutlined className="text-2xl" />}
         onClick={openModal}
+        style={{
+          display: isModalOpen ? 'none' : 'initial',
+        }}
       />
 
       <Modal
