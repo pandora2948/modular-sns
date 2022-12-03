@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 
-const PostCardButton = ({ children, onClick }) => (
-  <Button className="p-2 w-full flex-center" onClick={onClick}>
+const PostCardButton = ({ children, onClick, type = 'text' }) => (
+  <Button className="p-2 w-full flex-center" onClick={onClick} type={type}>
     {children}
   </Button>
 );

@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-design/icons';
-import { Typography, Divider, Popover } from 'antd';
+import { Typography, Divider, Popover, message } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardButton from 'components/post/postCard/PostCardButton';
 import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
 import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
+import { PostsService } from '../../../api/services';
 import { loginInfoState } from '../../auth/SignInForm';
 import PostCardCarousel from './PostCardCarousel';
 import PostEditDropdown from './PostEditDropdown';
@@ -15,13 +16,45 @@ import PostEditDropdown from './PostEditDropdown';
 const { Text } = Typography;
 
 const PostCard = ({
-  post: { userInfo, textContent, likeCount, hashtags, comments, postId, createdDate, updatedDate, fileDownloadUrls },
+  post: {
+    userInfo,
+    textContent,
+    likeCount,
+    hashtags,
+    comments,
+    postId,
+    createdDate,
+    updatedDate,
+    fileDownloadUrls,
+    likeUp,
+  },
 }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [postTimeInfo, setPostTimeInfo] = useState('');
   const loginInfo = useRecoilValue(loginInfoState);
+  const [likedButtonState, setLikedButtonState] = useState({});
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
-  const onClickLikeBox = () => {};
+  useEffect(() => {
+    if (likeUp) {
+      setLikedButtonState({ isLiked: likeUp, type: 'link' });
+    } else {
+      setLikedButtonState({ isLiked: likeUp, type: 'text' });
+    }
+  }, [likeUp]);
+
+  const onClickLikeBox = useCallback(async () => {
+    if (likedButtonState.isLiked) {
+      await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
+      setLikedButtonState(({ isLiked }) => {
+        return { isLiked: !isLiked, type: 'link' };
+      });
+    } else {
+      await PostsService.removeLikeToPost({ postId }).catch((err) => message.error(err));
+      setLikedButtonState(({ isLiked }) => {
+        return { isLiked: !isLiked, type: 'default' };
+      });
+    }
+  }, [likedButtonState.isLiked, postId]);
   useEffect(() => {
     const postedDate = new Date(createdDate).toLocaleString();
     setPostTimeInfo(createdDate.includes(updatedDate) ? postedDate : postedDate + ' (수정됨)');
@@ -56,7 +89,7 @@ const PostCard = ({
       <Divider className="m-0" />
 
       <section className="flex interact-space">
-        <PostCardButton onClick={onClickLikeBox}>
+        <PostCardButton onClick={onClickLikeBox} type={likedButtonState.type}>
           <LikeOutlined className="pr-1" />
           <Text>좋아요</Text>
         </PostCardButton>
@@ -102,6 +135,7 @@ PostCard.propTypes = {
     createdDate: PropTypes.string,
     updatedDate: PropTypes.string,
     fileDownloadUrls: PropTypes.array.isRequired,
+    likeUp: PropTypes.bool,
   }).isRequired,
 };
 
