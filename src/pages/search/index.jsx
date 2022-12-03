@@ -4,13 +4,13 @@ import AppLayout from 'layouts/AppLayout';
 import { isNil } from 'lodash';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
-import usePostSearchedByHashtagList from '../../hooks/data/usePostSearchedByHashtagList';
+import usePostListSearchedByHashtags from '../../hooks/data/usePostListSearchedByHashtags';
 
 const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 
 const SearchHashtag = () => {
   const hashtags = useLoaderData();
-  const [posts, _setPosts] = usePostSearchedByHashtagList(hashtags);
+  const [posts, _setPosts] = usePostListSearchedByHashtags(hashtags);
 
   return (
     <AppLayout>
