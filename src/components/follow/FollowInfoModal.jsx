@@ -5,12 +5,12 @@ import FollowUserItem from './FollowUserItem';
 import useFetchFollowList from './hooks/useFetchFollowList';
 
 const FollowInfoModal = ({ isShow, handleOpen, handleClose }) => {
-  const [followUsernameList] = useFetchFollowList();
+  const [followUsers] = useFetchFollowList();
 
   return (
     <Modal title="팔로우 현황" open={isShow} onOk={handleOpen} onCancel={handleClose}>
-      {followUsernameList.map((username) => (
-        <FollowUserItem username={username} realname="가짜realname" key={shortid()} />
+      {followUsers.map(({ username, realname }) => (
+        <FollowUserItem username={username} realname={realname} key={shortid()} />
       ))}
     </Modal>
   );

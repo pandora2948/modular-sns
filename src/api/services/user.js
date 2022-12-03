@@ -50,7 +50,7 @@ export const UserService = {
    * @description 로그인 된 사용자의 팔로워 사용자들의 이름 리스트를 반환합니다.
    * @returns {Promise<String[]>}
    */
-  async getFollowerUsernameList() {
+  async getFollowerUserList() {
     return await api.get('/users/follower');
   },
 
@@ -58,7 +58,7 @@ export const UserService = {
    * @description 로그인 된 사용자의 팔로잉 사용자들의 이름 리스트를 반환합니다.
    * @returns {Promise<String[]>}
    */
-  async getFollowingUsernameList() {
+  async getFollowingUserList() {
     return await api.get('/users/following');
   },
 
@@ -78,5 +78,23 @@ export const UserService = {
    */
   async removeFollow({ username }) {
     return await api.delete(`/users/follow?username=${username}`);
+  },
+
+  /**
+   * @description 사용자가 해당 유저가 팔로우했는 지 체크합니다.
+   * @param username
+   * @returns {Promise<*|undefined>}
+   */
+  async checkFollow({ username }) {
+    return await api.get(`/users/follow/exists?username=${username}`);
+  },
+
+  /**
+   * @description 사용자가 해당 유저를 팔로잉했는 지 체크합니다.
+   * @param username
+   * @returns {Promise<*|undefined>}
+   */
+  async checkFollowing({ username }) {
+    return await api.get(`/users/following/exists?username=${username}`);
   },
 };

@@ -6,8 +6,8 @@ const useFetchFollowList = () => {
   const [followUsernameList, setFollowUsernameList] = useState([]);
 
   useEffect(() => {
-    UserService.getFollowerUsernameList()
-      .then((usernameList) => setFollowUsernameList(usernameList))
+    UserService.getFollowerUserList()
+      .then((followUsers) => setFollowUsernameList(followUsers))
       .catch(handleErrorByAntdMessage);
   }, []);
 
