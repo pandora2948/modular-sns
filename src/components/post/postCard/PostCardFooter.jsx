@@ -11,27 +11,27 @@ const { Text } = Typography;
 
 const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
-  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'default' });
+  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'default', likeCount });
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
 
   const onClickLikeBox = useCallback(async () => {
     if (likedButtonState.isLiked) {
       try {
-        await PostsService.removeLikeToPost({ postId });
-        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'default', likeCount: likeCount }));
+        const updatedLikeCount = await PostsService.removeLikeToPost({ postId });
+        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'default', likeCount: updatedLikeCount }));
       } catch (err) {
         message.error(err);
       }
     } else {
       try {
-        await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
-        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'link', likeCount: likeCount }));
+        const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
+        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'link', likeCount: updatedLikeCount }));
       } catch (err) {
         message.error(err);
       }
     }
-  }, [likeCount, likedButtonState.isLiked, postId]);
+  }, [likedButtonState.isLiked, postId]);
 
   return (
     <>
