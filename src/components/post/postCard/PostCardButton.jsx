@@ -10,6 +10,7 @@ const PostCardButton = ({ children, onClick }) => (
 PostCardButton.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
+  type: PropTypes.string,
 };
 
 export default PostCardButton;
