@@ -9,7 +9,7 @@ import { menuItems } from './constant';
 import { processQuarterOnDropDownMenu } from './menu-quarter';
 import { deletePostOnPostEditDropdown } from './network.io';
 
-const PostEditDropdown = ({ postId, updateCb, ...rest }) => {
+const PostEditDropdown = ({ postId, ...rest }) => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
 
   const deletePost = useCallback(
@@ -49,7 +49,6 @@ const PostEditDropdown = ({ postId, updateCb, ...rest }) => {
 
 PostEditDropdown.propTypes = {
   postId: PropTypes.number.isRequired,
-  updateCb: PropTypes.func.isRequired,
 };
 
 export default PostEditDropdown;
