@@ -24,7 +24,6 @@ const userStatInitialData = {
 const Profile = () => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const [user, setUser] = useState(userStatInitialData);
-  console.log({ user });
 
   useEffect(() => {
     PostsService.getUserPosts({ page: 0, size: 99999 })
@@ -38,7 +37,7 @@ const Profile = () => {
   return (
     <AppLayout>
       <UserPanel userStatus={user} />
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <PostCard key={shortid.generate()} post={post} />
       ))}
     </AppLayout>
