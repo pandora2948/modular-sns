@@ -24,11 +24,7 @@ const SignInForm = () => {
           password,
         });
 
-        setMe(() => ({
-          email: userInfo.email,
-          userId: userInfo.userId,
-          username: userInfo.username,
-        }));
+        setMe(() => userInfo);
 
         token.refreshToken.set(refreshToken, remember);
         token.accessToken.set(accessToken);

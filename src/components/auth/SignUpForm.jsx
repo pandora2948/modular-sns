@@ -31,11 +31,7 @@ const SignUpForm = () => {
           realname,
         });
 
-        setMe(() => ({
-          email: userInfo.email,
-          userId: userInfo.userId,
-          username: userInfo.username,
-        }));
+        setMe(() => userInfo);
 
         token.refreshToken.set(refreshToken, true);
         token.accessToken.set(accessToken);
