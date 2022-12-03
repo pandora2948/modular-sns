@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { CommentOutlined, HeartTwoTone, LikeOutlined } from '@ant-design/icons';
 import { Divider, message, Popover, Typography } from 'antd';
 import { PostsService } from 'api/services';
-import PostCardButton from 'components/post/postCard/PostCardButton';
-import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
-import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
+import PostCardButton from 'components/post/postCard/postFooter/PostCardButton';
+import PostCommentSection from 'components/post/postCard/postFooter/postFooterComment/PostCommentSection';
 
 const { Text } = Typography;
 
@@ -54,8 +53,7 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
         </PostCardButton>
       </section>
 
-      <PostCardCommentBox open={isOpenCommentBox} />
-      <PostCardCommentList comments={comments} />
+      <PostCommentSection open={isOpenCommentBox} postId={postId} comments={comments} />
     </>
   );
 };
@@ -67,7 +65,7 @@ PostCardFooter.propTypes = {
       PropTypes.shape({
         commentId: PropTypes.number.isRequired,
         articleId: PropTypes.number.isRequired,
-        replyUserId: PropTypes.number.isRequired,
+        replyUserId: PropTypes.any,
         textContent: PropTypes.string.isRequired,
         userInfo: PropTypes.shape({
           userId: PropTypes.number.isRequired,

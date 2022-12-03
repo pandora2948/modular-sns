@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import { Typography, Divider } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
-import PostCardFooter from 'components/post/postCard/PostCardFooter';
+import PostCardFooter from 'components/post/postCard/postFooter/PostCardFooter';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import atomStore from 'store/atom';
@@ -81,7 +81,7 @@ PostCard.propTypes = {
       PropTypes.shape({
         commentId: PropTypes.number.isRequired,
         articleId: PropTypes.number.isRequired,
-        replyUserId: PropTypes.number.isRequired,
+        replyUserId: PropTypes.any,
         textContent: PropTypes.string.isRequired,
         userInfo: PropTypes.shape({
           userId: PropTypes.number.isRequired,

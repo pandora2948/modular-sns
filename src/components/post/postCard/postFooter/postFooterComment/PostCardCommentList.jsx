@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from 'antd';
-import PostCardComment from 'components/post/postCard/PostCardComment';
+import PostCardComment from 'components/post/postCard/postFooter/PostCardComment';
 import shortid from 'shortid';
 
 const { Text } = Typography;
@@ -33,7 +33,7 @@ PostCardCommentList.propTypes = {
     PropTypes.shape({
       commentId: PropTypes.number.isRequired,
       articleId: PropTypes.number.isRequired,
-      replyUserId: PropTypes.number.isRequired,
+      replyUserId: PropTypes.any,
       textContent: PropTypes.string.isRequired,
       userInfo: PropTypes.shape({
         userId: PropTypes.number.isRequired,
