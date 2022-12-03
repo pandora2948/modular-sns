@@ -18,7 +18,7 @@ const UserConfigForm = () => {
         });
         message.success('사용자 정보가 변경되었습니다.');
       } catch (error) {
-        await message.error(error.message);
+        message.error(error.message);
       }
     },
     [setLoginInfo]

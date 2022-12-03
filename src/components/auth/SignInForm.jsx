@@ -45,7 +45,7 @@ const SignInForm = () => {
 
         navigate('/');
       } catch (err) {
-        await message.error(err.message);
+        message.error(err.message);
       }
     },
     [navigate, setLoginInfo]
