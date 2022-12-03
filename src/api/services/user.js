@@ -24,8 +24,8 @@ export const UserService = {
    * @param username
    * @returns {Promise<*|undefined>}
    */
-  async updateLoginedUserData({ email, username }) {
-    return await api.put('/users', { email, username });
+  async updateLoginedUserData({ email, username, realname }) {
+    return await api.put('/users', { email, username, realname });
   },
 
   /**
