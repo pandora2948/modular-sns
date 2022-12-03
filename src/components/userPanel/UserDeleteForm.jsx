@@ -38,9 +38,9 @@ const UserDeleteForm = () => {
       <span className="text-center font-bold text-lg mb-5">계정 삭제를 위한 비밀번호 확인</span>
       <Form
         onFinish={deleteUser}
+        validateTrigger={formValidateTrigger}
         onFinishFailed={onFormFinishFailed}
         form={form}
-        scrollToFirstErrorvalidateTrigger={formValidateTrigger}
         {...layout}
       >
         <Form.Item

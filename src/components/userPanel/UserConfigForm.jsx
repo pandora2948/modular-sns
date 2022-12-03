@@ -13,7 +13,7 @@ const layout = {
 
 const UserConfigForm = () => {
   const [me, setMe] = useRecoilState(atomStore.meAtom);
-  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const submitUserConfig = useCallback(
     async ({ email, userName: username }) => {
@@ -35,7 +35,13 @@ const UserConfigForm = () => {
 
   return (
     <section className="w-full">
-      <Form onFinish={submitUserConfig} onFinishFailed={onFormFinishFailed} scrollToFirstError {...layout}>
+      <Form
+        onFinish={submitUserConfig}
+        validateTrigger={formValidateTrigger}
+        onFinishFailed={onFormFinishFailed}
+        scrollToFirstError
+        {...layout}
+      >
         <Form.Item
           name="email"
           label="이메일"

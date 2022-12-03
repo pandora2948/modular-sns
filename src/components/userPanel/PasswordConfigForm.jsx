@@ -10,7 +10,7 @@ const layout = {
 };
 
 const PasswordConfigForm = () => {
-  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const [form] = Form.useForm();
 
   const updatePassword = useCallback(async ({ prvPassword: prevPassword, passwordConfirm: newPassword }) => {
@@ -30,6 +30,7 @@ const PasswordConfigForm = () => {
       className="w-full"
       form={form}
       onFinish={updatePassword}
+      validateTrigger={formValidateTrigger}
       onFinishFailed={onFormFinishFailed}
       scrollToFirstError
       {...layout}

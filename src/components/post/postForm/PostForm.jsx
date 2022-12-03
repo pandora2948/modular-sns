@@ -4,12 +4,13 @@ import { Button, Col, Form, Input, message, Modal, Row } from 'antd';
 import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useModal } from 'hooks/useModal';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import atomStore from 'store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
 const PostForm = () => {
+  const me = useRecoilValue(atomStore.meAtom);
   const [form] = Form.useForm();
   const [text, setText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -39,6 +40,7 @@ const PostForm = () => {
     },
     [handleCloseModal, setPosts]
   );
+  console.log(me);
 
   return (
     <>
@@ -78,7 +80,7 @@ const PostForm = () => {
         <Form form={form} onFinish={handleSubmit} className="w-full h-full flex flex-col items-end p-3">
           <Row className="w-full">
             <Col span={4}>
-              <UserIcon size="m" />
+              <UserIcon size="m" userName={me.userName} />
             </Col>
             <Col span={20}>
               <Form.Item name="textContent" noStyle>

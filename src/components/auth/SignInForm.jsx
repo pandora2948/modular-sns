@@ -11,7 +11,7 @@ import { requiredRule } from 'utils/formRules';
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const setMe = useSetRecoilState(atomStore.meAtom);
 
   const onFinish = useCallback(
@@ -47,7 +47,12 @@ const SignInForm = () => {
     <section className="w-full">
       <h1 className="text-2xl mt-3 mb-7 text-center">로그인</h1>
 
-      <Form onFinish={onFinish} onFinishFailed={onFormFinishFailed} scrollToFirstError>
+      <Form
+        onFinish={onFinish}
+        validateTrigger={formValidateTrigger}
+        onFinishFailed={onFormFinishFailed}
+        scrollToFirstError
+      >
         <Form.Item name="email" rules={[requiredRule]} hasFeedback={hasFeedback}>
           <Input prefix={<UserOutlined />} placeholder="이메일" allowClear />
         </Form.Item>
