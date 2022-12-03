@@ -1,5 +1,7 @@
 import 'setup';
 import 'styles/styles.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';

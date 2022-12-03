@@ -42,12 +42,12 @@ const PostCard = ({
   return (
     <article
       key={shortid.generate()}
-      className="card flex border-gray-200"
+      className="card flex border-gray-200 p-3"
       style={{
         borderTop: '1px solid',
       }}
     >
-      <section className="relative p-3">
+      <section className="relative mr-3">
         <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10">
           <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
         </Button>
@@ -71,10 +71,8 @@ const PostCard = ({
         </div>
       </section>
 
-      <section className="w-full py-3">
-        <PostCardCarousel images={fileDownloadUrls} />
-
-        <section className="">
+      <section className="flex-1 overflow-x-auto">
+        <section>
           <section className="relative flex items-center justify-between">
             <Button type="text" onClick={handleUserProfileClicked} className="flex items-center gap-1 p-0 h-fit">
               <span className="font-semibold">{userInfo.realname}</span>
@@ -90,6 +88,12 @@ const PostCard = ({
             <HashtagList tags={hashtags} />
           </section>
         </section>
+
+        {fileDownloadUrls.length && (
+          <section className="mt-3">
+            <PostCardCarousel images={fileDownloadUrls} />
+          </section>
+        )}
 
         <PostCardFooter footerData={{ likeCount, comments, likeUp, postId }} />
       </section>

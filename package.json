@@ -39,6 +39,7 @@
     "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
     "shortid": "^2.2.16",
+    "swiper": "^8.4.5",
     "web-vitals": "^3.0.4"
   },
   "devDependencies": {

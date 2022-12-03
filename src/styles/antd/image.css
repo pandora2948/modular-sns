@@ -2,3 +2,16 @@
   display: flex;
   justify-content: center;
 }
+
+.ant-image-preview-img {
+  object-fit: contain;
+}
+
+.ant-image-preview-mask {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.ant-image-preview-operations-progress {
+  left: 30px;
+  transform: translateX(-50%);
+}

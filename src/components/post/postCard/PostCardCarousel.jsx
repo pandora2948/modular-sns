@@ -1,29 +1,47 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, Image } from 'antd';
+import { Image } from 'antd';
 import shortid from 'shortid';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const PostCardCarousel = ({ images }) => {
-  if (!images || images.length === 0) return null;
+  const [visible, setVisible] = useState(false);
 
+  if (!images || images.length === 0) return null;
   return (
     <>
-      <Carousel>
+      <Swiper
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+      >
         {images.map((url) => (
-          <div key={shortid.generate()} className="bg-black/90">
-            <div className="flex justify-center">
-              <Image
-                src={url}
-                width="100%"
-                height="auto"
-                className="max-h-80 object-contain"
-                style={{
-                  minHeight: '18rem',
-                }}
-              />
-            </div>
-          </div>
+          <SwiperSlide key={shortid.generate()} className="bg-black/90">
+            <Image
+              src={url}
+              width="100%"
+              height="auto"
+              className="max-h-80 object-contain"
+              preview={{ visible: false }}
+              style={{
+                minHeight: '18rem',
+              }}
+              onClick={() => setVisible(true)}
+            />
+          </SwiperSlide>
         ))}
-      </Carousel>
+      </Swiper>
+
+      <div style={{ display: 'none' }}>
+        <Image.PreviewGroup preview={{ visible, onVisibleChange: (visible) => setVisible(visible) }}>
+          {images.map((url) => (
+            <Image key={shortid.generate()} src={url} width="100%" height="auto" />
+          ))}
+        </Image.PreviewGroup>
+      </div>
     </>
   );
 };
