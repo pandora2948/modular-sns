@@ -65,7 +65,7 @@ const PostCard = ({
             style={{
               top: '100%',
               left: '50%',
-              transform: 'translateX(-45%)',
+              transform: 'translateX(-48%)',
             }}
           />
         </div>
