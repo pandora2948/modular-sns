@@ -10,5 +10,9 @@ const ProfileStat = ({ title, count }) => {
   );
 };
 
-ProfileStat.propTypes = { title: PropTypes.string, count: PropTypes.number };
+ProfileStat.propTypes = {
+  title: PropTypes.string,
+  count: PropTypes.number,
+};
+
 export default ProfileStat;
