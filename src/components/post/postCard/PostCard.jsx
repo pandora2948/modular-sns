@@ -37,15 +37,23 @@ const PostCard = ({
 
   const onClickLikeBox = useCallback(async () => {
     if (likedButtonState.isLiked) {
-      await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
-      setLikedButtonState(({ isLiked }) => {
-        return { isLiked: !isLiked, type: 'link' };
-      });
+      try {
+        await PostsService.removeLikeToPost({ postId });
+        setLikedButtonState(({ isLiked }) => {
+          return { isLiked: !isLiked, type: 'default' };
+        });
+      } catch (err) {
+        message.error(err);
+      }
     } else {
-      await PostsService.removeLikeToPost({ postId }).catch((err) => message.error(err));
-      setLikedButtonState(({ isLiked }) => {
-        return { isLiked: !isLiked, type: 'default' };
-      });
+      try {
+        await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
+        setLikedButtonState(({ isLiked }) => {
+          return { isLiked: !isLiked, type: 'link' };
+        });
+      } catch (err) {
+        message.error(err);
+      }
     }
   }, [likedButtonState.isLiked, postId]);
 
