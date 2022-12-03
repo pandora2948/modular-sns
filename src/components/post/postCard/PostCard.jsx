@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
-import { Typography, Divider } from 'antd';
+import { Typography, Divider, Button } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardFooter from 'components/post/postCard/postFooter/PostCardFooter';
 import { useRecoilValue } from 'recoil';
@@ -45,10 +45,10 @@ const PostCard = ({
       <PostCardCarousel images={fileDownloadUrls} />
       <section className="px-4 pt-4 pb-2">
         <div className="flex items-center pb-0.5 justify-between">
-          <div onClick={handleUserProfileClicked}>
+          <Button type="text" onClick={handleUserProfileClicked} className="p-0">
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
-          </div>
+          </Button>
           {userInfo.userId === me.userId && <PostEditDropdown postId={postId} />}
         </div>
         <div>
