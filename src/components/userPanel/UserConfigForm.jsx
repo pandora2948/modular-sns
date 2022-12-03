@@ -16,13 +16,13 @@ const UserConfigForm = () => {
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const submitUserConfig = useCallback(
-    async ({ email, username }) => {
+    async (values) => {
       try {
         // setLoading(true);
-        await UserService.updateLoginedUserData({ email, username });
+        await UserService.updateLoginedUserData(values);
 
         setMe((prv) => {
-          return { ...prv, email, username };
+          return { ...prv, ...values };
         });
 
         message.success('사용자 정보가 변경되었습니다.');
@@ -34,6 +34,7 @@ const UserConfigForm = () => {
     },
     [setMe]
   );
+  console.log('me', me);
 
   return (
     <section className="w-full">
