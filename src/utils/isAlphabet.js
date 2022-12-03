@@ -14,7 +14,7 @@ export function isAlphabet(char) {
 
   const ascii = char.charCodeAt(0);
   const isUpperCase = ascii >= ASCII.A && ascii <= ASCII.Z;
-  const isLowerCase = ascii >= ASCII.A && ascii <= ASCII.Z;
+  const isLowerCase = ascii >= ASCII.a && ascii <= ASCII.z;
 
   return isLowerCase || isUpperCase;
 }
