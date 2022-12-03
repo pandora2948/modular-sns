@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
+import { PostsService, UserService } from 'api/services';
+import PostCard from 'components/post/postCard/PostCard';
+import UserPanel from 'components/userPanel/UserPanel';
+import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
 import shortid from 'shortid';
-import { PostsService, UserService } from '../../api/services';
-import PostCard from '../../components/post/postCard/PostCard';
-import UserPanel from '../../components/userPanel/UserPanel';
-import AppLayout from '../../layouts/AppLayout';
-import atomStore from '../../store/atom';
-import { handleErrorByAntdMessage } from '../../utils/handler';
+import atomStore from 'store/atom';
+import { handleErrorByAntdMessage } from 'utils/handler';
 
 const userStatInitialData = {
   allFollowerCount: 0,

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import PostCard from 'components/post/postCard/PostCard';
+import usePostListSearchedByHashtags from 'hooks/data/usePostListSearchedByHashtags';
 import AppLayout from 'layouts/AppLayout';
 import { isNil } from 'lodash';
 import { useLoaderData } from 'react-router';
 import shortid from 'shortid';
-import usePostListSearchedByHashtags from '../../hooks/data/usePostListSearchedByHashtags';
 
 const Tag = ({ name }) => <h3 className="text-sky-500 text-base md:text-lg">{name}</h3>;
 

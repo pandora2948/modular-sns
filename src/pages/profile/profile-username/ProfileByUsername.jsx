@@ -1,6 +1,6 @@
+import UserPanel from 'components/userPanel/UserPanel';
+import AppLayout from 'layouts/AppLayout';
 import { useParams } from 'react-router';
-import UserPanel from '../../../components/userPanel/UserPanel';
-import AppLayout from '../../../layouts/AppLayout';
 import useFetchUser from './hooks/useFetchUser';
 
 const ProfileByUsername = () => {

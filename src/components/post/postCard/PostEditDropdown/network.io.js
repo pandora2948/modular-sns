@@ -1,4 +1,4 @@
-import { PostsService } from '../../../../api/services';
+import { PostsService } from 'api/services';
 
 export const deletePostOnPostEditDropdown = ({ posts, deletePostId, successCb, failureCb }) =>
   PostsService.deletePost({ postId: deletePostId })

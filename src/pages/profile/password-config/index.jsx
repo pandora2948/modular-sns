@@ -1,5 +1,5 @@
-import PasswordConfigForm from '../../../components/userPanel/PasswordConfigForm';
-import AuthLayout from '../../../layouts/AuthLayout';
+import PasswordConfigForm from 'components/userPanel/PasswordConfigForm';
+import AuthLayout from 'layouts/AuthLayout';
 
 const PasswordConfig = () => {
   return (

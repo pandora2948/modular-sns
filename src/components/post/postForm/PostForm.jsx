@@ -5,7 +5,7 @@ import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useModal } from 'hooks/useModal';
 import { useSetRecoilState } from 'recoil';
-import atomStore from '../../../store/atom';
+import atomStore from 'store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 

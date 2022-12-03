@@ -7,7 +7,7 @@ import PostForm from 'components/post/postForm/PostForm';
 import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
 import shortid from 'shortid';
-import atomStore from '../../store/atom';
+import atomStore from 'store/atom';
 
 const Feed = () => {
   const [postCount] = useState(3);

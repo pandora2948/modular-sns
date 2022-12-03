@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { UserService } from '../../api/services';
-import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
-import { passwordRegex, requiredRule } from '../../utils';
+import { UserService } from 'api/services';
+import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
+import { passwordRegex, requiredRule } from 'utils';
 
 const layout = {
   labelCol: { span: 24 },
