@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
@@ -20,9 +21,9 @@ const userStatInitialData = {
   },
 };
 
-const UserPanel = () => {
+const UserPanel = ({ userStatus }) => {
   const loginInfo = useRecoilValue(loginInfoState);
-  const [userStat, setUserStat] = useState(userStatInitialData);
+  const [userStat, setUserStat] = useState(userStatus);
 
   useEffect(() => {
     UserService.getLoginedUser()
@@ -55,6 +56,20 @@ const UserPanel = () => {
       </section>
     </>
   );
+};
+
+UserPanel.propTypes = {
+  userStatus: PropTypes.shape({
+    allFollowerCount: PropTypes.number.isRequired,
+    allFollowingCount: PropTypes.number.isRequired,
+    allGivenLikeCount: PropTypes.number.isRequired,
+    allPostCount: PropTypes.number.isRequired,
+    userInfo: PropTypes.shape({
+      userId: PropTypes.number.isRequired,
+      email: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 export default UserPanel;
