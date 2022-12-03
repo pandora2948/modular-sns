@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, Divider, Button } from 'antd';
+import { MoreOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardFooter from 'components/post/postCard/postFooter/PostCardFooter';
 import UserIcon from 'components/userPanel/UserIcon';
@@ -10,8 +11,6 @@ import shortid from 'shortid';
 import atomStore from 'store/atom';
 import PostCardCarousel from './PostCardCarousel';
 import PostEditDropdown from './PostEditDropdown';
-
-const { Text } = Typography;
 
 const PostCard = ({
   post: {
@@ -41,30 +40,60 @@ const PostCard = ({
   }, [createdDate, updatedDate]);
 
   return (
-    <div key={shortid.generate()} className="card">
-      <PostCardCarousel images={fileDownloadUrls} />
-
-      <section className="px-4 pt-4 pb-2">
-        <div className="flex items-center pb-0.5 justify-between">
-          <Button type="text" onClick={handleUserProfileClicked} className="flex items-center gap-2 p-0">
-            <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
-            <Text>{userInfo.username}</Text>
-          </Button>
-          {userInfo.userId === me.userId && <PostEditDropdown postId={postId} />}
-        </div>
-        <div>
-          <span className="text-xs text-gray-400">{postTimeInfo}</span>
-        </div>
-        <div>
-          <Text className="pr-2">{textContent}</Text>
-          <HashtagList tags={hashtags} />
+    <article
+      key={shortid.generate()}
+      className="card flex border-gray-200"
+      style={{
+        borderTop: '1px solid',
+      }}
+    >
+      <section className="relative p-3">
+        <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10">
+          <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
+        </Button>
+        <div
+          className="absolute h-[80%] border-gray-400"
+          style={{
+            borderRight: '0.5px solid',
+            top: '10%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <MoreOutlined
+            className="absolute text-gray-400"
+            style={{
+              top: '100%',
+              left: '50%',
+              transform: 'translateX(-45%)',
+            }}
+          />
         </div>
       </section>
 
-      <PostCardFooter footerData={{ likeCount, comments, likeUp, postId }} />
+      <section className="w-full py-3">
+        <PostCardCarousel images={fileDownloadUrls} />
 
-      <Divider className="m-0" />
-    </div>
+        <section className="">
+          <section className="relative flex items-center justify-between">
+            <Button type="text" onClick={handleUserProfileClicked} className="flex items-center gap-1 p-0 h-fit">
+              <span className="font-semibold">{userInfo.realname}</span>
+              <span className="text-gray-500">@{userInfo.username}</span>
+            </Button>
+            {userInfo.userId === me.userId && <PostEditDropdown postId={postId} className="absolute right-2" />}
+          </section>
+          <section className="leading-none">
+            <span className="text-xs text-gray-400">{postTimeInfo}</span>
+          </section>
+          <section className="mt-2">
+            <span>{textContent}</span>
+            <HashtagList tags={hashtags} />
+          </section>
+        </section>
+
+        <PostCardFooter footerData={{ likeCount, comments, likeUp, postId }} />
+      </section>
+    </article>
   );
 };
 

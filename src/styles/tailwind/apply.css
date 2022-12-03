@@ -1,5 +1,5 @@
 .card {
-  @apply bg-white w-full shadow-md overflow-hidden;
+  @apply bg-white w-full overflow-hidden;
 }
 
 .flex-center {

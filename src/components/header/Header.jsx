@@ -6,12 +6,7 @@ import HeaderSearch from './HeaderSearch';
 
 const Header = ({ hideProfileIcon, hideSearchIcon }) => {
   return (
-    <header
-      className="
-        flex h-12 bg-white justify-between px-4 items-center shadow-md
-        font-semibold relative
-      "
-    >
+    <header className="flex h-12 bg-white justify-between px-4 items-center font-semibold relative">
       <h1 className="m-0 text-lg text-slate-600 whitespace-nowrap">
         <Link to="/">sns-modular</Link>
       </h1>

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { MoreOutlined } from '@ant-design/icons';
+import { EllipsisOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message } from 'antd';
 import { useRecoilState } from 'recoil';
 import atomStore from 'store/atom';
@@ -9,7 +9,7 @@ import { menuItems } from './constant';
 import { processQuarterOnDropDownMenu } from './menu-quarter';
 import { deletePostOnPostEditDropdown } from './network.io';
 
-const PostEditDropdown = ({ postId, updateCb }) => {
+const PostEditDropdown = ({ postId, updateCb, ...rest }) => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
 
   const deletePost = useCallback(
@@ -42,7 +42,7 @@ const PostEditDropdown = ({ postId, updateCb }) => {
 
   return (
     <Dropdown menu={{ items: menuItems, onClick: onPostEditClicked }}>
-      <Button type="text" icon={<MoreOutlined />} />
+      <Button type="text" icon={<EllipsisOutlined className="text-xl text-gray-900" />} {...rest} />
     </Dropdown>
   );
 };

@@ -1,31 +1,45 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CommentOutlined, HeartTwoTone, LikeOutlined } from '@ant-design/icons';
-import { Divider, message, Popover, Typography } from 'antd';
+import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
+import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
-import PostCardButton from 'components/post/postCard/postFooter/PostCardButton';
 import PostCommentSection from 'components/post/postCard/postFooter/postFooterComment/PostCommentSection';
 
-const { Text } = Typography;
+const LIKE_COLOR = 'text-blue-500';
+const NOT_LIKE_COLOR = 'text-gray-600';
 
 const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
-  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'text', likeCount });
+  const [likedButtonState, setLikedButtonState] = useState({
+    isLiked: likeUp,
+    likeCount,
+    color: likeUp ? LIKE_COLOR : NOT_LIKE_COLOR,
+  });
 
-  const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
+  const handleClickCommentBox = useCallback(() => {
+    setIsOpenCommentBox((prev) => !prev);
+  }, []);
 
-  const onClickLikeBox = useCallback(async () => {
+  const handleClickLikeBox = useCallback(async () => {
     if (likedButtonState.isLiked) {
       try {
         const updatedLikeCount = await PostsService.removeLikeToPost({ postId });
-        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'text', likeCount: updatedLikeCount }));
+        setLikedButtonState(() => ({
+          isLiked: false,
+          likeCount: updatedLikeCount,
+          color: NOT_LIKE_COLOR,
+        }));
       } catch (err) {
         message.error(err);
       }
     } else {
       try {
         const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
-        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'link', likeCount: updatedLikeCount }));
+        setLikedButtonState(() => ({
+          isLiked: true,
+          likeCount: updatedLikeCount,
+          color: LIKE_COLOR,
+        }));
       } catch (err) {
         message.error(err);
       }
@@ -34,24 +48,20 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
 
   return (
     <>
-      <section className="flex gap-x-1 items-center px-4 pb-3">
-        <Popover placement="top" content="해당 게시글의 좋아요 갯수입니다." className="cursor-pointer">
-          <HeartTwoTone style={{ fontSize: '1.1rem' }} />
-        </Popover>
-        <Text>{likedButtonState.likeCount}</Text>
-      </section>
-      <Divider className="m-0" />
-
-      <section className="flex interact-space">
-        <PostCardButton onClick={onClickLikeBox} type={likedButtonState.type}>
-          <LikeOutlined className="pr-1" />
-          <Text>좋아요</Text>
-        </PostCardButton>
-        <PostCardButton onClick={handleCommentBox}>
-          <CommentOutlined className="pr-1" />
-          <Text>{isOpenCommentBox ? '댓글 닫기' : '댓글 달기'}</Text>
-        </PostCardButton>
-      </section>
+      <footer className="grid grid-cols-2 mt-5">
+        <Button type="text" className="border-0 bg-transparent text-gray-600" onClick={handleClickCommentBox}>
+          <CommentOutlined className="text-xl" />
+          <span>{comments.length}</span>
+        </Button>
+        <Button
+          type="text"
+          className={`border-0 bg-transparent ${likedButtonState.color}`}
+          onClick={handleClickLikeBox}
+        >
+          <LikeOutlined className="text-xl" />
+          <span>{likedButtonState.likeCount}</span>
+        </Button>
+      </footer>
 
       <PostCommentSection open={isOpenCommentBox} postId={postId} comments={comments} />
     </>
