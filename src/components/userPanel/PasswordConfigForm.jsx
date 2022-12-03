@@ -13,7 +13,7 @@ const PasswordConfigForm = () => {
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const [form] = Form.useForm();
 
-  const updatePassword = useCallback(async ({ prvPassword: prevPassword, passwordConfirm: newPassword }) => {
+  const updatePassword = useCallback(async ({ prevPassword, newPassword }) => {
     try {
       // setLoading(true);
       await UserService.updateLoginedUserPassword({ prevPassword, newPassword });
@@ -35,22 +35,11 @@ const PasswordConfigForm = () => {
       scrollToFirstError
       {...layout}
     >
-      <Form.Item
-        name="prvPassword"
-        label="기존 비밀번호"
-        rules={[
-          {
-            pattern: passwordRegex,
-            message: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요',
-          },
-          requiredRule,
-        ]}
-        hasFeedback={hasFeedback}
-      >
+      <Form.Item name="prvPassword" label="기존 비밀번호" rules={[requiredRule]} hasFeedback={hasFeedback}>
         <Input.Password />
       </Form.Item>
       <Form.Item
-        name="password"
+        name="newPassword"
         label="비밀번호"
         rules={[
           {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
-import { passwordRegex, usernameRegex } from 'utils';
+import { passwordRegex, realnameRegex, usernameRegex } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
 const layout = {
@@ -105,14 +105,14 @@ const SignUpForm = () => {
           <Input allowClear />
         </Form.Item>
         <Form.Item
-          label="실명"
           name="realname"
+          label="실명"
           hasFeedback={hasFeedback}
           rules={[
             requiredRule,
             {
-              pattern: usernameRegex,
-              message: '4~15자 영문 대 소문자, 숫자, 밑줄을 사용하세요',
+              pattern: realnameRegex,
+              message: '1~12자 영문 대 소문자, 한글을 사용하세요',
             },
           ]}
         >
