@@ -5,7 +5,6 @@ import PostCard from 'components/post/postCard/PostCard';
 import UserPanel from 'components/userPanel/UserPanel';
 import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
-import shortid from 'shortid';
 import atomStore from 'store/atom';
 import { handleErrorByAntdMessage } from 'utils/handler';
 
@@ -38,7 +37,7 @@ const Profile = () => {
     <AppLayout>
       <UserPanel userStatus={user} />
       {posts?.map((post) => (
-        <PostCard key={shortid.generate()} post={post} />
+        <PostCard key={post.postId} post={post} />
       ))}
     </AppLayout>
   );

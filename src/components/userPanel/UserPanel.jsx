@@ -12,7 +12,7 @@ const UserPanel = ({ userStatus, followComponent }) => {
 
   return (
     <>
-      <section className="relative pt-24">
+      <section className="relative pt-[5.5rem]">
         <section className="absolute top-0 bg-gray-300 w-full h-32"></section>
         <article className="relative px-5">
           <section className="flex justify-between items-end">
