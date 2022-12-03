@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
 import { PostsService, UserService } from 'api/services';
+import EmptySpace from 'components/empty/EmptySpace';
 import PostCard from 'components/post/postCard/PostCard';
 import UserPanel from 'components/userPanel/UserPanel';
 import AppLayout from 'layouts/AppLayout';
@@ -27,6 +28,9 @@ const Profile = () => {
   return (
     <AppLayout>
       <UserPanel userStatus={user} />
+
+      <EmptySpace />
+
       {posts?.map((post) => (
         <PostCard key={post.postId} post={post} />
       ))}

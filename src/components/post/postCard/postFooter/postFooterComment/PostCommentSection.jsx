@@ -31,6 +31,7 @@ PostCommentSection.propTypes = {
         userId: PropTypes.number.isRequired,
         email: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
+        realname: PropTypes.string.isRequired,
       }),
     }).isRequired
   ).isRequired,

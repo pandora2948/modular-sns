@@ -18,14 +18,25 @@ const PostEditDropdown = ({ postId, updateCb }) => {
         setPosts(removedPosts);
         message.success('게시글을 삭제하였습니다.');
       };
-      deletePostOnPostEditDropdown({ posts, deletePostId: postId, successCb, failureCb: handleErrorByAntdMessage });
+      deletePostOnPostEditDropdown({
+        posts,
+        deletePostId: postId,
+        successCb,
+        failureCb: handleErrorByAntdMessage,
+      });
     },
     [posts, setPosts]
   );
 
   const mockUpdatedCb = () => message.warn('준비되지 않은 기능입니다.');
   const onPostEditClicked = useCallback(
-    ({ key }) => processQuarterOnDropDownMenu({ key, postId, deletePost, updatePost: mockUpdatedCb() }),
+    ({ key }) =>
+      processQuarterOnDropDownMenu({
+        key,
+        postId,
+        deletePost,
+        updatePost: mockUpdatedCb(),
+      }),
     [deletePost, postId]
   );
 

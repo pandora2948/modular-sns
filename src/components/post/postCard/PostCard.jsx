@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { UserOutlined } from '@ant-design/icons';
 import { Typography, Divider, Button } from 'antd';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardFooter from 'components/post/postCard/postFooter/PostCardFooter';
+import UserIcon from 'components/userPanel/UserIcon';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
 import atomStore from 'store/atom';
@@ -43,10 +43,11 @@ const PostCard = ({
   return (
     <div key={shortid.generate()} className="card">
       <PostCardCarousel images={fileDownloadUrls} />
+
       <section className="px-4 pt-4 pb-2">
         <div className="flex items-center pb-0.5 justify-between">
-          <Button type="text" onClick={handleUserProfileClicked} className="p-0">
-            <UserOutlined size="32px" />
+          <Button type="text" onClick={handleUserProfileClicked} className="flex items-center gap-2 p-0">
+            <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
             <Text>{userInfo.username}</Text>
           </Button>
           {userInfo.userId === me.userId && <PostEditDropdown postId={postId} />}
@@ -59,7 +60,9 @@ const PostCard = ({
           <HashtagList tags={hashtags} />
         </div>
       </section>
+
       <PostCardFooter footerData={{ likeCount, comments, likeUp, postId }} />
+
       <Divider className="m-0" />
     </div>
   );
@@ -73,6 +76,7 @@ PostCard.propTypes = {
       email: PropTypes.string.isRequired,
       userId: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired,
+      realname: PropTypes.string.isRequired,
     }).isRequired,
     textContent: PropTypes.string.isRequired,
     likeCount: PropTypes.number.isRequired,
@@ -87,6 +91,7 @@ PostCard.propTypes = {
           userId: PropTypes.number.isRequired,
           email: PropTypes.string.isRequired,
           username: PropTypes.string.isRequired,
+          realname: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired
     ),

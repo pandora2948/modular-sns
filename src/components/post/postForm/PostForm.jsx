@@ -29,10 +29,10 @@ const PostForm = () => {
   const handleSubmit = useCallback(
     async ({ textContent }) => {
       try {
-        await PostsService.createPost({
+        const newPost = await PostsService.createPost({
           textContent,
         });
-        setPosts(await PostsService.getPosts({ page: 0, size: 9999 }));
+        setPosts((prev) => [newPost, ...prev]);
         handleCloseModal();
       } catch (e) {
         message.error(e);
@@ -40,7 +40,6 @@ const PostForm = () => {
     },
     [handleCloseModal, setPosts]
   );
-  console.log(me);
 
   return (
     <>
@@ -80,7 +79,7 @@ const PostForm = () => {
         <Form form={form} onFinish={handleSubmit} className="w-full h-full flex flex-col items-end p-3">
           <Row className="w-full">
             <Col span={4}>
-              <UserIcon size="m" username={me.username} />
+              <UserIcon size="m" username={me.username} realname={me.realname} />
             </Col>
             <Col span={20}>
               <Form.Item name="textContent" noStyle>

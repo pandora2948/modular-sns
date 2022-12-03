@@ -13,6 +13,7 @@ const getProfileColor = (char) => {
 
   const ascii = char.charCodeAt(0);
   const doubleDigit = ascii - 23; // 'z' is 122
+
   const backgroundColor = `#${Math.floor((doubleDigit / 100) * 16777215).toString(16)}`;
   const color = invertColor(backgroundColor);
 
@@ -25,10 +26,11 @@ const sizeClassNamesDict = {
   l: 'text-5xl w-20 h-20',
 };
 
-const UserIcon = ({ username, size = 's', style }) => {
+const UserIcon = ({ username, realname, size = 's', style }) => {
   const sizeClassNames = sizeClassNamesDict[size] ?? '';
   const firstAlphabetOfUsername = username?.match(/[a-zA-Z]/)?.[0];
   const { color, backgroundColor } = getProfileColor(firstAlphabetOfUsername);
+  const firstCharOfRealname = realname?.match(/[a-zA-Z가-힣ㄱ-ㅎ]/)?.[0];
 
   return (
     <div
@@ -39,13 +41,14 @@ const UserIcon = ({ username, size = 's', style }) => {
         backgroundColor,
       }}
     >
-      {!username ? <UserOutlined /> : <span>{username.at(0).toUpperCase()}</span>}
+      {!realname ? <UserOutlined /> : <span>{firstCharOfRealname.toUpperCase()}</span>}
     </div>
   );
 };
 
 UserIcon.propTypes = {
-  username: PropTypes.string,
+  username: PropTypes.string.isRequired,
+  realname: PropTypes.string.isRequired,
   size: PropTypes.string,
   style: stylePropType,
 };

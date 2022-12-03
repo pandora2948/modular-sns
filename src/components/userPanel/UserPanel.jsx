@@ -16,7 +16,7 @@ const UserPanel = ({ userStatus, followComponent }) => {
         <section className="absolute top-0 bg-gray-300 w-full h-32"></section>
         <article className="relative px-5">
           <section className="flex justify-between items-end">
-            <UserIcon username={userInfo.username} size="l" />
+            <UserIcon size="l" username={userInfo.username} realname={userInfo.realname} />
             <UserConfigDropdown />
           </section>
           <section>

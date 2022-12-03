@@ -10,7 +10,7 @@ const FollowInfoModal = ({ isShow, handleOpen, handleClose }) => {
   return (
     <Modal title="팔로우 현황" open={isShow} onOk={handleOpen} onCancel={handleClose}>
       {followUsernameList.map((username) => (
-        <FollowUserItem username={username} key={shortid()} />
+        <FollowUserItem username={username} realname="가짜realname" key={shortid()} />
       ))}
     </Modal>
   );
