@@ -5,7 +5,7 @@ import ProfileStat from './ProfileStat';
 import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';
 
-const UserPanel = ({ userStatus }) => {
+const UserPanel = ({ userStatus, followComponent }) => {
   const { allFollowingCount, allFollowerCount, userInfo, allGivenLikeCount, allPostCount } = userStatus;
   const { isModalOpen: isFollowModalOpen, openModal: openFollowModal, closeModal: closeFollowModal } = useModal();
   const { isModalOpen: isFollowingModalOpen } = useModal();
@@ -32,6 +32,7 @@ const UserPanel = ({ userStatus }) => {
               <ProfileStat title="팔로우 중" count={allFollowingCount} onClick={openFollowModal} />
               <ProfileStat title="팔로워" count={allFollowerCount} onClick={openFollowModal} />
             </section>
+            {followComponent}
           </section>
         </article>
       </section>
@@ -53,6 +54,7 @@ UserPanel.propTypes = {
       realname: PropTypes.string.isRequired,
     }),
   }),
+  followComponent: PropTypes.element,
 };
 
 export default UserPanel;
