@@ -10,7 +10,7 @@ const { Text } = Typography;
 
 const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
-  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'default', likeCount });
+  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'text', likeCount });
 
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
 
@@ -18,7 +18,7 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
     if (likedButtonState.isLiked) {
       try {
         const updatedLikeCount = await PostsService.removeLikeToPost({ postId });
-        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'default', likeCount: updatedLikeCount }));
+        setLikedButtonState(({ isLiked }) => ({ isLiked: !isLiked, type: 'text', likeCount: updatedLikeCount }));
       } catch (err) {
         message.error(err);
       }
