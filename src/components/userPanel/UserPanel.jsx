@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useModal } from '../../hooks/useModal';
+import { useModal } from 'hooks/useModal';
 import FollowInfoModal from '../follow/FollowInfoModal';
 import FollowingInfoModal from '../following/FollowingInfoModal';
 import ProfileStat from './ProfileStat';
@@ -7,7 +7,7 @@ import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';
 
 const UserPanel = ({ userStatus, followComponent }) => {
-  const { allFollowingCount, allFollowerCount, userInfo, allGivenLikeCount, allPostCount } = userStatus;
+  const { allFollowingCount, allFollowerCount, userInfo } = userStatus;
   const { isModalOpen: isFollowModalOpen, openModal: openFollowModal, closeModal: closeFollowModal } = useModal();
   const {
     isModalOpen: isFollowingModalOpen,
