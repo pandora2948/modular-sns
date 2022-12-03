@@ -106,7 +106,7 @@ export const PostsService = {
    * @returns {Promise<*|undefined>}
    */
   async addLikeToPost({ postId }) {
-    return await api.get(`/api/posts/like?${qs.stringify({ postId })}`);
+    return await api.get(`/posts/like?${qs.stringify({ postId })}`);
   },
 
   /**
@@ -115,6 +115,6 @@ export const PostsService = {
    * @returns {Promise<*|undefined>}
    */
   async removeLikeToPost({ postId }) {
-    return await api.delete(`/api/posts/like?${qs.stringify({ postId })}`);
+    return await api.delete(`/posts/like?${qs.stringify({ postId })}`);
   },
 };

@@ -32,15 +32,8 @@ const PostCard = ({
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [postTimeInfo, setPostTimeInfo] = useState('');
   const loginInfo = useRecoilValue(loginInfoState);
-  const [likedButtonState, setLikedButtonState] = useState({});
+  const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'default' });
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
-  useEffect(() => {
-    if (likeUp) {
-      setLikedButtonState({ isLiked: likeUp, type: 'link' });
-    } else {
-      setLikedButtonState({ isLiked: likeUp, type: 'text' });
-    }
-  }, [likeUp]);
 
   const onClickLikeBox = useCallback(async () => {
     if (likedButtonState.isLiked) {
@@ -55,6 +48,7 @@ const PostCard = ({
       });
     }
   }, [likedButtonState.isLiked, postId]);
+
   useEffect(() => {
     const postedDate = new Date(createdDate).toLocaleString();
     setPostTimeInfo(createdDate.includes(updatedDate) ? postedDate : postedDate + ' (수정됨)');
