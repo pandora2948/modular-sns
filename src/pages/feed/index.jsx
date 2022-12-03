@@ -45,9 +45,16 @@ const Feed = () => {
   return (
     <AppLayout>
       <PostForm />
-      <section className="h-full flex flex-col justify-center gap-y-7">
-        {posts.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={post.postId} post={post} />)}
-      </section>
+
+      {posts.length === 0 ? (
+        <EmptyFeed />
+      ) : (
+        <section className="flex flex-col gap-y-7">
+          {posts.map((post) => (
+            <PostCard key={post.postId} post={post} />
+          ))}
+        </section>
+      )}
     </AppLayout>
   );
 };
