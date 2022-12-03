@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { message } from 'antd';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
@@ -8,13 +8,10 @@ import PostForm from 'components/post/postForm/PostForm';
 import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
-import shortid from 'shortid';
 import atomStore from 'store/atom';
 
 const Feed = () => {
-  // const [postCount] = useState(3);
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
-  const containerRef = useRef(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
 
   const getPosts = useCallback(
@@ -48,18 +45,9 @@ const Feed = () => {
   return (
     <AppLayout>
       <PostForm />
-      {posts?.length === 0 && (
-        <section className="h-full flex flex-col justify-center">
-          <EmptyFeed />
-        </section>
-      )}
-      {posts?.length > 0 && (
-        <section className="flex flex-col gap-y-7" ref={containerRef}>
-          {posts.map((post) => (
-            <PostCard key={shortid.generate()} post={post} />
-          ))}
-        </section>
-      )}
+      <section className="h-full flex flex-col justify-center gap-y-7">
+        {posts.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={post.postId} post={post} />)}
+      </section>
     </AppLayout>
   );
 };
