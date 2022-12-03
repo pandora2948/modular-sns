@@ -12,25 +12,28 @@ const UserPanel = ({ userStatus }) => {
 
   return (
     <>
-      <section className="bg-gray-200 my-8 px-8 pt-8 py-3">
-        <div className="flex flex-col items-start">
-          <div className="flex flex-row justify-end align-middle w-full relative">
-            <UserIcon
-              username={userInfo.username}
-              size="l"
-              style={{
-                position: 'absolute',
-                left: 0,
-                bottom: 0,
-              }}
-            />
+      <section className="relative pt-24">
+        <section className="absolute top-0 bg-gray-300 w-full h-32"></section>
+        <article className="relative px-5">
+          <section className="flex justify-between items-end">
+            <UserIcon username={userInfo.username} size="l" />
             <UserConfigDropdown />
-          </div>
-          <div className="flex mt-2">
-            <ProfileStat title="팔로잉" count={allFollowingCount} onClick={openFollowModal} />
-            <ProfileStat title="팔로워" count={allFollowerCount} onClick={openFollowModal} />
-          </div>
-        </div>
+          </section>
+          <section>
+            <section className="my-2">
+              <p className="text-xl font-semibold text-gray-700 mb-0">{userInfo.realname}</p>
+              <p className="text-gray-600 mb-0">@{userInfo.username}</p>
+            </section>
+            {/*<section>*/}
+            {/*  <CalendarOutlined />*/}
+            {/*  <span>가입일 {userInfo.createAt}</span>*/}
+            {/*</section>*/}
+            <section className="flex gap-2">
+              <ProfileStat title="팔로우 중" count={allFollowingCount} onClick={openFollowModal} />
+              <ProfileStat title="팔로워" count={allFollowerCount} onClick={openFollowModal} />
+            </section>
+          </section>
+        </article>
       </section>
       <FollowInfoModal handleOpen={openFollowModal} handleClose={closeFollowModal} isShow={isFollowModalOpen} />
     </>
@@ -47,6 +50,7 @@ UserPanel.propTypes = {
       userId: PropTypes.number.isRequired,
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
+      realname: PropTypes.string.isRequired,
     }),
   }),
 };

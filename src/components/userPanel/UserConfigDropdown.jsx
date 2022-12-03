@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
+import stylePropType from 'react-style-proptype';
 
 const menuKeys = {
   profileConfig: '1',
@@ -17,8 +18,9 @@ const menuItems = [
   { label: '계정삭제', key: menuKeys.deleteUser, danger: true },
 ];
 
-const UserConfigDropdown = () => {
+const UserConfigDropdown = ({ style }) => {
   const navigate = useNavigate();
+
   const onProfileSettingClicked = useCallback(
     ({ key }) => {
       switch (key) {
@@ -46,9 +48,22 @@ const UserConfigDropdown = () => {
 
   return (
     <Dropdown menu={{ items: menuItems, onClick: onProfileSettingClicked }}>
-      <Button type="text" icon={<SettingOutlined />} size="large" />
+      <Button
+        type="text"
+        icon={<SettingOutlined className="text-2xl text-gray-600" />}
+        size="large"
+        style={{
+          width: 30,
+          height: 30,
+          ...style,
+        }}
+      />
     </Dropdown>
   );
+};
+
+UserConfigDropdown.propTypes = {
+  style: stylePropType,
 };
 
 export default UserConfigDropdown;
