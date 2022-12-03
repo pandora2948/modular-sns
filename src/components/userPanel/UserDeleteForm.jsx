@@ -20,9 +20,15 @@ const UserDeleteForm = () => {
 
   const deleteUser = useCallback(
     async ({ password }) => {
-      await UserService.deleteLoginedUser({ password })
-        .then(() => navigate('/'))
-        .catch((err) => message.error(err));
+      try {
+        // setLoading(true);
+        await UserService.deleteLoginedUser({ password });
+        navigate('/sign-in');
+      } catch (err) {
+        message.error(err);
+      } finally {
+        // setLoading(false);
+      }
     },
     [navigate]
   );

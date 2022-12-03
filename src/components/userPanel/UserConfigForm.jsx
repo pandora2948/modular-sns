@@ -6,12 +6,19 @@ import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
 import { requiredRule, usernameRegex } from '../../utils';
 import { loginInfoState } from '../auth/SignInForm';
 
+const layout = {
+  labelCol: { span: 24 },
+  wrapperCol: { span: 24 },
+};
+
 const UserConfigForm = () => {
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
+  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const submitUserConfig = useCallback(
     async ({ email, userName: username }) => {
       try {
+        // setLoading(true);
         await UserService.updateLoginedUserData({ email, username });
         setLoginInfo((prv) => {
           return { ...prv, userMail: email, userName: username };
@@ -19,17 +26,12 @@ const UserConfigForm = () => {
         message.success('사용자 정보가 변경되었습니다.');
       } catch (error) {
         message.error(error.message);
+      } finally {
+        // setLoading(false);
       }
     },
     [setLoginInfo]
   );
-
-  const layout = {
-    labelCol: { span: 24 },
-    wrapperCol: { span: 24 },
-  };
-
-  const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   return (
     <section className="w-full">
