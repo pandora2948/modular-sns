@@ -9,9 +9,22 @@ import AppLayout from '../../layouts/AppLayout';
 import atomStore from '../../store/atom';
 import { handleErrorByAntdMessage } from '../../utils/handler';
 
+const userStatInitialData = {
+  allFollowerCount: 0,
+  allFollowingCount: 0,
+  allGivenLikeCount: 0,
+  allPostCount: 0,
+  userInfo: {
+    userId: 0,
+    email: '',
+    username: '',
+  },
+};
+
 const Profile = () => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(userStatInitialData);
+  console.log({ user });
 
   useEffect(() => {
     PostsService.getUserPosts({ page: 0, size: 99999 })
