@@ -21,9 +21,11 @@ const PostCardCommentList = ({ comments }) => {
           <PostCardComment keyId={shortid.generate()} comment={comment} />
         </div>
       ))}
-      <Text key={shortid.generate()} className="text-sky-500 cursor-pointer w-fit" onClick={onClickHandleExpand}>
-        {isExpand ? '댓글 닫기' : '댓글 더보기'}
-      </Text>
+      {comments.length !== 0 && (
+        <Text key={shortid.generate()} className="text-sky-500 cursor-pointer w-fit" onClick={onClickHandleExpand}>
+          {isExpand ? '댓글 닫기' : '댓글 더보기'}
+        </Text>
+      )}
     </section>
   );
 };
