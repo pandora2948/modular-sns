@@ -39,7 +39,7 @@ export const CommentsService = {
    * @returns {Promise<*|undefined>}
    */
   async deleteComment({ commentId }) {
-    return await api.get(`/comments/${commentId}`);
+    return await api.delete(`/comments/${commentId}`);
   },
 
   /**
