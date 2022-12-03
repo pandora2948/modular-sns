@@ -17,7 +17,7 @@ const UserPanel = ({ userStatus }) => {
       <div className="flex flex-col items-start">
         <div className="flex flex-row justify-end align-middle w-full relative">
           <UserIcon
-            userName={userInfo.username}
+            username={userInfo.username}
             size="l"
             style={{
               position: 'absolute',

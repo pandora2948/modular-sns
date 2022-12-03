@@ -80,7 +80,7 @@ const PostForm = () => {
         <Form form={form} onFinish={handleSubmit} className="w-full h-full flex flex-col items-end p-3">
           <Row className="w-full">
             <Col span={4}>
-              <UserIcon size="m" userName={me.userName} />
+              <UserIcon size="m" username={me.username} />
             </Col>
             <Col span={20}>
               <Form.Item name="textContent" noStyle>

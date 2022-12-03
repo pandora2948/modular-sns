@@ -44,12 +44,12 @@ const UserDeleteForm = () => {
         {...layout}
       >
         <Form.Item
-          label={`${me.userName} 을 입력해주세요`}
+          label={`${me.username} 을 입력해주세요`}
           name="username"
           rules={[
             () => ({
               validator(_, value) {
-                if (value !== me.userName) {
+                if (value !== me.username) {
                   return Promise.reject(new Error('사용자 명이 일치하지 않습니다.'));
                 }
                 return Promise.resolve();

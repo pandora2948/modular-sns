@@ -16,13 +16,15 @@ const UserConfigForm = () => {
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const submitUserConfig = useCallback(
-    async ({ email, userName: username }) => {
+    async ({ email, username }) => {
       try {
         // setLoading(true);
         await UserService.updateLoginedUserData({ email, username });
+
         setMe((prv) => {
-          return { ...prv, userMail: email, userName: username };
+          return { ...prv, email, username };
         });
+
         message.success('사용자 정보가 변경되었습니다.');
       } catch (error) {
         message.error(error.message);
@@ -42,7 +44,7 @@ const UserConfigForm = () => {
         scrollToFirstError
         initialValues={{
           email: me.email,
-          userName: me.userName,
+          username: me.username,
           realname: me.realname,
         }}
         {...layout}
@@ -56,7 +58,7 @@ const UserConfigForm = () => {
           <Input allowClear />
         </Form.Item>
         <Form.Item
-          name="userName"
+          name="username"
           label="사용자 아이디"
           hasFeedback={hasFeedback}
           rules={[

@@ -19,18 +19,16 @@ const SignInForm = () => {
       try {
         token.clear();
 
-        const {
-          accessToken,
-          refreshToken,
-          userInfo: { email: respondedUserEmail, userId: respondedUserId, username: respondedUserName },
-        } = await AuthService.login({
+        const { accessToken, refreshToken, userInfo } = await AuthService.login({
           email,
           password,
         });
 
-        setMe(() => {
-          return { userMail: respondedUserEmail, userId: respondedUserId, userName: respondedUserName };
-        });
+        setMe(() => ({
+          email: userInfo.email,
+          userId: userInfo.userId,
+          username: userInfo.username,
+        }));
 
         token.refreshToken.set(refreshToken, remember);
         token.accessToken.set(accessToken);

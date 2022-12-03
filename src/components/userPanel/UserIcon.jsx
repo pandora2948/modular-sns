@@ -8,18 +8,18 @@ const sizeClassNamesDict = {
   l: 'text-5xl w-20 h-20',
 };
 
-const UserIcon = ({ userName, size = 's', style }) => {
+const UserIcon = ({ username, size = 's', style }) => {
   const sizeClassNames = sizeClassNamesDict[size] ?? '';
 
   return (
     <div className={`bg-blue-500 rounded-full flex justify-center items-center ${sizeClassNames}`} style={style}>
-      {!userName ? <UserOutlined /> : <span>{userName.at(0).toUpperCase()}</span>}
+      {!username ? <UserOutlined /> : <span>{username.at(0).toUpperCase()}</span>}
     </div>
   );
 };
 
 UserIcon.propTypes = {
-  userName: PropTypes.string,
+  username: PropTypes.string,
   size: PropTypes.string,
   style: stylePropType,
 };

@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
-import { passwordRegex, realnameRegex, usernameRegex } from 'utils';
+import { useSetRecoilState } from 'recoil';
+import atomStore from 'store/atom';
+import { passwordRegex, realnameRegex, token, usernameRegex } from 'utils';
 import { requiredRule } from 'utils/formRules';
 
 const layout = {
@@ -15,18 +17,36 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const setMe = useSetRecoilState(atomStore.meAtom);
 
   const createUser = useCallback(
-    async (values) => {
+    async ({ email, password, username, realname }) => {
       try {
-        await AuthService.createUser(values);
+        token.clear();
+
+        const { accessToken, refreshToken, userInfo } = await AuthService.createUser({
+          email,
+          password,
+          username,
+          realname,
+        });
+
+        setMe(() => ({
+          email: userInfo.email,
+          userId: userInfo.userId,
+          username: userInfo.username,
+        }));
+
+        token.refreshToken.set(refreshToken, true);
+        token.accessToken.set(accessToken);
+
         message.success('회원가입 성공');
-        navigate('/auth/sign-in');
+        navigate('/');
       } catch (err) {
         message.error(err.message);
       }
     },
-    [navigate]
+    [navigate, setMe]
   );
 
   return (
@@ -70,7 +90,7 @@ const SignUpForm = () => {
           <Input.Password allowClear />
         </Form.Item>
         <Form.Item
-          name="password-confirm"
+          name="passwordConfirm"
           label="비밀번호 확인"
           dependencies={['password']}
           hasFeedback={hasFeedback}
