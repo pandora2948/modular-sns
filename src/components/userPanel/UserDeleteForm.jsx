@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
+import { UserService } from 'api/services';
+import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useRecoilValue } from 'recoil';
-import { UserService } from '../../api/services';
-import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
-import { passwordRegex, requiredRule } from '../../utils';
-import { loginInfoState } from '../auth/SignInForm';
+import atomStore from 'store/atom';
+import { passwordRegex, requiredRule } from 'utils';
 
 const layout = {
   labelCol: { span: 24 },
@@ -13,7 +13,7 @@ const layout = {
 };
 
 const UserDeleteForm = () => {
-  const loginInfo = useRecoilValue(loginInfoState);
+  const me = useRecoilValue(atomStore.meAtom);
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -44,12 +44,12 @@ const UserDeleteForm = () => {
         {...layout}
       >
         <Form.Item
-          label={`${loginInfo.userName} 을 입력해주세요`}
+          label={`${me.userName} 을 입력해주세요`}
           name="username"
           rules={[
             () => ({
               validator(_, value) {
-                if (value !== loginInfo.userName) {
+                if (value !== me.userName) {
                   return Promise.reject(new Error('사용자 명이 일치하지 않습니다.'));
                 }
                 return Promise.resolve();

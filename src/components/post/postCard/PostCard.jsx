@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined, LikeOutlined, CommentOutlined, HeartTwoTone } from '@ant-design/icons';
 import { Typography, Divider, Popover, message } from 'antd';
+import { PostsService } from 'api/services';
 import HashtagList from 'components/hashtag/HashtagList';
 import PostCardButton from 'components/post/postCard/PostCardButton';
 import PostCardCommentBox from 'components/post/postCard/PostCardCommentBox';
 import PostCardCommentList from 'components/post/postCard/PostCardCommentList';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
-import { PostsService } from '../../../api/services';
-import { loginInfoState } from '../../auth/SignInForm';
+import atomStore from 'store/atom';
 import PostCardCarousel from './PostCardCarousel';
 import PostEditDropdown from './PostEditDropdown';
 
@@ -31,7 +31,7 @@ const PostCard = ({
 }) => {
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [postTimeInfo, setPostTimeInfo] = useState('');
-  const loginInfo = useRecoilValue(loginInfoState);
+  const me = useRecoilValue(atomStore.meAtom);
   const [likedButtonState, setLikedButtonState] = useState({ isLiked: likeUp, type: 'default' });
   const handleCommentBox = () => setIsOpenCommentBox((prev) => !prev);
 
@@ -63,7 +63,7 @@ const PostCard = ({
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
           </div>
-          {userInfo.userId === loginInfo.userId && <PostEditDropdown postId={postId} />}
+          {userInfo.userId === me.userId && <PostEditDropdown postId={postId} />}
         </div>
         <div>
           <span className="text-xs text-gray-400">{postTimeInfo}</span>

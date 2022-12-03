@@ -4,23 +4,15 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
-import { atom, useSetRecoilState } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
+import { useSetRecoilState } from 'recoil';
+import atomStore from 'store/atom';
 import { token } from 'utils';
 import { requiredRule } from 'utils/formRules';
-
-const { persistAtom } = recoilPersist({ key: 'loginInfo', storage: localStorage });
-
-export const loginInfoState = atom({
-  key: 'loginInfo',
-  default: {},
-  effects: [persistAtom],
-});
 
 const SignInForm = () => {
   const navigate = useNavigate();
   const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
-  const setLoginInfo = useSetRecoilState(loginInfoState);
+  const setMe = useSetRecoilState(atomStore.meAtom);
 
   const onFinish = useCallback(
     async ({ email, password, remember }) => {
@@ -36,7 +28,7 @@ const SignInForm = () => {
           password,
         });
 
-        setLoginInfo(() => {
+        setMe(() => {
           return { userMail: respondedUserEmail, userId: respondedUserId, userName: respondedUserName };
         });
 
@@ -48,7 +40,7 @@ const SignInForm = () => {
         message.error(err.message);
       }
     },
-    [navigate, setLoginInfo]
+    [navigate, setMe]
   );
 
   return (

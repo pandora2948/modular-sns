@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { Button, Form, Input, message } from 'antd';
+import { UserService } from 'api/services';
+import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useRecoilState } from 'recoil';
-import { UserService } from '../../api/services';
-import { useFormValidateTrigger } from '../../hooks/useFormValidateTrigger';
-import { requiredRule, usernameRegex } from '../../utils';
-import { loginInfoState } from '../auth/SignInForm';
+import atomStore from 'store/atom';
+import { requiredRule, usernameRegex } from 'utils';
 
 const layout = {
   labelCol: { span: 24 },
@@ -12,7 +12,7 @@ const layout = {
 };
 
 const UserConfigForm = () => {
-  const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
+  const [me, setMe] = useRecoilState(atomStore.meAtom);
   const { onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
 
   const submitUserConfig = useCallback(
@@ -20,7 +20,7 @@ const UserConfigForm = () => {
       try {
         // setLoading(true);
         await UserService.updateLoginedUserData({ email, username });
-        setLoginInfo((prv) => {
+        setMe((prv) => {
           return { ...prv, userMail: email, userName: username };
         });
         message.success('사용자 정보가 변경되었습니다.');
@@ -30,7 +30,7 @@ const UserConfigForm = () => {
         // setLoading(false);
       }
     },
-    [setLoginInfo]
+    [setMe]
   );
 
   return (
@@ -40,7 +40,7 @@ const UserConfigForm = () => {
           name="email"
           label="이메일"
           hasFeedback={hasFeedback}
-          initialValue={loginInfo.userMail}
+          initialValue={me.userMail}
           rules={[{ type: 'email', message: '올바른 이메일을 입력해주세요' }, requiredRule]}
         >
           <Input allowClear />
@@ -49,7 +49,7 @@ const UserConfigForm = () => {
           name="userName"
           label="사용자 아이디"
           hasFeedback={hasFeedback}
-          initialValue={loginInfo.userName}
+          initialValue={me.userName}
           rules={[
             requiredRule,
             {

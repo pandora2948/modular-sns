@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { UserService } from '../../../../api/services';
-import { useDidMountEffect } from '../../../../hooks/useDidMountEffect';
-import { handleErrorByAntdMessage } from '../../../../utils/handler';
+import { UserService } from 'api/services';
+import { useDidMountEffect } from 'hooks/useDidMountEffect';
+import { handleErrorByAntdMessage } from 'utils/handler';
 
 const userStatInitialData = {
   allFollowerCount: 0,

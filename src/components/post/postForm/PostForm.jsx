@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 import { ArrowLeftOutlined, FormOutlined } from '@ant-design/icons';
-import { Button, Form, Input, message, Modal } from 'antd';
+import { Button, Col, Form, Input, message, Modal, Row } from 'antd';
 import { PostsService } from 'api/services';
+import UserIcon from 'components/userPanel/UserIcon';
 import { useModal } from 'hooks/useModal';
 import { useSetRecoilState } from 'recoil';
 import atomStore from '../../../store/atom';
@@ -75,16 +76,23 @@ const PostForm = () => {
         destroyOnClose
       >
         <Form form={form} onFinish={handleSubmit} className="w-full h-full flex flex-col items-end p-3">
-          <Form.Item name="textContent" noStyle>
-            <Input.TextArea
-              value={text}
-              onChange={onChangeText}
-              placeholder="무슨 일이 일어나고 있나요?"
-              className="w-full h-36 placeholder-gray-500 text-base"
-              maxLength={TEXT_CONTENT_MAX_LENGTH}
-              showCount={({ count, maxLength }) => `${count} / ${maxLength}`}
-            />
-          </Form.Item>
+          <Row className="w-full">
+            <Col span={4}>
+              <UserIcon size="m" />
+            </Col>
+            <Col span={20}>
+              <Form.Item name="textContent" noStyle>
+                <Input.TextArea
+                  value={text}
+                  onChange={onChangeText}
+                  placeholder="무슨 일이 일어나고 있나요?"
+                  className="w-full h-36 placeholder-gray-500 text-base"
+                  maxLength={TEXT_CONTENT_MAX_LENGTH}
+                  showCount={({ count, maxLength }) => `${count} / ${maxLength}`}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Modal>
     </>
