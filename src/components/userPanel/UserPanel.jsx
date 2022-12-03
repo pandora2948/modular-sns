@@ -5,7 +5,7 @@ import ProfileStat from './ProfileStat';
 import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';
 
-const UserPanel = ({ userStatus }) => {
+const UserPanel = ({ userStatus, followComponent }) => {
   const { allFollowingCount, allFollowerCount, userInfo, allGivenLikeCount, allPostCount } = userStatus;
   const { isModalOpen: isFollowModalOpen, openModal: openFollowModal, closeModal: closeFollowModal } = useModal();
   const { isModalOpen: isFollowingModalOpen } = useModal();
@@ -26,10 +26,12 @@ const UserPanel = ({ userStatus }) => {
             />
             <UserConfigDropdown />
           </div>
+          <span className="font-semibold text-2xl pt-2">{userInfo.username}</span>
           <div className="flex mt-2">
             <ProfileStat title="팔로잉" count={allFollowingCount} onClick={openFollowModal} />
             <ProfileStat title="팔로워" count={allFollowerCount} onClick={openFollowModal} />
           </div>
+          {followComponent}
         </div>
       </section>
       <FollowInfoModal handleOpen={openFollowModal} handleClose={closeFollowModal} isShow={isFollowModalOpen} />
@@ -49,6 +51,7 @@ UserPanel.propTypes = {
       username: PropTypes.string.isRequired,
     }),
   }),
+  followComponent: PropTypes.element,
 };
 
 export default UserPanel;
