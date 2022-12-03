@@ -14,6 +14,10 @@ const PostCardCommentList = ({ comments }) => {
     setIsExpand((prev) => !prev);
   }, []);
 
+  if (comments.length === 0) {
+    return;
+  }
+
   return (
     <section className="flex flex-col justify-center p-3">
       {displayComments?.map((comment) => (
@@ -21,11 +25,11 @@ const PostCardCommentList = ({ comments }) => {
           <PostCardComment keyId={shortid.generate()} comment={comment} />
         </div>
       ))}
-      {comments.length !== 0 && (
+      {
         <Text key={shortid.generate()} className="text-sky-500 cursor-pointer w-fit" onClick={onClickHandleExpand}>
           {isExpand ? '댓글 닫기' : '댓글 더보기'}
         </Text>
-      )}
+      }
     </section>
   );
 };
