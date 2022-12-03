@@ -10,7 +10,6 @@ const useFetchCheckIsFollow = ({ username }) => {
     (async () => {
       try {
         const isFollow = await UserService.checkFollow({ username });
-        console.log({ isFollow });
         setIsFollow(isFollow);
       } catch (e) {
         message.error(e);
