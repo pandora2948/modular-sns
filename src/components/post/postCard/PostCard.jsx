@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import { Typography, Divider } from 'antd';
@@ -28,6 +29,11 @@ const PostCard = ({
 }) => {
   const [postTimeInfo, setPostTimeInfo] = useState('');
   const me = useRecoilValue(atomStore.meAtom);
+  const navigate = useNavigate();
+
+  const handleUserProfileClicked = useCallback(() => {
+    navigate(`/profile/${userInfo.username}`);
+  }, [navigate, userInfo.username]);
 
   useEffect(() => {
     const postedDate = new Date(createdDate).toLocaleString();
@@ -39,7 +45,7 @@ const PostCard = ({
       <PostCardCarousel images={fileDownloadUrls} />
       <section className="px-4 pt-4 pb-2">
         <div className="flex items-center pb-0.5 justify-between">
-          <div>
+          <div onClick={handleUserProfileClicked}>
             <UserOutlined size="32px" />
             <Text>{userInfo.username}</Text>
           </div>
