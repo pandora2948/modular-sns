@@ -10,7 +10,7 @@ import { alertNotImpl } from 'utils';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
-const PostForm = ({ isModalOpened, handleModalClose }) => {
+const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId }) => {
   const me = useRecoilValue(atomStore.meAtom);
   const [form] = Form.useForm();
   const [text, setText] = useState('');
@@ -41,17 +41,25 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
 
   const handleSubmit = useCallback(
     async ({ textContent }) => {
-      try {
-        const newPost = await PostsService.createPost({
-          textContent,
-        });
-        setPosts((prev) => [newPost, ...prev]);
-        handleCloseModal();
-      } catch (e) {
-        message.error(e);
+      if (isCreatePost) {
+        try {
+          const newPost = await PostsService.createPost({
+            textContent,
+          });
+          setPosts((prev) => [newPost, ...prev]);
+          handleCloseModal();
+        } catch (e) {
+          message.error(e);
+        }
+      } else {
+        try {
+          await PostsService.updatePost({ postId, data: { textContent } });
+        } catch (err) {
+          message.error(err.message);
+        }
       }
     },
-    [handleCloseModal, setPosts]
+    [handleCloseModal, isCreatePost, postId, setPosts]
   );
 
   return (
@@ -66,7 +74,7 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
             onClick={handleCloseModal}
           />
           <Button type="primary" onClick={form.submit} disabled={!text}>
-            작성하기
+            {isCreatePost ? '작성하기' : '수정하기'}
           </Button>
         </header>
       }
@@ -129,6 +137,11 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
   );
 };
 
-PostForm.propTypes = { isModalOpened: PropTypes.bool, handleModalClose: PropTypes.func };
+PostForm.propTypes = {
+  isModalOpened: PropTypes.bool.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
+  isCreatePost: PropTypes.bool,
+  postId: PropTypes.number,
+};
 
 export default PostForm;

@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message } from 'antd';
+import PostForm from 'components/post/postForm/PostForm';
+import { useModal } from 'hooks/useModal';
 import { useRecoilState } from 'recoil';
 import atomStore from 'store/atom';
 import { handleErrorByAntdMessage } from 'utils/handler';
@@ -11,6 +13,7 @@ import { deletePostOnPostEditDropdown } from './network.io';
 
 const PostEditDropdown = ({ postId, ...rest }) => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const deletePost = useCallback(
     (postId) => {
@@ -28,22 +31,28 @@ const PostEditDropdown = ({ postId, ...rest }) => {
     [posts, setPosts]
   );
 
-  const mockUpdatedCb = () => message.warn('준비되지 않은 기능입니다.');
+  const updatePost = useCallback(() => {
+    openModal();
+  }, [openModal]);
+
   const onPostEditClicked = useCallback(
     ({ key }) =>
       processQuarterOnDropDownMenu({
         key,
         postId,
+        updatePost,
         deletePost,
-        updatePost: mockUpdatedCb(),
       }),
-    [deletePost, postId]
+    [deletePost, updatePost, postId]
   );
 
   return (
-    <Dropdown menu={{ items: menuItems, onClick: onPostEditClicked }}>
-      <Button type="text" icon={<EllipsisOutlined className="text-xl text-gray-900" />} {...rest} />
-    </Dropdown>
+    <>
+      <Dropdown menu={{ items: menuItems, onClick: onPostEditClicked }}>
+        <Button type="text" icon={<EllipsisOutlined className="text-xl text-gray-900" />} {...rest} />
+      </Dropdown>
+      <PostForm handleModalClose={closeModal} isCreatePost={false} isModalOpened={isModalOpen} postId={postId} />
+    </>
   );
 };
 
