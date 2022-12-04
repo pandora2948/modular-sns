@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PostCreateButton from 'components/post/postForm/PostCreateButton';
 import UserPanel from 'components/userPanel/UserPanel';
 import AppLayout from 'layouts/AppLayout';
 import { useParams } from 'react-router';
@@ -26,6 +27,8 @@ const ProfileByUsername = () => {
 
   return (
     <AppLayout>
+      <PostCreateButton />
+
       <UserPanel followComponent={<TargetFollowButton username={username} />} />
     </AppLayout>
   );
