@@ -7,7 +7,7 @@ import useFetchCheckIsFollow from '../follow/hooks/useFetchCheckIsFollow';
 import UserIcon from '../userPanel/UserIcon';
 
 const FollowingUserItem = ({ username, realname }) => {
-  const [users, setUsers] = useRecoilState(atomStore.meAtom);
+  const [users, setUsers] = useRecoilState(atomStore.userInfoByUsernameAtom);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const onClickRemoveFollow = async () => {
     try {

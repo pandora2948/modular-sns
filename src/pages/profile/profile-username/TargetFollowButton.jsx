@@ -1,23 +1,23 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
 import { useRecoilState } from 'recoil';
 import { UserService } from '../../../api/services';
+import useFetchCheckIsFollow from '../../../components/follow/hooks/useFetchCheckIsFollow';
 import atomStore from '../../../store/atom';
 
 const TargetFollowButton = ({ username }) => {
   const [users, setUsers] = useRecoilState(atomStore.meAtom);
-  const [isFollow, isSetFollow] = useState(false);
+  const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const onClickFollowUser = async () => {
     try {
       if (!isFollow) {
         await UserService.addFollow({ username });
-        isSetFollow(true);
+        setIsFollow(true);
         setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
         return;
       }
       await UserService.removeFollow({ username });
-      isSetFollow(false);
+      setIsFollow(false);
     } catch (e) {
       message.error(e);
     }

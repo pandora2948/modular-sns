@@ -8,3 +8,8 @@ export const meAtom = atom({
   default: {},
   effects: [persistAtom],
 });
+
+export const userInfoByUsernameAtom = atom({
+  key: 'userInfoByUsername',
+  default: {},
+});

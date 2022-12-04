@@ -1,9 +1,10 @@
 import { postsAtom } from './posts';
-import { meAtom } from './user';
+import { meAtom, userInfoByUsernameAtom } from './user';
 
 const atomStore = {
   postsAtom,
   meAtom,
+  userInfoByUsernameAtom,
 };
 
 export default atomStore;

@@ -1,30 +1,19 @@
-import { useState } from 'react';
 import { UserService } from 'api/services';
 import { useDidMountEffect } from 'hooks/useDidMountEffect';
+import { useRecoilState } from 'recoil';
 import { handleErrorByAntdMessage } from 'utils/handler';
-
-const userStatInitialData = {
-  allFollowerCount: 0,
-  allFollowingCount: 0,
-  allGivenLikeCount: 0,
-  allPostCount: 0,
-  userInfo: {
-    userId: 0,
-    email: '',
-    username: '',
-  },
-};
+import atomStore from '../../../../store/atom';
 
 const useFetchUser = (username) => {
-  const [user, setUser] = useState(userStatInitialData);
+  const [userInfo, setUserInfo] = useRecoilState(atomStore.userInfoByUsernameAtom);
 
   useDidMountEffect(() => {
     UserService.getUserByUsername({ username })
-      .then((user) => setUser(user))
+      .then((user) => setUserInfo(user))
       .catch(handleErrorByAntdMessage);
   });
 
-  return [user, setUser];
+  return [userInfo, setUserInfo];
 };
 
 export default useFetchUser;
