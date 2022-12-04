@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MoreOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message } from 'antd';
 import { CommentsService } from 'api/services';
-import { menuItems, menuKeys } from 'components/post/postCard/postFooter/postFooterComment/constant';
+import { menuItems, menuKeys } from 'components/post/postCard/postComment/postCommentDropdown/constant';
 
 const PostCommentsDropdown = ({ commentId }) => {
   const handleDropdownClick = useCallback(

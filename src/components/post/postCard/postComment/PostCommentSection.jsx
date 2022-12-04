@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import PostCardCommentBox from 'components/post/postCard/postFooter/postFooterComment/PostCardCommentBox';
-import PostCardCommentList from 'components/post/postCard/postFooter/postFooterComment/PostCardCommentList';
+import PostCardCommentBox from 'components/post/postCard/postComment/PostCardCommentBox';
+import PostCardCommentList from 'components/post/postCard/postComment/PostCardCommentList';
 
 const PostCommentSection = ({ open, postId, comments }) => {
   const [postComments, setPostComments] = useState([]);

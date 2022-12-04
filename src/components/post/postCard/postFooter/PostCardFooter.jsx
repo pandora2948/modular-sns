@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
-import PostCommentSection from 'components/post/postCard/postFooter/postFooterComment/PostCommentSection';
+import PostCommentSection from 'components/post/postCard/postComment/PostCommentSection';
 
 const LIKE_COLOR = 'text-blue-500';
 const NOT_LIKE_COLOR = 'text-gray-600';
