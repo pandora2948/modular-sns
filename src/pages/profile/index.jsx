@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { message } from 'antd';
 import { PostsService, UserService } from 'api/services';
 import EmptySpace from 'components/empty/EmptySpace';
@@ -11,23 +11,23 @@ import { handleErrorByAntdMessage } from 'utils/handler';
 
 const Profile = () => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
-  const [user, setUser] = useState();
+  const [userProfileInfo, setUserProfileInfo] = useRecoilState(atomStore.userProfileInfo);
 
   useEffect(() => {
     PostsService.getUserPosts({ page: 0, size: 99999 })
       .then((data) => setPosts(data))
       .catch((e) => message.error(e));
     UserService.getLoginedUser()
-      .then((user) => setUser(user))
+      .then((userProfileInfo) => setUserProfileInfo(userProfileInfo))
       .catch(handleErrorByAntdMessage);
-  }, [setPosts]);
+  }, [setUserProfileInfo, setPosts]);
 
-  if (!user) {
+  if (!userProfileInfo) {
     return null;
   }
   return (
     <AppLayout>
-      <UserPanel userStatus={user} />
+      <UserPanel userProfileInfo={userProfileInfo} />
 
       <EmptySpace />
 

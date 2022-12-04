@@ -10,6 +10,11 @@ export const meAtom = atom({
 });
 
 export const userInfoByUsernameAtom = atom({
-  key: 'userInfoByUsername',
+  key: 'userinfo-by-username',
   default: {},
+});
+
+export const userProfileInfo = atom({
+  key: 'user-profile-info',
+  default: undefined,
 });
