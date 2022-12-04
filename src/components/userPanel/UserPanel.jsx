@@ -48,12 +48,8 @@ const UserPanel = ({ followComponent }) => {
           </section>
         </article>
       </section>
-      <FollowInfoModal handleOpen={openFollowModal} handleClose={closeFollowModal} isShow={isFollowModalOpen} />
-      <FollowingInfoModal
-        handleOpen={openFollowingModal}
-        handleClose={closeFollowingModal}
-        isShow={isFollowingModalOpen}
-      />
+      <FollowInfoModal handleClose={closeFollowModal} isShow={isFollowModalOpen} />
+      <FollowingInfoModal handleClose={closeFollowingModal} isShow={isFollowingModalOpen} />
     </>
   );
 };
