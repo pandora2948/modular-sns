@@ -25,6 +25,8 @@ const ProfileByUsername = () => {
     setUserProfileInfo(user);
   }, [setUserProfileInfo, user]);
 
+  if (!user) return null;
+
   return (
     <AppLayout>
       <PostCreateButton />
