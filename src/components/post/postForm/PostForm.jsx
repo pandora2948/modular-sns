@@ -6,6 +6,7 @@ import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import atomStore from 'store/atom';
+import { alertNotImpl } from 'utils';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
@@ -33,6 +34,10 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
     setText('');
     handleModalClose();
   }, [handleModalClose, form]);
+
+  const handleClickImageUploadButton = useCallback(() => {
+    alertNotImpl();
+  }, []);
 
   const handleSubmit = useCallback(
     async ({ textContent }) => {
@@ -106,7 +111,12 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
               }}
             >
               <section className="flex items-center">
-                <Button type="text" className="no-padding" icon={<FileImageOutlined className="text-base" />} />
+                <Button
+                  type="text"
+                  onClick={handleClickImageUploadButton}
+                  className="no-padding"
+                  icon={<FileImageOutlined className="text-base" />}
+                />
               </section>
               <section className="leading-none">
                 {textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}
