@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
+import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Form, message, Modal, Upload } from 'antd';
 import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import shortid from 'shortid';
 import atomStore from 'store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
@@ -41,11 +42,15 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
       try {
         // setLoading(true);
 
+        const files = fileList.map((file) => file.originFileObj);
+
+        console.log('submit files:', files);
+
         if (initialValues) {
           const edited = await PostsService.updatePost({
             postId: initialValues.postId,
             textContent,
-            files: fileList,
+            files,
           });
           setPosts((prevPosts) => {
             return prevPosts.map((post) => (post.postId === edited.postId ? edited : post));
@@ -53,7 +58,7 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
         } else {
           const added = await PostsService.createPost({
             textContent,
-            files: fileList,
+            files,
           });
           setPosts((prevPosts) => {
             return [added, ...prevPosts];
@@ -73,11 +78,33 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
   useDidMountEffect(() => {
     if (!initialValues) return;
 
-    // TODO: file urls set
     setText(initialValues.textContent);
     form.setFieldsValue({
       textContent: initialValues.textContent,
     });
+
+    (async () => {
+      const initialFiles = [];
+
+      try {
+        for (const url of initialValues.fileDownloadUrls) {
+          const res = await fetch(new Request(url));
+          const blob = await res.blob();
+          const file = new File([blob], url, {
+            type: 'image/jpeg',
+          });
+          initialFiles.push({
+            url,
+            uid: shortid.generate(),
+            originFileObj: file,
+          });
+        }
+      } catch (e) {
+        console.error('이전 파일 불러오던 중 에러발생', e);
+      }
+
+      setFileList(initialFiles);
+    })();
   });
 
   return (
@@ -139,6 +166,8 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
               <section className="flex items-start">
                 <Upload
                   multiple
+                  fileList={fileList}
+                  listType="picture-card"
                   onRemove={(file) => {
                     const index = fileList.indexOf(file);
                     const newFileList = fileList.slice();
@@ -146,12 +175,18 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
                     setFileList(newFileList);
                   }}
                   beforeUpload={(file) => {
-                    setFileList([...fileList, file]);
+                    const newFile = {
+                      name: file.name,
+                      uid: shortid.generate(),
+                      originFileObj: file,
+                    };
+                    setFileList([...fileList, newFile]);
                     return false;
                   }}
-                  fileList={fileList}
                 >
-                  <Button type="text" className="no-padding" icon={<FileImageOutlined className="text-base" />} />
+                  {fileList.length < 6 && (
+                    <Button type="text" className="no-padding" icon={<UploadOutlined className="text-base" />} />
+                  )}
                 </Upload>
               </section>
               <section className="absolute top-[0.75rem] right-[0.25rem] leading-none">

@@ -10,3 +10,8 @@
 .ant-upload-list-item-name {
   max-width: 15rem;
 }
+
+.ant-upload-picture-card-wrapper .ant-upload-list-item-container,
+.ant-upload-picture-card-wrapper .ant-upload-select {
+  margin: 0 !important;
+}

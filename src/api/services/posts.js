@@ -95,6 +95,8 @@ export const PostsService = {
   async updatePost({ postId, textContent, hashtags = [], fileDownloadUrls = [], files = null }) {
     const formData = new FormData();
 
+    console.log(files);
+
     formData.append(
       'updateRequest',
       JSON.stringify({
