@@ -4,7 +4,7 @@ import { message } from 'antd';
 import { UserService } from '../../../api/services';
 
 const useFetchCheckIsFollow = ({ username }) => {
-  const [isFollow, setIsFollow] = useState(false);
+  const [isFollow, setIsFollow] = useState(true);
 
   useEffect(() => {
     (async () => {
