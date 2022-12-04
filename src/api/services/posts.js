@@ -101,7 +101,7 @@ export const PostsService = {
         fileDownloadUrls,
       })
     );
-    formData.append('files', files);
+    for (const file of files) formData.append('files', file);
 
     return await api.put(`/posts/${postId}`, formData, {
       headers: {

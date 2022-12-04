@@ -128,6 +128,7 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
             >
               <section className="flex items-center">
                 <Upload
+                  multiple
                   onRemove={(file) => {
                     const index = fileList.indexOf(file);
                     const newFileList = fileList.slice();
