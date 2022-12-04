@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from 'antd';
-import PostCardComment from 'components/post/postCard/postFooter/PostCardComment';
+import PostCardComment from 'components/post/postCard/postComment/PostCardComment';
 import shortid from 'shortid';
 
 const { Text } = Typography;
