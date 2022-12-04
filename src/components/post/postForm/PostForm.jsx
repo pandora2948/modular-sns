@@ -131,12 +131,12 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
             </Form.Item>
 
             <footer
-              className="w-full bottom-0 left-0 flex items-center justify-between py-2 pr-2 border-gray-200"
+              className="relative w-full py-2 pr-2 border-gray-200"
               style={{
                 borderTop: '0.5px solid',
               }}
             >
-              <section className="flex items-center">
+              <section className="flex items-start">
                 <Upload
                   multiple
                   onRemove={(file) => {
@@ -154,8 +154,8 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
                   <Button type="text" className="no-padding" icon={<FileImageOutlined className="text-base" />} />
                 </Upload>
               </section>
-              <section className="leading-none">
-                {/*{textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}*/}
+              <section className="absolute top-[0.75rem] right-[0.25rem] leading-none">
+                {textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}
               </section>
             </footer>
           </section>
