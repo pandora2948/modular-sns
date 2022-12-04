@@ -6,7 +6,7 @@ import shortid from 'shortid';
 
 const { Text } = Typography;
 
-const PostCardCommentList = ({ comments }) => {
+const PostCardCommentList = ({ comments, postId, handleComments }) => {
   const [isExpand, setIsExpand] = useState(false);
   const displayComments = isExpand ? comments : [comments[0]].filter(Boolean);
 
@@ -22,7 +22,12 @@ const PostCardCommentList = ({ comments }) => {
     <section className="flex flex-col justify-center p-3">
       {displayComments?.map((comment) => (
         <div key={shortid.generate()}>
-          <PostCardComment keyId={shortid.generate()} comment={comment} />
+          <PostCardComment
+            keyId={shortid.generate()}
+            comment={comment}
+            postId={postId}
+            handleComments={handleComments}
+          />
         </div>
       ))}
       {
@@ -49,6 +54,8 @@ PostCardCommentList.propTypes = {
       }),
     }).isRequired
   ).isRequired,
+  postId: PropTypes.number.isRequired,
+  handleComments: PropTypes.func.isRequired,
 };
 
 export default PostCardCommentList;

@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
-import PostCommentSection from 'components/post/postCard/postComment/PostCommentSection';
+import PostCardCommentBox from '../postComment/PostCardCommentBox';
+import PostCardCommentList from '../postComment/PostCardCommentList';
 
 const LIKE_COLOR = 'text-pink-600';
 const NOT_LIKE_COLOR = 'text-gray-600';
@@ -15,6 +16,7 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
     likeCount,
     color: likeUp ? LIKE_COLOR : NOT_LIKE_COLOR,
   });
+  const [postComments, setPostComments] = useState([]);
 
   const handleClickCommentBox = useCallback(() => {
     setIsOpenCommentBox((prev) => !prev);
@@ -46,6 +48,10 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
     }
   }, [likedButtonState.isLiked, postId]);
 
+  useEffect(() => {
+    setPostComments(comments);
+  }, [comments]);
+
   return (
     <>
       <footer className="grid grid-cols-2 mt-5">
@@ -63,7 +69,8 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
         </Button>
       </footer>
 
-      <PostCommentSection open={isOpenCommentBox} postId={postId} comments={comments} />
+      <PostCardCommentBox postId={postId} handleComments={setPostComments} open={isOpenCommentBox} />
+      <PostCardCommentList postId={postId} handleComments={setPostComments} comments={postComments} />
     </>
   );
 };
