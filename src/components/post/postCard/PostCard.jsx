@@ -12,8 +12,8 @@ import atomStore from 'store/atom';
 import PostCardCarousel from './PostCardCarousel';
 import PostEditDropdown from './PostEditDropdown';
 
-const PostCard = ({
-  post: {
+const PostCard = ({ post }) => {
+  const {
     userInfo,
     textContent,
     likeCount,
@@ -24,8 +24,8 @@ const PostCard = ({
     updatedDate,
     fileDownloadUrls,
     likeUp,
-  },
-}) => {
+  } = post;
+
   const [postTimeInfo, setPostTimeInfo] = useState('');
   const me = useRecoilValue(atomStore.meAtom);
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ const PostCard = ({
               <span className="text-gray-500">@{userInfo.username}</span>
             </Button>
             {userInfo.userId === me.userId && (
-              <PostEditDropdown postId={postId} className="absolute right-2 no-padding" />
+              <PostEditDropdown initialValues={post} className="absolute right-2 no-padding" />
             )}
           </section>
           <section className="leading-none">

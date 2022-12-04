@@ -17,7 +17,7 @@ const PostCreateButton = () => {
           display: isModalOpen ? 'none' : 'initial',
         }}
       />
-      <PostForm isModalOpened={isModalOpen} handleModalClose={closeModal} />
+      <PostForm visible={isModalOpen} onCancel={closeModal} />
     </>
   );
 };

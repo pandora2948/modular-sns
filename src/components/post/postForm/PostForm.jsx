@@ -4,12 +4,13 @@ import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
 import { Button, Form, message, Modal, Upload } from 'antd';
 import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
+import { useDidMountEffect } from 'hooks/useDidMountEffect';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import atomStore from 'store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
-const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId }) => {
+const PostForm = ({ visible, onCancel, initialValues }) => {
   const me = useRecoilValue(atomStore.meAtom);
   const [form] = Form.useForm();
   const [text, setText] = useState('');
@@ -32,14 +33,14 @@ const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId
   const handleCloseModal = useCallback(() => {
     form.resetFields();
     setText('');
-    handleModalClose();
-  }, [handleModalClose, form]);
+    onCancel();
+  }, [onCancel, form]);
 
   const handleSubmit = useCallback(
     async ({ textContent }) => {
       try {
         // setLoading(true);
-        const api = isCreatePost ? PostsService.createPost : PostsService.updatePost;
+        const api = initialValues ? PostsService.updatePost : PostsService.createPost;
         const newPost = await api({
           textContent,
           files: fileList,
@@ -55,8 +56,18 @@ const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId
         // setLoading(false);
       }
     },
-    [fileList, handleCloseModal, isCreatePost, setPosts]
+    [fileList, handleCloseModal, initialValues, setPosts]
   );
+
+  useDidMountEffect(() => {
+    if (!initialValues) return;
+
+    // TODO: file urls set
+    setText(initialValues.textContent);
+    form.setFieldsValue({
+      textContent: initialValues.textContent,
+    });
+  });
 
   return (
     <Modal
@@ -70,12 +81,12 @@ const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId
             onClick={handleCloseModal}
           />
           <Button type="primary" onClick={form.submit} disabled={!text}>
-            {isCreatePost ? '작성하기' : '수정하기'}
+            {initialValues ? '수정하기' : '작성하기'}
           </Button>
         </header>
       }
       closable={false}
-      open={isModalOpened}
+      open={visible}
       onCancel={handleCloseModal}
       footer={null}
       className="w-full h-full absolute top-0 left-0 m-0 max-w-full bg-white shadow-none full-content header-padding-3"
@@ -143,10 +154,39 @@ const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId
 };
 
 PostForm.propTypes = {
-  isModalOpened: PropTypes.bool.isRequired,
-  handleModalClose: PropTypes.func.isRequired,
-  isCreatePost: PropTypes.bool,
-  postId: PropTypes.number,
+  visible: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    // images: PropTypes.arrayOf(PropTypes.string),
+    postId: PropTypes.number.isRequired,
+    userInfo: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      userId: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      realname: PropTypes.string.isRequired,
+    }).isRequired,
+    textContent: PropTypes.string.isRequired,
+    likeCount: PropTypes.number.isRequired,
+    hashtags: PropTypes.arrayOf(PropTypes.string),
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        commentId: PropTypes.number.isRequired,
+        articleId: PropTypes.number.isRequired,
+        replyUserId: PropTypes.any,
+        textContent: PropTypes.string.isRequired,
+        userInfo: PropTypes.shape({
+          userId: PropTypes.number.isRequired,
+          email: PropTypes.string.isRequired,
+          username: PropTypes.string.isRequired,
+          realname: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired
+    ),
+    createdDate: PropTypes.string,
+    updatedDate: PropTypes.string,
+    fileDownloadUrls: PropTypes.array.isRequired,
+    likeUp: PropTypes.bool.isRequired,
+  }),
 };
 
 export default PostForm;

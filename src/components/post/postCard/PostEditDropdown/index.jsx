@@ -11,7 +11,7 @@ import { menuItems } from './constant';
 import { processQuarterOnDropDownMenu } from './menu-quarter';
 import { deletePostOnPostEditDropdown } from './network.io';
 
-const PostEditDropdown = ({ postId, ...rest }) => {
+const PostEditDropdown = ({ initialValues, ...rest }) => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -39,11 +39,11 @@ const PostEditDropdown = ({ postId, ...rest }) => {
     ({ key }) =>
       processQuarterOnDropDownMenu({
         key,
-        postId,
+        postId: initialValues.postId,
         updatePost,
         deletePost,
       }),
-    [deletePost, updatePost, postId]
+    [initialValues.postId, updatePost, deletePost]
   );
 
   return (
@@ -51,13 +51,43 @@ const PostEditDropdown = ({ postId, ...rest }) => {
       <Dropdown menu={{ items: menuItems, onClick: onPostEditClicked }}>
         <Button type="text" icon={<EllipsisOutlined className="text-xl text-gray-900" />} {...rest} />
       </Dropdown>
-      <PostForm handleModalClose={closeModal} isCreatePost={false} isModalOpened={isModalOpen} postId={postId} />
+      {isModalOpen && <PostForm onCancel={closeModal} visible={true} initialValues={initialValues} />}
     </>
   );
 };
 
 PostEditDropdown.propTypes = {
-  postId: PropTypes.number.isRequired,
+  initialValues: PropTypes.shape({
+    // images: PropTypes.arrayOf(PropTypes.string),
+    postId: PropTypes.number.isRequired,
+    userInfo: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      userId: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      realname: PropTypes.string.isRequired,
+    }).isRequired,
+    textContent: PropTypes.string.isRequired,
+    likeCount: PropTypes.number.isRequired,
+    hashtags: PropTypes.arrayOf(PropTypes.string),
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        commentId: PropTypes.number.isRequired,
+        articleId: PropTypes.number.isRequired,
+        replyUserId: PropTypes.any,
+        textContent: PropTypes.string.isRequired,
+        userInfo: PropTypes.shape({
+          userId: PropTypes.number.isRequired,
+          email: PropTypes.string.isRequired,
+          username: PropTypes.string.isRequired,
+          realname: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired
+    ),
+    createdDate: PropTypes.string,
+    updatedDate: PropTypes.string,
+    fileDownloadUrls: PropTypes.array.isRequired,
+    likeUp: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default PostEditDropdown;
