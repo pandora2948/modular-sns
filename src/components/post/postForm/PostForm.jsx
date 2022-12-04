@@ -9,7 +9,7 @@ import atomStore from 'store/atom';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
-const PostForm = ({ isModalOpened, handleModalClose }) => {
+const PostForm = ({ isModalOpened, handleModalClose, isCreatePost = true, postId }) => {
   const me = useRecoilValue(atomStore.meAtom);
   const [form] = Form.useForm();
   const [text, setText] = useState('');
@@ -39,7 +39,8 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
     async ({ textContent }) => {
       try {
         // setLoading(true);
-        const newPost = await PostsService.createPost({
+        const api = isCreatePost ? PostsService.createPost : PostsService.updatePost;
+        const newPost = await api({
           textContent,
           files: fileList,
         });
@@ -54,7 +55,7 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
         // setLoading(false);
       }
     },
-    [fileList, handleCloseModal, setPosts]
+    [fileList, handleCloseModal, isCreatePost, setPosts]
   );
 
   return (
@@ -69,7 +70,7 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
             onClick={handleCloseModal}
           />
           <Button type="primary" onClick={form.submit} disabled={!text}>
-            작성하기
+            {isCreatePost ? '작성하기' : '수정하기'}
           </Button>
         </header>
       }
@@ -141,6 +142,11 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
   );
 };
 
-PostForm.propTypes = { isModalOpened: PropTypes.bool, handleModalClose: PropTypes.func };
+PostForm.propTypes = {
+  isModalOpened: PropTypes.bool.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
+  isCreatePost: PropTypes.bool,
+  postId: PropTypes.number,
+};
 
 export default PostForm;
