@@ -78,7 +78,9 @@ const PostCard = ({
               <span className="font-semibold">{userInfo.realname}</span>
               <span className="text-gray-500">@{userInfo.username}</span>
             </Button>
-            {userInfo.userId === me.userId && <PostEditDropdown postId={postId} className="absolute right-2" />}
+            {userInfo.userId === me.userId && (
+              <PostEditDropdown postId={postId} className="absolute right-2 no-padding" />
+            )}
           </section>
           <section className="leading-none">
             <span className="text-xs text-gray-400">{postTimeInfo}</span>
