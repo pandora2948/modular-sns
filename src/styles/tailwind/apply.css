@@ -1,3 +1,15 @@
+a {
+  @apply text-pink-600;
+}
+
+body {
+  @apply caret-pink-600;
+}
+
+.primary-color {
+  @apply text-pink-600;
+}
+
 .card {
   @apply bg-white w-full overflow-hidden;
 }

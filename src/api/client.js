@@ -42,7 +42,6 @@ const axiosWrapper = async (method, route, body, config = {}) => {
 
     if (!tokenErrorStatusList.includes(status) || url === '/auth/reissue') {
       throw new Error(errorMessage);
-      return;
     }
 
     try {

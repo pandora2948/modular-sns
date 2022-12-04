@@ -56,12 +56,14 @@ const HeaderUserDropdown = ({ isUser }) => {
   );
 
   if (!isUser) {
-    return <Button shape="circle" icon={<UserOutlined color="black" />} onClick={moveToSignInPage} />;
+    return (
+      <Button className="no-padding" shape="circle" icon={<UserOutlined color="black" />} onClick={moveToSignInPage} />
+    );
   }
 
   return (
     <Dropdown menu={{ items: menuItems, onClick: handleDropDownClick }}>
-      <Button shape="circle" icon={<UserOutlined color="black" />} />
+      <Button className="no-padding" shape="circle" icon={<UserOutlined color="black" />} />
     </Dropdown>
   );
 };

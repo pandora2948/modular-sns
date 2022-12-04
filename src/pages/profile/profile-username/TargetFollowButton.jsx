@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
+import { UserService } from 'api/services';
+import useFetchCheckIsFollow from 'components/follow/hooks/useFetchCheckIsFollow';
 import { useRecoilState } from 'recoil';
-import { UserService } from '../../../api/services';
-import useFetchCheckIsFollow from '../../../components/follow/hooks/useFetchCheckIsFollow';
-import atomStore from '../../../store/atom';
+import atomStore from 'store/atom';
 
 const TargetFollowButton = ({ username }) => {
   const [users, setUsers] = useRecoilState(atomStore.meAtom);

@@ -3,6 +3,7 @@ import { message } from 'antd';
 import { PostsService, UserService } from 'api/services';
 import EmptySpace from 'components/empty/EmptySpace';
 import PostCard from 'components/post/postCard/PostCard';
+import PostCreateButton from 'components/post/postForm/PostCreateButton';
 import UserPanel from 'components/userPanel/UserPanel';
 import AppLayout from 'layouts/AppLayout';
 import { useRecoilState } from 'recoil';
@@ -27,6 +28,8 @@ const Profile = () => {
   }
   return (
     <AppLayout>
+      <PostCreateButton />
+
       <UserPanel userProfileInfo={userProfileInfo} />
 
       <EmptySpace />

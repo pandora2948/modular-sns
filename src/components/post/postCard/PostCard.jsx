@@ -48,16 +48,16 @@ const PostCard = ({
       }}
     >
       <section className="relative mr-3">
-        <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10">
+        <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10 no-padding">
           <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
         </Button>
         <div
-          className="absolute h-[80%] border-gray-400"
+          className="absolute border-gray-400"
           style={{
             borderRight: '0.5px solid',
-            top: '10%',
             left: '50%',
             transform: 'translateX(-50%)',
+            height: 'calc(100% - 3.5rem)',
           }}
         >
           <MoreOutlined
@@ -78,7 +78,9 @@ const PostCard = ({
               <span className="font-semibold">{userInfo.realname}</span>
               <span className="text-gray-500">@{userInfo.username}</span>
             </Button>
-            {userInfo.userId === me.userId && <PostEditDropdown postId={postId} className="absolute right-2" />}
+            {userInfo.userId === me.userId && (
+              <PostEditDropdown postId={postId} className="absolute right-2 no-padding" />
+            )}
           </section>
           <section className="leading-none">
             <span className="text-xs text-gray-400">{postTimeInfo}</span>

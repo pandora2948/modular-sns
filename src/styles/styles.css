@@ -1,8 +1,5 @@
-@import '~antd/dist/antd.css';
-@import './antd/card.css';
-@import './antd/image.css';
-@import './antd/form-item.css';
-@import './antd/modal.css';
+@import '~antd/dist/reset.css';
+@import './antd/index.css';
 @import './fonts/font-face.css';
 
 @tailwind base;
@@ -31,13 +28,16 @@ html {
 }
 
 body {
-  /*background-color: #FAFAFA;*/
   font-family: 'Noto Sans KR', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'HelveticaNeue', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 div#root {
   display: flex;
   justify-content: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 button.no-style {
