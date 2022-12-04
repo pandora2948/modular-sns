@@ -52,12 +52,12 @@ const PostCard = ({
           <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
         </Button>
         <div
-          className="absolute h-[80%] border-gray-400"
+          className="absolute border-gray-400"
           style={{
             borderRight: '0.5px solid',
-            top: '10%',
             left: '50%',
             transform: 'translateX(-50%)',
+            height: 'calc(100% - 3.5rem)',
           }}
         >
           <MoreOutlined
