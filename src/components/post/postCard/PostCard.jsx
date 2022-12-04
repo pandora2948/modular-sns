@@ -91,7 +91,7 @@ const PostCard = ({
           </section>
         </section>
 
-        {fileDownloadUrls.length && (
+        {fileDownloadUrls.length !== 0 && (
           <section className="mt-3">
             <PostCardCarousel images={fileDownloadUrls} />
           </section>
