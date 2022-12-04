@@ -5,7 +5,7 @@ import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
 import PostCommentSection from 'components/post/postCard/postFooter/postFooterComment/PostCommentSection';
 
-const LIKE_COLOR = 'text-blue-500';
+const LIKE_COLOR = 'text-pink-600';
 const NOT_LIKE_COLOR = 'text-gray-600';
 
 const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } }) => {

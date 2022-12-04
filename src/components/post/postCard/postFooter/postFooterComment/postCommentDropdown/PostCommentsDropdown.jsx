@@ -24,7 +24,7 @@ const PostCommentsDropdown = ({ commentId }) => {
   );
   return (
     <Dropdown menu={{ items: menuItems, onClick: handleDropdownClick }}>
-      <Button className="p-0" type="text" size="small" icon={<MoreOutlined />} />
+      <Button className="p-0 no-padding" type="text" size="small" icon={<MoreOutlined />} />
     </Dropdown>
   );
 };

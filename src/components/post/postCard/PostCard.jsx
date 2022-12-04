@@ -48,7 +48,7 @@ const PostCard = ({
       }}
     >
       <section className="relative mr-3">
-        <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10">
+        <Button type="text" onClick={handleUserProfileClicked} className="relative p-0 h-fit z-10 no-padding">
           <UserIcon size="m" username={userInfo.username} realname={userInfo.realname} />
         </Button>
         <div

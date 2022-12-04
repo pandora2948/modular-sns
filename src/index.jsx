@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
+import { ConfigProvider } from 'antd';
 import FindEmail from 'pages/auth/find-email';
 import FindPassword from 'pages/auth/find-password';
 import SignIn from 'pages/auth/sign-in';
@@ -14,6 +15,7 @@ import FeedPage from 'pages/feed';
 import SearchHashtagPage from 'pages/search';
 import qs from 'qs';
 import { RecoilRoot } from 'recoil';
+import { theme } from 'styles/theme';
 import Profile from './pages/profile';
 import PasswordConfig from './pages/profile/password-config';
 import { ProfileByUsername } from './pages/profile/profile-username';
@@ -74,10 +76,12 @@ const router = createBrowserRouter([
 const root = createRoot(document.getElementById('root'));
 root.render(
   <RecoilRoot>
-    <RouterProvider router={router}>
-      <React.StrictMode>
-        <FeedPage />
-      </React.StrictMode>
-    </RouterProvider>
+    <ConfigProvider theme={{ token: { colorPrimary: theme.color.primary } }}>
+      <RouterProvider router={router}>
+        <React.StrictMode>
+          <FeedPage />
+        </React.StrictMode>
+      </RouterProvider>
+    </ConfigProvider>
   </RecoilRoot>
 );

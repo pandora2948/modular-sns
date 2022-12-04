@@ -8,7 +8,7 @@ const PostCreateButton = () => {
   return (
     <>
       <Button
-        className="fixed right-6 bottom-6 w-14 h-14 z-[9999]"
+        className="fixed right-6 bottom-6 w-14 h-14 z-[999]"
         type="primary"
         shape="circle"
         icon={<FormOutlined className="text-2xl" />}
