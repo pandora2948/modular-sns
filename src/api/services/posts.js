@@ -90,9 +90,16 @@ export const PostsService = {
    * @param files 파일 업로드 객체입니다.
    * @returns {Promise<*|undefined>}
    */
-  async updatePost({ postId, data, files = null }) {
+  async updatePost({ postId, textContent, hashtags = [], files = null }) {
     const formData = new FormData();
-    formData.append('updateRequest', data);
+
+    formData.append(
+      'updateRequest',
+      JSON.stringify({
+        textContent,
+        hashtags,
+      })
+    );
     formData.append('files', files);
 
     return await api.put(`/posts/${postId}`, formData, {

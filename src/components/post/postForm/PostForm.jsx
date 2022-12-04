@@ -42,6 +42,7 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
         // setLoading(true);
         const api = initialValues ? PostsService.updatePost : PostsService.createPost;
         const newPost = await api({
+          postId: initialValues.postId,
           textContent,
           files: fileList,
         });
