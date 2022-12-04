@@ -1,14 +1,19 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import shortid from 'shortid';
 import FollowUserItem from './FollowUserItem';
 import useFetchFollowList from './hooks/useFetchFollowList';
 
-const FollowInfoModal = ({ isShow, handleOpen, handleClose }) => {
-  const [followUsers] = useFetchFollowList();
+const FollowInfoModal = ({ isShow, handleClose }) => {
+  const [followUsers, _, refresh] = useFetchFollowList();
+
+  useEffect(() => {
+    refresh();
+  }, [isShow, refresh]);
 
   return (
-    <Modal title="팔로우 현황" open={isShow} onOk={handleOpen} onCancel={handleClose}>
+    <Modal title="팔로우 현황" open={isShow} onOk={handleClose} onCancel={handleClose}>
       {followUsers.map(({ username, realname }) => (
         <FollowUserItem username={username} realname={realname} key={shortid()} />
       ))}
@@ -18,7 +23,6 @@ const FollowInfoModal = ({ isShow, handleOpen, handleClose }) => {
 
 FollowInfoModal.propTypes = {
   isShow: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

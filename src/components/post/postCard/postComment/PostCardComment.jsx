@@ -2,7 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
-import PostCommentsDropdown from 'components/post/postCard/postFooter/postFooterComment/postCommentDropdown/PostCommentsDropdown';
+import PostCommentsDropdown from 'components/post/postCard/postComment/postCommentDropdown/PostCommentsDropdown';
 import { useRecoilValue } from 'recoil';
 import { meAtom } from 'store/atom/user';
 

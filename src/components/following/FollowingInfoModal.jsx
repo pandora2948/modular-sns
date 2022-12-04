@@ -4,11 +4,11 @@ import shortid from 'shortid';
 import FollowingUserItem from './FollowingUserItem';
 import useFetchFollowingList from './hooks/useFetchFollowingList';
 
-const FollowingInfoModal = ({ isShow, handleOpen, handleClose }) => {
+const FollowingInfoModal = ({ isShow, handleClose }) => {
   const [followingUsers] = useFetchFollowingList();
 
   return (
-    <Modal title="팔로잉 현황" open={isShow} onOk={handleOpen} onCancel={handleClose}>
+    <Modal title="팔로잉 현황" open={isShow} onOk={handleClose} onCancel={handleClose}>
       {followingUsers.map(({ username, realname }) => (
         <FollowingUserItem username={username} realname={realname} key={shortid()} />
       ))}
@@ -18,7 +18,6 @@ const FollowingInfoModal = ({ isShow, handleOpen, handleClose }) => {
 
 FollowingInfoModal.propTypes = {
   isShow: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

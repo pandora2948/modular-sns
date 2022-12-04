@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
 import { useModal } from 'hooks/useModal';
+import { useRecoilValue } from 'recoil';
+import atomStore from '../../store/atom';
 import FollowInfoModal from '../follow/FollowInfoModal';
 import FollowingInfoModal from '../following/FollowingInfoModal';
 import ProfileStat from './ProfileStat';
 import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';
 
-const UserPanel = ({ userStatus, followComponent }) => {
-  const { allFollowingCount, allFollowerCount, userInfo } = userStatus;
+const UserPanel = ({ followComponent }) => {
+  const userProfileInfo = useRecoilValue(atomStore.userProfileInfo);
+  const { allFollowingCount, allFollowerCount, userInfo } = userProfileInfo;
+
+  // Modal status
   const { isModalOpen: isFollowModalOpen, openModal: openFollowModal, closeModal: closeFollowModal } = useModal();
   const {
     isModalOpen: isFollowingModalOpen,
     openModal: openFollowingModal,
     closeModal: closeFollowingModal,
   } = useModal();
+
+  if (!userProfileInfo) return null;
 
   return (
     <>
@@ -41,29 +48,13 @@ const UserPanel = ({ userStatus, followComponent }) => {
           </section>
         </article>
       </section>
-      <FollowInfoModal handleOpen={openFollowModal} handleClose={closeFollowModal} isShow={isFollowModalOpen} />
-      <FollowingInfoModal
-        handleOpen={openFollowingModal}
-        handleClose={closeFollowingModal}
-        isShow={isFollowingModalOpen}
-      />
+      <FollowInfoModal handleClose={closeFollowModal} isShow={isFollowModalOpen} />
+      <FollowingInfoModal handleClose={closeFollowingModal} isShow={isFollowingModalOpen} />
     </>
   );
 };
 
 UserPanel.propTypes = {
-  userStatus: PropTypes.shape({
-    allFollowerCount: PropTypes.number.isRequired,
-    allFollowingCount: PropTypes.number.isRequired,
-    allGivenLikeCount: PropTypes.number.isRequired,
-    allPostCount: PropTypes.number.isRequired,
-    userInfo: PropTypes.shape({
-      userId: PropTypes.number.isRequired,
-      email: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      realname: PropTypes.string.isRequired,
-    }),
-  }),
   followComponent: PropTypes.element,
 };
 
