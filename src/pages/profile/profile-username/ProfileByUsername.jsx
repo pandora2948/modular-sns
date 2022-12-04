@@ -15,8 +15,7 @@ const ProfileByUsername = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isMe = user.userInfo.userId === me.userId;
-    console.log({ isMe });
+    const isMe = user?.userInfo.userId === me?.userId;
     if (isMe) navigate('/profile');
   }, [user, me, navigate]);
 
