@@ -8,7 +8,7 @@ import { meAtom } from 'store/atom/user';
 
 const { Text } = Typography;
 
-const PostCardComment = ({ comment }) => {
+const PostCardComment = ({ comment, postId, handleComments }) => {
   const me = useRecoilValue(meAtom);
 
   return (
@@ -20,7 +20,14 @@ const PostCardComment = ({ comment }) => {
         </div>
         <Text>{comment.textContent}</Text>
       </div>
-      {me.userId === comment.userInfo.userId && <PostCommentsDropdown commentId={comment.commentId} />}
+      {me.userId === comment.userInfo.userId && (
+        <PostCommentsDropdown
+          postId={postId}
+          commentId={comment.commentId}
+          ownerId={comment.userInfo.userId}
+          handleComments={handleComments}
+        />
+      )}
     </div>
   );
 };
@@ -37,6 +44,8 @@ PostCardComment.propTypes = {
       realname: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  postId: PropTypes.number.isRequired,
+  handleComments: PropTypes.func.isRequired,
 };
 
 export default memo(PostCardComment);
