@@ -11,7 +11,7 @@ export const meAtom = atom({
 
 export const userInfoByUsernameAtom = atom({
   key: 'userinfo-by-username',
-  default: {},
+  default: undefined,
 });
 
 export const userProfileInfo = atom({

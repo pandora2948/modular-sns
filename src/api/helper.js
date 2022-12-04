@@ -38,7 +38,7 @@ export function getErrorMessage(e) {
   );
 }
 
-export function getServerUrlByMode(mode = MODE_NAME_LIST.DEVELOPMENT) {
+export function getServerUrlByMode(mode = MODE_NAME_LIST.TEST) {
   switch (mode) {
     case MODE_NAME_LIST.DEVELOPMENT:
       return ENDPOINT_LIST.DEVELOPMENT;

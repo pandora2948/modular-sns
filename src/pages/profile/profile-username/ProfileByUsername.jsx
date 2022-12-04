@@ -13,19 +13,22 @@ const ProfileByUsername = () => {
   const { username } = useParams();
   const [user] = useFetchUser(username);
   const me = useRecoilValue(atomStore.meAtom);
-  const [_, setUserProfileInfo] = useRecoilState(atomStore.userProfileInfo);
+  const [userProfileInfo, setUserProfileInfo] = useRecoilState(atomStore.userProfileInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isMe = user?.userInfo.userId === me?.userId;
-    if (isMe) navigate('/profile');
+    if (user && me) {
+      console.log({ user, me });
+      const isMe = user.userInfo.userId === me.userId;
+      if (isMe) navigate('/profile');
+    }
   }, [user, me, navigate]);
 
   useEffect(() => {
     setUserProfileInfo(user);
   }, [setUserProfileInfo, user]);
 
-  if (!user) return null;
+  if (!user || !userProfileInfo) return null;
 
   return (
     <AppLayout>
