@@ -8,7 +8,7 @@ const FollowingInfoModal = ({ isShow, handleOpen, handleClose }) => {
   const [followingUsers] = useFetchFollowingList();
 
   return (
-    <Modal title="팔로잉 현황" open={isShow} onOk={handleOpen} onCancel={handleClose}>
+    <Modal title="팔로잉 현황" open={isShow} onOk={handleClose} onCancel={handleClose}>
       {followingUsers.map(({ username, realname }) => (
         <FollowingUserItem username={username} realname={realname} key={shortid()} />
       ))}

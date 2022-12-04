@@ -33,7 +33,7 @@ const FollowUserItem = ({ username, realname }) => {
       <div className="flex items-center">
         <UserIcon username={username} realname={realname} />
         <div className="flex flex-col">
-          <span className="ml-2.5 font-semibold text-base">{username}</span>
+          <span className="ml-2.5 font-semibold text-base">@{username}</span>
           <span className="ml-2.5 text-sm text-slate-500 font-light">{realname}</span>
         </div>
       </div>
