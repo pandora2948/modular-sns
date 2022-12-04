@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import FollowingUserItem from './FollowingUserItem';
 import useFetchFollowingList from './hooks/useFetchFollowingList';
 
-const FollowingInfoModal = ({ isShow, handleOpen, handleClose }) => {
+const FollowingInfoModal = ({ isShow, handleClose }) => {
   const [followingUsers] = useFetchFollowingList();
 
   return (
@@ -18,7 +18,6 @@ const FollowingInfoModal = ({ isShow, handleOpen, handleClose }) => {
 
 FollowingInfoModal.propTypes = {
   isShow: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
