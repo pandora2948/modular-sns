@@ -28,7 +28,7 @@ const PostEditDropdown = ({ postId, ...rest }) => {
     [posts, setPosts]
   );
 
-  const mockUpdatedCb = () => message.warn('준비되지 않은 기능입니다.');
+  const mockUpdatedCb = () => message.warning('준비되지 않은 기능입니다.');
   const onPostEditClicked = useCallback(
     ({ key }) =>
       processQuarterOnDropDownMenu({

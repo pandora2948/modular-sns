@@ -1,12 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
-import { Button, Form, message, Modal } from 'antd';
+import { Button, Form, message, Modal, Upload } from 'antd';
 import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import atomStore from 'store/atom';
-import { alertNotImpl } from 'utils';
 
 const TEXT_CONTENT_MAX_LENGTH = 140;
 
@@ -16,6 +15,7 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
   const [text, setText] = useState('');
   const [textareaFocus, setTextareaFocus] = useState(false);
   const setPosts = useSetRecoilState(atomStore.postsAtom);
+  const [fileList, setFileList] = useState([]);
 
   const toggleTextareaFocus = useCallback(() => {
     setTextareaFocus((prev) => !prev);
@@ -35,23 +35,26 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
     handleModalClose();
   }, [handleModalClose, form]);
 
-  const handleClickImageUploadButton = useCallback(() => {
-    alertNotImpl();
-  }, []);
-
   const handleSubmit = useCallback(
     async ({ textContent }) => {
       try {
+        // setLoading(true);
         const newPost = await PostsService.createPost({
           textContent,
+          files: fileList,
         });
+
         setPosts((prev) => [newPost, ...prev]);
+        setFileList([]);
+
         handleCloseModal();
       } catch (e) {
         message.error(e);
+      } finally {
+        // setLoading(false);
       }
     },
-    [handleCloseModal, setPosts]
+    [fileList, handleCloseModal, setPosts]
   );
 
   return (
@@ -105,18 +108,27 @@ const PostForm = ({ isModalOpened, handleModalClose }) => {
             </Form.Item>
 
             <footer
-              className="w-full bottom-0 left-0 flex items-center justify-between py-2 px-1= border-gray-300"
+              className="w-full bottom-0 left-0 flex items-center justify-between py-2 pr-2 border-gray-200"
               style={{
                 borderTop: '0.5px solid',
               }}
             >
               <section className="flex items-center">
-                <Button
-                  type="text"
-                  onClick={handleClickImageUploadButton}
-                  className="no-padding"
-                  icon={<FileImageOutlined className="text-base" />}
-                />
+                <Upload
+                  onRemove={(file) => {
+                    const index = fileList.indexOf(file);
+                    const newFileList = fileList.slice();
+                    newFileList.splice(index, 1);
+                    setFileList(newFileList);
+                  }}
+                  beforeUpload={(file) => {
+                    setFileList([...fileList, file]);
+                    return false;
+                  }}
+                  fileList={fileList}
+                >
+                  <Button type="text" className="no-padding" icon={<FileImageOutlined className="text-base" />} />
+                </Upload>
               </section>
               <section className="leading-none">
                 {textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}

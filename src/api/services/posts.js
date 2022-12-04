@@ -53,9 +53,20 @@ export const PostsService = {
    */
   async createPost({ textContent, hashtags = [], files = null }) {
     const formData = new FormData();
-    const json = JSON.stringify({ textContent, hashtags });
-    formData.append('createPostRequest', json);
+
+    formData.append(
+      'createPostRequest',
+      JSON.stringify({
+        textContent,
+        hashtags,
+      })
+    );
     formData.append('files', files);
+
+    // files.forEach((file) => {
+    //   formData.append('files[]', file);
+    // });
+
     return await api.post(`/posts`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
