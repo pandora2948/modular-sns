@@ -61,7 +61,9 @@ export const PostsService = {
         hashtags,
       })
     );
-    formData.append('files', files);
+    for (const file of files) {
+      formData.append('files', file);
+    }
 
     // files.forEach((file) => {
     //   formData.append('files[]', file);
@@ -101,7 +103,9 @@ export const PostsService = {
         fileDownloadUrls,
       })
     );
-    for (const file of files) formData.append('files', file);
+    for (const file of files) {
+      formData.append('files', file);
+    }
 
     return await api.put(`/posts/${postId}`, formData, {
       headers: {
