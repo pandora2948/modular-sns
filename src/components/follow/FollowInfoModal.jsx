@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
+import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
+import atomStore from '../../store/atom';
 import FollowUserItem from './FollowUserItem';
 import useFetchFollowList from './hooks/useFetchFollowList';
 
 const FollowInfoModal = ({ isShow, handleClose }) => {
-  const [followUsers, _, refresh] = useFetchFollowList();
+  const userProfileInfo = useRecoilValue(atomStore.userProfileInfo);
+  const [followUsers, _, refresh] = useFetchFollowList(userProfileInfo?.userInfo.username);
 
   useEffect(() => {
     refresh();

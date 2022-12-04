@@ -47,7 +47,7 @@ export const UserService = {
   },
 
   /**
-   * @description 로그인 된 사용자의 팔로워 사용자들의 이름 리스트를 반환합니다.
+   * @description 로그인 된 사용자의 팔로워 정보를 반환합니다.
    * @returns {Promise<String[]>}
    */
   async getFollowerUserList() {
@@ -55,11 +55,29 @@ export const UserService = {
   },
 
   /**
-   * @description 로그인 된 사용자의 팔로잉 사용자들의 이름 리스트를 반환합니다.
+   * @description 로그인 된 사용자의 팔로잉 정보를 반환합니다.
    * @returns {Promise<String[]>}
    */
   async getFollowingUserList() {
     return await api.get('/users/following');
+  },
+
+  /**
+   * @description 사용자 이름 정보 기반으로 사용자의 팔로우 정보를 반환합니다.
+   * @param username
+   * @returns {Promise<*|undefined>}
+   */
+  async getFollowerUserListByUsername({ username }) {
+    return await api.get(`/users/follower/${username}`);
+  },
+
+  /**
+   * @description 사용자 이름 정보 기반으로 사용자의 팔로잉 정보를 반환합니다.
+   * @param username
+   * @returns {Promise<*|undefined>}
+   */
+  async getFollowingUserListByUsername({ username }) {
+    return await api.get(`/users/following/${username}`);
   },
 
   /**

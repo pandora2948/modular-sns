@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import atomStore from '../../store/atom';
 import useFetchCheckIsFollow from '../follow/hooks/useFetchCheckIsFollow';
@@ -9,6 +9,9 @@ import UserIcon from '../userPanel/UserIcon';
 const FollowingUserItem = ({ username, realname }) => {
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
+  const me = useRecoilValue(atomStore.meAtom);
+  const isMe = me.username === username;
+
   const onClickRemoveFollow = async () => {
     try {
       await UserService.removeFollow({ username });
@@ -37,8 +40,8 @@ const FollowingUserItem = ({ username, realname }) => {
           <span className="ml-2.5 text-sm text-slate-500 font-light">{realname}</span>
         </div>
       </div>
-      {isFollow && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
-      {!isFollow && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
+      {isFollow && !isMe && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
+      {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
     </li>
   );
 };
