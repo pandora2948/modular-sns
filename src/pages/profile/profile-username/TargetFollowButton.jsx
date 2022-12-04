@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
+import { useRecoilState } from 'recoil';
 import { UserService } from '../../../api/services';
+import atomStore from '../../../store/atom';
 
 const TargetFollowButton = ({ username }) => {
+  const [users, setUsers] = useRecoilState(atomStore.meAtom);
   const [isFollow, isSetFollow] = useState(false);
   const onClickFollowUser = async () => {
     try {
       if (!isFollow) {
         await UserService.addFollow({ username });
         isSetFollow(true);
+        setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
         return;
       }
       await UserService.removeFollow({ username });
