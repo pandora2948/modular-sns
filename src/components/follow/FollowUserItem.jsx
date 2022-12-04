@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
 import { useRecoilState } from 'recoil';
@@ -7,6 +8,7 @@ import UserIcon from '../userPanel/UserIcon';
 import useFetchCheckIsFollow from './hooks/useFetchCheckIsFollow';
 
 const FollowUserItem = ({ username, realname }) => {
+  const navigate = useNavigate();
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const onClickRemoveFollow = async () => {
@@ -28,15 +30,17 @@ const FollowUserItem = ({ username, realname }) => {
     }
   };
 
+  const onClickUserInfo = () => navigate(`/profile/${username}`);
+
   return (
     <li className="w-full flex justify-between">
-      <div className="flex items-center">
+      <Button type="text" onClick={onClickUserInfo} className="flex items-center gap-1 p-0 h-fit">
         <UserIcon username={username} realname={realname} />
         <div className="flex flex-col">
           <span className="ml-2.5 font-semibold text-base">@{username}</span>
           <span className="ml-2.5 text-sm text-slate-500 font-light">{realname}</span>
         </div>
-      </div>
+      </Button>
       {isFollow && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
       {!isFollow && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
     </li>

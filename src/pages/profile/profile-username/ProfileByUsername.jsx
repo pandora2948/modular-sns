@@ -24,6 +24,8 @@ const ProfileByUsername = () => {
     setUserProfileInfo(user);
   }, [setUserProfileInfo, user]);
 
+  if (!user) return null;
+
   return (
     <AppLayout>
       <UserPanel followComponent={<TargetFollowButton username={username} />} />
