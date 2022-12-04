@@ -40,16 +40,26 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
     async ({ textContent }) => {
       try {
         // setLoading(true);
-        const api = initialValues ? PostsService.updatePost : PostsService.createPost;
-        const newPost = await api({
-          postId: initialValues.postId,
-          textContent,
-          files: fileList,
-        });
 
-        setPosts((prev) => [newPost, ...prev]);
+        if (initialValues) {
+          const edited = await PostsService.updatePost({
+            postId: initialValues.postId,
+            textContent,
+            files: fileList,
+          });
+          setPosts((prevPosts) => {
+            return prevPosts.map((post) => (post.postId === edited.postId ? edited : post));
+          });
+        } else {
+          const added = await PostsService.createPost({
+            textContent,
+            files: fileList,
+          });
+          setPosts((prevPosts) => {
+            return [added, ...prevPosts];
+          });
+        }
         setFileList([]);
-
         handleCloseModal();
       } catch (e) {
         message.error(e);
@@ -145,7 +155,7 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
                 </Upload>
               </section>
               <section className="leading-none">
-                {textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}
+                {/*{textareaFocus && <span className="text-sm">{`${textLength} / ${TEXT_CONTENT_MAX_LENGTH}`}</span>}*/}
               </section>
             </footer>
           </section>
