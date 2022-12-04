@@ -90,7 +90,7 @@ export const PostsService = {
    * @param files 파일 업로드 객체입니다.
    * @returns {Promise<*|undefined>}
    */
-  async updatePost({ postId, textContent, hashtags = [], files = null }) {
+  async updatePost({ postId, textContent, hashtags = [], fileDownloadUrls = [], files = null }) {
     const formData = new FormData();
 
     formData.append(
@@ -98,6 +98,7 @@ export const PostsService = {
       JSON.stringify({
         textContent,
         hashtags,
+        fileDownloadUrls,
       })
     );
     formData.append('files', files);
