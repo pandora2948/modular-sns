@@ -33,10 +33,7 @@ const axiosWrapper = async (method, route, body, config = {}) => {
 
     return data;
   } catch (e) {
-    const {
-      config: { url },
-      response: { status },
-    } = e;
+    const { url, status } = e.response?.data ?? e.config?.data ?? {};
 
     const errorMessage = getErrorMessage(e);
 

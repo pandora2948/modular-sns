@@ -3,6 +3,7 @@ import { printRequestLog, token } from 'utils';
 const routesWithoutAccessToken = ['/auth/login', '/auth/signup', '/auth/reissue'];
 
 export function logRequest(config) {
+  console.log(config);
   printRequestLog({
     method: config.method,
     endPoint: config.url,
