@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { message } from 'antd';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
@@ -22,7 +21,7 @@ const Feed = () => {
         setPosts(posts);
         setInitialLoaded(true);
       } catch (err) {
-        message.error(err);
+        alert(err);
       } finally {
         // setLoading(false);
       }

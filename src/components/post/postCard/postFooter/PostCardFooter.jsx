@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { PostsService } from 'api/services';
 import PostCardCommentBox from '../postComment/PostCardCommentBox';
 import PostCardCommentList from '../postComment/PostCardCommentList';
@@ -32,18 +32,18 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
           color: NOT_LIKE_COLOR,
         }));
       } catch (err) {
-        message.error(err);
+        alert(err);
       }
     } else {
       try {
-        const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) => message.error(err));
+        const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) => alert(err));
         setLikedButtonState(() => ({
           isLiked: true,
           likeCount: updatedLikeCount,
           color: LIKE_COLOR,
         }));
       } catch (err) {
-        message.error(err);
+        alert(err);
       }
     }
   }, [likedButtonState.isLiked, postId]);

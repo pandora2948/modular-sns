@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { message } from 'antd';
 import { UserService } from '../../../api/services';
 
 const useFetchCheckIsFollow = ({ username }) => {
@@ -12,7 +11,7 @@ const useFetchCheckIsFollow = ({ username }) => {
         const isFollow = await UserService.checkFollow({ username });
         setIsFollow(isFollow);
       } catch (e) {
-        message.error(e);
+        alert(e);
       }
     })();
   }, [username]);

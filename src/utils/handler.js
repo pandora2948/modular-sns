@@ -1,3 +1,1 @@
-import { message } from 'antd';
-
-export const handleErrorByAntdMessage = (e) => message.error(e);
+export const handleErrorByAntdMessage = (e) => alert(e);

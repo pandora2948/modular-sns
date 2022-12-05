@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { UserService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useRecoilState } from 'recoil';
@@ -24,10 +24,9 @@ const UserConfigForm = () => {
         setMe((prv) => {
           return { ...prv, ...values };
         });
-
-        message.success('사용자 정보가 변경되었습니다.');
+        alert('사용자 정보가 변경되었습니다.');
       } catch (error) {
-        message.error(error.message);
+        alert(error.message);
       } finally {
         // setLoading(false);
       }

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { MoreOutlined } from '@ant-design/icons';
-import { Button, Dropdown, message } from 'antd';
+import { Button, Dropdown } from 'antd';
 import { CommentsService } from 'api/services';
 import { menuItems, menuKeys } from 'components/post/postCard/postComment/postCommentDropdown/constant';
 
@@ -12,7 +12,7 @@ const PostCommentsDropdown = ({ postId, commentId, ownerId, handleComments }) =>
         try {
           CommentsService.updateComment({ postId, ownerId });
         } catch (err) {
-          message.error(err);
+          alert(err);
         }
       }
       if (key === menuKeys.deleteComment) {
@@ -22,10 +22,9 @@ const PostCommentsDropdown = ({ postId, commentId, ownerId, handleComments }) =>
           handleComments((prv) => {
             return prv.filter((comment) => comment.commentId !== commentId);
           });
-
-          message.success('댓글이 삭제되었습니다.');
+          alert('댓글이 삭제되었습니다.');
         } catch (err) {
-          message.error(err.message);
+          alert(err.message);
         }
       }
     },

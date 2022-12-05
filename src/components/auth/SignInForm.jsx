@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Divider, Form, Input, message } from 'antd';
+import { Button, Checkbox, Divider, Form, Input } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useSetRecoilState } from 'recoil';
@@ -31,7 +31,7 @@ const SignInForm = () => {
 
         navigate('/');
       } catch (err) {
-        message.error(err.message);
+        alert(err.message);
       }
     },
     [navigate, setMe]

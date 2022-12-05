@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { message } from 'antd';
 import { PostsService, UserService } from 'api/services';
 import EmptySpace from 'components/empty/EmptySpace';
 import PostCard from 'components/post/postCard/PostCard';
@@ -17,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     PostsService.getUserPosts({ page: 0, size: 99999 })
       .then((data) => setPosts(data))
-      .catch((e) => message.error(e));
+      .catch((e) => alert(e));
     UserService.getLoginedUser()
       .then((userProfileInfo) => setUserProfileInfo(userProfileInfo))
       .catch(handleErrorByAntdMessage);

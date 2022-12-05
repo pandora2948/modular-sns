@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import atomStore from '../../store/atom';
@@ -20,7 +20,7 @@ const FollowUserItem = ({ username, realname }) => {
       setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
       setIsFollow(false);
     } catch (e) {
-      message.error(e);
+      alert(e);
     }
   };
   const onClickAddFollowing = async () => {
@@ -29,7 +29,7 @@ const FollowUserItem = ({ username, realname }) => {
       setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
       setIsFollow(true);
     } catch (e) {
-      message.error(e);
+      alert(e);
     }
   };
 

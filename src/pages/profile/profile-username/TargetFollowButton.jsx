@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { UserService } from 'api/services';
 import useFetchCheckIsFollow from 'components/follow/hooks/useFetchCheckIsFollow';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,7 @@ const TargetFollowButton = ({ username }) => {
       await UserService.removeFollow({ username });
       setIsFollow(false);
     } catch (e) {
-      message.error(e);
+      alert(e);
     }
   };
 

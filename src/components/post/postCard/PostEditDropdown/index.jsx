@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Button, Dropdown, message } from 'antd';
+import { Button, Dropdown } from 'antd';
 import PostForm from 'components/post/postForm/PostForm';
 import { useModal } from 'hooks/useModal';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,7 @@ const PostEditDropdown = ({ initialValues, ...rest }) => {
     (postId) => {
       const successCb = (removedPosts) => {
         setPosts(removedPosts);
-        message.success('게시글을 삭제하였습니다.');
+        alert('게시글을 삭제하였습니다.');
       };
       deletePostOnPostEditDropdown({
         posts,

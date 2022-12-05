@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { AuthService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useSetRecoilState } from 'recoil';
@@ -35,11 +35,10 @@ const SignUpForm = () => {
 
         token.refreshToken.set(refreshToken, true);
         token.accessToken.set(accessToken);
-
-        message.success('회원가입 성공');
+        alert('회원가입 성공');
         navigate('/');
       } catch (err) {
-        message.error(err.message);
+        alert(err.message);
       }
     },
     [navigate, setMe]

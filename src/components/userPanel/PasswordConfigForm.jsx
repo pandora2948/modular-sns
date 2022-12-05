@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { UserService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { passwordRegex, requiredRule } from 'utils';
@@ -17,9 +17,9 @@ const PasswordConfigForm = () => {
     try {
       // setLoading(true);
       await UserService.updateLoginedUserPassword({ prevPassword, newPassword });
-      message.success('비밀번호가 변경되었습니다.');
+      alert('비밀번호가 변경되었습니다.');
     } catch (err) {
-      message.error(err);
+      alert(err);
     } finally {
       // setLoading(false);
     }

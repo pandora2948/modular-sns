@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { UserService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useRecoilValue } from 'recoil';
@@ -25,7 +25,7 @@ const UserDeleteForm = () => {
         await UserService.deleteLoginedUser({ password });
         navigate('/sign-in');
       } catch (err) {
-        message.error(err);
+        alert(err);
       } finally {
         // setLoading(false);
       }

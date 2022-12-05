@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, message, Modal, Upload } from 'antd';
+import { Button, Form, Modal, Upload } from 'antd';
 import { PostsService } from 'api/services';
 import UserIcon from 'components/userPanel/UserIcon';
 import { useDidMountEffect } from 'hooks/useDidMountEffect';
@@ -67,7 +67,7 @@ const PostForm = ({ visible, onCancel, initialValues }) => {
         setFileList([]);
         handleCloseModal();
       } catch (e) {
-        message.error(e);
+        alert(e);
       } finally {
         // setLoading(false);
       }

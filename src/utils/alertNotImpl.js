@@ -1,5 +1,3 @@
-import { message } from 'antd';
-
 export function alertNotImpl() {
-  message.info('Not implemented');
+  alert('Not implemented');
 }

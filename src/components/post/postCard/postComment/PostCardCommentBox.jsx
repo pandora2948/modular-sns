@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
-import { message } from 'antd';
 import { CommentsService } from 'api/services';
 import { useRecoilValue } from 'recoil';
 import { meAtom } from 'store/atom/user';
@@ -27,7 +26,7 @@ const PostCardCommentBox = ({ open, postId, handleComments }) => {
         handleComments((prv) => [...prv, updatedComments]);
         commentInput.value = '';
       } catch (err) {
-        message.error(err);
+        alert(err);
       }
     },
     [handleComments, me.userId, postId]
