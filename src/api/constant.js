@@ -6,6 +6,6 @@ export const MODE_NAME_LIST = {
 
 export const ENDPOINT_LIST = {
   DEVELOPMENT: 'http://localhost:8080/api',
-  TEST: 'http://galaxyhi4276.co/api',
+  TEST: 'https://galaxyhi4276.co/api',
   PRODUCTION: '<production_url>',
 };
