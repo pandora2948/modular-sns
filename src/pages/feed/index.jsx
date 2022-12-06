@@ -51,7 +51,7 @@ const Feed = () => {
     <AppLayout>
       {contextHolder}
       <PostCreateButton />
-      {posts?.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={post.postId} post={post} />)}
+      {posts?.length === 0 ? <EmptyFeed /> : posts?.map((post) => <PostCard key={post.postId} post={post} />)}
     </AppLayout>
   );
 };
