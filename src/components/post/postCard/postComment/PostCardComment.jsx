@@ -1,22 +1,25 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { UserOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import PostCommentsDropdown from 'components/post/postCard/postComment/postCommentDropdown/PostCommentsDropdown';
 import { useRecoilValue } from 'recoil';
 import { meAtom } from 'store/atom/user';
+import UserIcon from '../../../userPanel/UserIcon';
 
 const { Text } = Typography;
 
 const PostCardComment = ({ comment, postId, handleComments }) => {
   const me = useRecoilValue(meAtom);
+  const {
+    userInfo: { username, realname },
+  } = comment;
 
   return (
-    <div className="flex items-center gap-x-3 justify-between">
-      <div className="flex gap-x-2">
+    <div className="flex items-center gap-x-3 justify-between mb-2">
+      <div className="flex gap-x-2 items-center">
         <div className="flex gap-x-1 items-center">
-          <UserOutlined />
-          <Text className="text-bold font-bold">{comment.userInfo.username}</Text>
+          <UserIcon realname={realname} username={username} />
+          <Text className="text-bold font-bold ml-0.5">{comment.userInfo.username}</Text>
         </div>
         <Text>{comment.textContent}</Text>
       </div>
