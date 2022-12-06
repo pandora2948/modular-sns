@@ -7,30 +7,37 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import atomStore from 'store/atom';
 
 const FollowingUserItem = ({ username, realname }) => {
+  const { userInfo } = useRecoilValue(atomStore.userProfileInfo);
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
   const [messageApi, contextHolder] = message.useMessage();
+  const followButtonMessage = me.userId === userInfo.userId ? '맞팔로우' : '팔로우';
 
-  const onClickRemoveFollow = async () => {
+  const onClickAction = async (apiCb, dispatcherCb, isFollow) => {
     try {
-      await UserService.removeFollow({ username });
-      setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
-      setIsFollow(false);
+      await apiCb();
+      if (isMe) dispatcherCb();
+      setIsFollow(isFollow);
     } catch (err) {
       messageApi.error(err.message);
     }
   };
-  const onClickAddFollowing = async () => {
-    try {
-      await UserService.addFollow({ username });
-      setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
-      setIsFollow(true);
-    } catch (err) {
-      messageApi.error(err.message);
-    }
-  };
+
+  const onClickRemoveFollow = () =>
+    onClickAction(
+      () => UserService.removeFollow({ username }),
+      () => setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 }),
+      false
+    );
+
+  const onClickAddFollowing = () =>
+    onClickAction(
+      () => UserService.addFollow({ username }),
+      () => setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 }),
+      true
+    );
 
   return (
     <>
@@ -44,7 +51,7 @@ const FollowingUserItem = ({ username, realname }) => {
           </div>
         </div>
         {isFollow && !isMe && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
-        {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
+        {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>{followButtonMessage}</Button>}
       </li>
     </>
   );

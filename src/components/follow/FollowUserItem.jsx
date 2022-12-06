@@ -9,6 +9,9 @@ import useFetchCheckIsFollow from './hooks/useFetchCheckIsFollow';
 
 const FollowUserItem = ({ username, realname }) => {
   const navigate = useNavigate();
+  const {
+    userInfo: { username: profileUsername },
+  } = useRecoilValue(atomStore.userProfileInfo);
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
@@ -18,7 +21,9 @@ const FollowUserItem = ({ username, realname }) => {
   const onClickRemoveFollow = async () => {
     try {
       await UserService.removeFollow({ username });
-      setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
+      if (isMe) {
+        setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
+      }
       setIsFollow(false);
     } catch (err) {
       messageApi.error(err.message);
@@ -27,7 +32,9 @@ const FollowUserItem = ({ username, realname }) => {
   const onClickAddFollowing = async () => {
     try {
       await UserService.addFollow({ username });
-      setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
+      if (isMe) {
+        setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
+      }
       setIsFollow(true);
     } catch (err) {
       messageApi.error(err.message);
