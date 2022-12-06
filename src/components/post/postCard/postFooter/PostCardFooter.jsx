@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
 import PostCardCommentBox from '../postComment/PostCardCommentBox';
 import PostCardCommentList from '../postComment/PostCardCommentList';
@@ -17,6 +17,7 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
     color: likeUp ? LIKE_COLOR : NOT_LIKE_COLOR,
   });
   const [postComments, setPostComments] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleClickCommentBox = useCallback(() => {
     setIsOpenCommentBox((prev) => !prev);
@@ -32,21 +33,23 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
           color: NOT_LIKE_COLOR,
         }));
       } catch (err) {
-        alert(err);
+        messageApi.error(err.message);
       }
     } else {
       try {
-        const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) => alert(err));
+        const updatedLikeCount = await PostsService.addLikeToPost({ postId }).catch((err) =>
+          messageApi.error(err.message)
+        );
         setLikedButtonState(() => ({
           isLiked: true,
           likeCount: updatedLikeCount,
           color: LIKE_COLOR,
         }));
       } catch (err) {
-        alert(err);
+        messageApi.error(err.message);
       }
     }
-  }, [likedButtonState.isLiked, postId]);
+  }, [likedButtonState.isLiked, messageApi, postId]);
 
   useEffect(() => {
     setPostComments(comments);
@@ -54,6 +57,7 @@ const PostCardFooter = ({ footerData: { likeCount, comments, likeUp, postId } })
 
   return (
     <>
+      {contextHolder}
       <footer className="grid grid-cols-2 mt-5">
         <Button type="text" className="border-0 bg-transparent text-gray-600" onClick={handleClickCommentBox}>
           <CommentOutlined className="text-xl" />

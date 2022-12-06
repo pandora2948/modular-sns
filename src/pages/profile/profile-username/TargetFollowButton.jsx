@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { UserService } from 'api/services';
 import useFetchCheckIsFollow from 'components/follow/hooks/useFetchCheckIsFollow';
 import { useRecoilState } from 'recoil';
@@ -8,6 +8,7 @@ import atomStore from 'store/atom';
 const TargetFollowButton = ({ username }) => {
   const [users, setUsers] = useRecoilState(atomStore.meAtom);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
+  const [messageApi, contextHolder] = message.useMessage();
   const onClickFollowUser = async () => {
     try {
       if (!isFollow) {
@@ -18,15 +19,18 @@ const TargetFollowButton = ({ username }) => {
       }
       await UserService.removeFollow({ username });
       setIsFollow(false);
-    } catch (e) {
-      alert(e);
+    } catch (err) {
+      messageApi.error(err.message);
     }
   };
 
   return (
-    <Button className="mt-1.5" onClick={onClickFollowUser}>
-      {isFollow ? '팔로우 취소' : '팔로우'}
-    </Button>
+    <>
+      {contextHolder}
+      <Button className="mt-1.5" onClick={onClickFollowUser}>
+        {isFollow ? '팔로우 취소' : '팔로우'}
+      </Button>
+    </>
   );
 };
 

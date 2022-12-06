@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import atomStore from '../../store/atom';
@@ -11,14 +11,15 @@ const FollowingUserItem = ({ username, realname }) => {
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
+  const [messageApi, contextHolder] = message.useMessage();
 
   const onClickRemoveFollow = async () => {
     try {
       await UserService.removeFollow({ username });
       setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
       setIsFollow(false);
-    } catch (e) {
-      alert(e);
+    } catch (err) {
+      messageApi.error(err.message);
     }
   };
   const onClickAddFollowing = async () => {
@@ -26,23 +27,26 @@ const FollowingUserItem = ({ username, realname }) => {
       await UserService.addFollow({ username });
       setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
       setIsFollow(true);
-    } catch (e) {
-      alert(e);
+    } catch (err) {
+      messageApi.error(err.message);
     }
   };
 
   return (
-    <li className="w-full flex justify-between">
-      <div className="flex items-center">
-        <UserIcon username={username} realname={realname} />
-        <div className="flex flex-col">
-          <span className="ml-2.5 font-semibold text-base">@{username}</span>
-          <span className="ml-2.5 text-sm text-slate-500 font-light">{realname}</span>
+    <>
+      {contextHolder}
+      <li className="w-full flex justify-between">
+        <div className="flex items-center">
+          <UserIcon username={username} realname={realname} />
+          <div className="flex flex-col">
+            <span className="ml-2.5 font-semibold text-base">@{username}</span>
+            <span className="ml-2.5 text-sm text-slate-500 font-light">{realname}</span>
+          </div>
         </div>
-      </div>
-      {isFollow && !isMe && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
-      {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
-    </li>
+        {isFollow && !isMe && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
+        {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
+      </li>
+    </>
   );
 };
 

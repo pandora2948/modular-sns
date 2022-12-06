@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { UserService } from '../../api/services';
 import atomStore from '../../store/atom';
@@ -13,14 +13,15 @@ const FollowUserItem = ({ username, realname }) => {
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
+  const [messageApi, contextHolder] = message.useMessage();
 
   const onClickRemoveFollow = async () => {
     try {
       await UserService.removeFollow({ username });
       setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
       setIsFollow(false);
-    } catch (e) {
-      alert(e);
+    } catch (err) {
+      messageApi.error(err.message);
     }
   };
   const onClickAddFollowing = async () => {
@@ -28,8 +29,8 @@ const FollowUserItem = ({ username, realname }) => {
       await UserService.addFollow({ username });
       setUsers({ ...users, allFollowerCount: users.allFollowerCount + 1 });
       setIsFollow(true);
-    } catch (e) {
-      alert(e);
+    } catch (err) {
+      messageApi.error(err.message);
     }
   };
 
@@ -37,6 +38,7 @@ const FollowUserItem = ({ username, realname }) => {
 
   return (
     <li className="w-full flex justify-between">
+      {contextHolder}
       <Button type="text" onClick={onClickUserInfo} className="flex items-center gap-1 p-0 h-fit">
         <UserIcon username={username} realname={realname} />
         <div className="flex flex-col">

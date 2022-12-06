@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Button, Dropdown } from 'antd';
+import { Button, Dropdown, message } from 'antd';
 import PostForm from 'components/post/postForm/PostForm';
 import { useModal } from 'hooks/useModal';
 import { useRecoilState } from 'recoil';
@@ -14,12 +14,13 @@ import { deletePostOnPostEditDropdown } from './network.io';
 const PostEditDropdown = ({ initialValues, ...rest }) => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const { isModalOpen, openModal, closeModal } = useModal();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const deletePost = useCallback(
     (postId) => {
       const successCb = (removedPosts) => {
         setPosts(removedPosts);
-        alert('게시글을 삭제하였습니다.');
+        messageApi.success('게시글을 삭제하였습니다.');
       };
       deletePostOnPostEditDropdown({
         posts,
@@ -28,7 +29,7 @@ const PostEditDropdown = ({ initialValues, ...rest }) => {
         failureCb: handleErrorByAntdMessage,
       });
     },
-    [posts, setPosts]
+    [messageApi, posts, setPosts]
   );
 
   const updatePost = useCallback(() => {
@@ -48,6 +49,7 @@ const PostEditDropdown = ({ initialValues, ...rest }) => {
 
   return (
     <>
+      {contextHolder}
       <Dropdown menu={{ items: menuItems, onClick: onPostEditClicked }}>
         <Button type="text" icon={<EllipsisOutlined className="text-xl text-gray-900" />} {...rest} />
       </Dropdown>

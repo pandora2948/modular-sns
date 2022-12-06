@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { UserOutlined } from '@ant-design/icons';
+import { message } from 'antd';
 import { CommentsService } from 'api/services';
 import { useRecoilValue } from 'recoil';
 import { meAtom } from 'store/atom/user';
@@ -8,6 +9,7 @@ import { meAtom } from 'store/atom/user';
 const PostCardCommentBox = ({ open, postId, handleComments }) => {
   const inputRef = useRef(null);
   const me = useRecoilValue(meAtom);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const onEnterComment = useCallback(
     async ({ key }) => {
@@ -26,10 +28,10 @@ const PostCardCommentBox = ({ open, postId, handleComments }) => {
         handleComments((prv) => [...prv, updatedComments]);
         commentInput.value = '';
       } catch (err) {
-        alert(err);
+        messageApi.error(err.message);
       }
     },
-    [handleComments, me.userId, postId]
+    [handleComments, me.userId, messageApi, postId]
   );
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const PostCardCommentBox = ({ open, postId, handleComments }) => {
 
   return (
     <section className="px-3 pt-3 flex items-center gap-x-1.5">
+      {contextHolder}
       <UserOutlined />
       <input
         placeholder="댓글을 입력하세요..."

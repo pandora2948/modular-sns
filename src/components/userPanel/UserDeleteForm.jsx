@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { UserService } from 'api/services';
 import { useFormValidateTrigger } from 'hooks/useFormValidateTrigger';
 import { useRecoilValue } from 'recoil';
@@ -15,6 +15,7 @@ const layout = {
 const UserDeleteForm = () => {
   const me = useRecoilValue(atomStore.meAtom);
   const { formValidateTrigger, onFormFinishFailed, hasFeedback } = useFormValidateTrigger();
+  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -25,16 +26,17 @@ const UserDeleteForm = () => {
         await UserService.deleteLoginedUser({ password });
         navigate('/sign-in');
       } catch (err) {
-        alert(err);
+        messageApi.error(err);
       } finally {
         // setLoading(false);
       }
     },
-    [navigate]
+    [messageApi, navigate]
   );
 
   return (
     <div className="w-full flex flex-col">
+      {contextHolder}
       <span className="text-center font-bold text-lg mb-5">계정 삭제를 위한 비밀번호 확인</span>
       <Form
         onFinish={deleteUser}

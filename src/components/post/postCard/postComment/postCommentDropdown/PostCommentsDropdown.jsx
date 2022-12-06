@@ -1,18 +1,19 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { MoreOutlined } from '@ant-design/icons';
-import { Button, Dropdown } from 'antd';
+import { Button, Dropdown, message } from 'antd';
 import { CommentsService } from 'api/services';
 import { menuItems, menuKeys } from 'components/post/postCard/postComment/postCommentDropdown/constant';
 
 const PostCommentsDropdown = ({ postId, commentId, ownerId, handleComments }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const handleDropdownClick = useCallback(
     async ({ key }) => {
       if (key === menuKeys.editComment) {
         try {
           CommentsService.updateComment({ postId, ownerId });
         } catch (err) {
-          alert(err);
+          messageApi.error(err.message);
         }
       }
       if (key === menuKeys.deleteComment) {
@@ -22,18 +23,21 @@ const PostCommentsDropdown = ({ postId, commentId, ownerId, handleComments }) =>
           handleComments((prv) => {
             return prv.filter((comment) => comment.commentId !== commentId);
           });
-          alert('댓글이 삭제되었습니다.');
+          messageApi.success('댓글이 삭제되었습니다.');
         } catch (err) {
-          alert(err.message);
+          messageApi.error(err.message);
         }
       }
     },
-    [commentId, handleComments, ownerId, postId]
+    [commentId, handleComments, messageApi, ownerId, postId]
   );
   return (
-    <Dropdown menu={{ items: menuItems, onClick: handleDropdownClick }}>
-      <Button className="p-0 no-padding" type="text" size="small" icon={<MoreOutlined />} />
-    </Dropdown>
+    <>
+      {contextHolder}
+      <Dropdown menu={{ items: menuItems, onClick: handleDropdownClick }}>
+        <Button className="p-0 no-padding" type="text" size="small" icon={<MoreOutlined />} />
+      </Dropdown>
+    </>
   );
 };
 

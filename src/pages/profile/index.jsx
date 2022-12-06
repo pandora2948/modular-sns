@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { message } from 'antd';
 import { PostsService, UserService } from 'api/services';
 import EmptySpace from 'components/empty/EmptySpace';
 import PostCard from 'components/post/postCard/PostCard';
@@ -12,21 +13,23 @@ import { handleErrorByAntdMessage } from 'utils/handler';
 const Profile = () => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const [userProfileInfo, setUserProfileInfo] = useRecoilState(atomStore.userProfileInfo);
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     PostsService.getUserPosts({ page: 0, size: 99999 })
       .then((data) => setPosts(data))
-      .catch((e) => alert(e));
+      .catch((err) => messageApi.error(err.message));
     UserService.getLoginedUser()
       .then((userProfileInfo) => setUserProfileInfo(userProfileInfo))
       .catch(handleErrorByAntdMessage);
-  }, [setUserProfileInfo, setPosts]);
+  }, [setUserProfileInfo, setPosts, messageApi]);
 
   if (!userProfileInfo) {
     return null;
   }
   return (
     <AppLayout>
+      {contextHolder}
       <PostCreateButton />
 
       <UserPanel userProfileInfo={userProfileInfo} />

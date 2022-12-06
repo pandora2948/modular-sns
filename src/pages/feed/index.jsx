@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 import { PostsService } from 'api/services';
 import EmptyFeed from 'components/empty/EmptyFeed';
 import PostCard from 'components/post/postCard/PostCard';
@@ -12,6 +14,8 @@ import atomStore from 'store/atom';
 const Feed = () => {
   const [posts, setPosts] = useRecoilState(atomStore.postsAtom);
   const [initialLoaded, setInitialLoaded] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
   const getPosts = useCallback(
     async (page, size) => {
@@ -21,12 +25,13 @@ const Feed = () => {
         setPosts(posts);
         setInitialLoaded(true);
       } catch (err) {
-        alert(err);
+        await messageApi.error(err.message, 1);
+        navigate('/auth/sign-in');
       } finally {
         // setLoading(false);
       }
     },
-    [setPosts]
+    [messageApi, navigate, setPosts]
   );
 
   // TODO: 페이지네이션 구현하기
@@ -37,14 +42,15 @@ const Feed = () => {
   if (!initialLoaded) {
     return (
       <AppLayout>
+        {contextHolder}
         <PostCardsSkeleton />
       </AppLayout>
     );
   }
   return (
     <AppLayout>
+      {contextHolder}
       <PostCreateButton />
-
       {posts.length === 0 ? <EmptyFeed /> : posts.map((post) => <PostCard key={post.postId} post={post} />)}
     </AppLayout>
   );
