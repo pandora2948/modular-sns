@@ -9,14 +9,13 @@ import useFetchCheckIsFollow from './hooks/useFetchCheckIsFollow';
 
 const FollowUserItem = ({ username, realname }) => {
   const navigate = useNavigate();
-  const {
-    userInfo: { username: profileUsername },
-  } = useRecoilValue(atomStore.userProfileInfo);
+  const { userInfo } = useRecoilValue(atomStore.userProfileInfo);
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
   const [messageApi, contextHolder] = message.useMessage();
+  const followButtonMessage = me.userId === userInfo.userId ? '맞팔로우' : '팔로우';
 
   const onClickRemoveFollow = async () => {
     try {
@@ -54,7 +53,7 @@ const FollowUserItem = ({ username, realname }) => {
         </div>
       </Button>
       {isFollow && !isMe && <Button onClick={onClickRemoveFollow}>팔로우 취소</Button>}
-      {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>맞팔로우</Button>}
+      {!isFollow && !isMe && <Button onClick={onClickAddFollowing}>{followButtonMessage}</Button>}
     </li>
   );
 };
