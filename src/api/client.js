@@ -35,11 +35,6 @@ const axiosWrapper = async (method, route, body, config = {}) => {
   } catch (e) {
     const { url, status } = e.response?.data ?? e.config?.data ?? {};
 
-    if (e.response?.data?.error === '헤더에 토큰이 존재하지 않습니다.') {
-      token.clear();
-      window.location = '/auth/sign-in';
-    }
-
     const errorMessage = getErrorMessage(e);
 
     if (!tokenErrorStatusList.includes(status) || url === '/auth/reissue') {
