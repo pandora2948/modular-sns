@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { UserService } from 'api/services';
 import { useRecoilValue } from 'recoil';
-import { UserService } from '../../../api/services';
-import atomStore from '../../../store/atom';
-import { handleErrorByAntdMessage } from '../../../utils/handler';
+import atomStore from 'store/atom';
+import { handleErrorByAntdMessage } from 'utils/handler';
 
 const useFetchFollowList = () => {
   const userProfileInfo = useRecoilValue(atomStore.userProfileInfo);

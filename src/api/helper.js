@@ -22,7 +22,6 @@ export function getRequestArgs(method, route, body, config = {}) {
 }
 
 export function getErrorMessage(e) {
-  console.log(e);
   const data = e.response?.data ?? e.config?.data;
 
   return (

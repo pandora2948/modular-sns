@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import { PostsService } from 'api/services';
-import PostCardCommentBox from '../postComment/PostCardCommentBox';
-import PostCardCommentList from '../postComment/PostCardCommentList';
+import PostCardCommentBox from 'components/post/postCard/postComment/PostCardCommentBox';
+import PostCardCommentList from 'components/post/postCard/postComment/PostCardCommentList';
 
 const LIKE_COLOR = 'text-pink-600';
 const NOT_LIKE_COLOR = 'text-gray-600';

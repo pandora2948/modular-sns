@@ -5,7 +5,7 @@ import UserPanel from 'components/userPanel/UserPanel';
 import AppLayout from 'layouts/AppLayout';
 import { useParams } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import atomStore from '../../../store/atom';
+import atomStore from 'store/atom';
 import TargetFollowButton from './TargetFollowButton';
 import useFetchUser from './hooks/useFetchUser';
 

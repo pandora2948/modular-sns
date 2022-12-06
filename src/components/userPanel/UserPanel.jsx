@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
+import FollowInfoModal from 'components/follow/FollowInfoModal';
+import FollowingInfoModal from 'components/following/FollowingInfoModal';
 import { useModal } from 'hooks/useModal';
 import { useRecoilValue } from 'recoil';
-import atomStore from '../../store/atom';
-import FollowInfoModal from '../follow/FollowInfoModal';
-import FollowingInfoModal from '../following/FollowingInfoModal';
+import atomStore from 'store/atom';
 import ProfileStat from './ProfileStat';
 import UserConfigDropdown from './UserConfigDropdown';
 import UserIcon from './UserIcon';

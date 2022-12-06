@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import { useRecoilValue } from 'recoil';
 import shortid from 'shortid';
-import atomStore from '../../store/atom';
+import atomStore from 'store/atom';
 import FollowUserItem from './FollowUserItem';
 import useFetchFollowList from './hooks/useFetchFollowList';
 

@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
+import { UserService } from 'api/services';
+import UserIcon from 'components/userPanel/UserIcon';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { UserService } from '../../api/services';
-import atomStore from '../../store/atom';
-import UserIcon from '../userPanel/UserIcon';
+import atomStore from 'store/atom';
 import useFetchCheckIsFollow from './hooks/useFetchCheckIsFollow';
 
 const FollowUserItem = ({ username, realname }) => {

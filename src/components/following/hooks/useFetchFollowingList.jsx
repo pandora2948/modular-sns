@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { UserService } from 'api/services';
 import { useRecoilValue } from 'recoil';
-import { UserService } from '../../../api/services';
-import atomStore from '../../../store/atom';
-import { handleErrorByAntdMessage } from '../../../utils/handler';
+import atomStore from 'store/atom';
+import { handleErrorByAntdMessage } from 'utils/handler';
 
 const useFetchFollowingList = () => {
   const userProfileInfo = useRecoilValue(atomStore.userProfileInfo);

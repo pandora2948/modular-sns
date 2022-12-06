@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
+import { UserService } from 'api/services';
+import useFetchCheckIsFollow from 'components/follow/hooks/useFetchCheckIsFollow';
+import UserIcon from 'components/userPanel/UserIcon';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { UserService } from '../../api/services';
-import atomStore from '../../store/atom';
-import useFetchCheckIsFollow from '../follow/hooks/useFetchCheckIsFollow';
-import UserIcon from '../userPanel/UserIcon';
+import atomStore from 'store/atom';
 
 const FollowingUserItem = ({ username, realname }) => {
   const [users, setUsers] = useRecoilState(atomStore.userProfileInfo);
