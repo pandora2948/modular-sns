@@ -59,7 +59,7 @@ const axiosWrapper = async (method, route, body, config = {}) => {
       return data;
     } catch (e) {
       token.clear();
-      window.location = '/auth/sign-in';
+      // window.location = '/auth/sign-in';
     }
   }
 };
