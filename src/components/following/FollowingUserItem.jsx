@@ -12,13 +12,14 @@ const FollowingUserItem = ({ username, realname }) => {
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
+  const isProfileMe = me.userId === userInfo.userId;
   const [messageApi, contextHolder] = message.useMessage();
-  const followButtonMessage = me.userId === userInfo.userId ? '맞팔로우' : '팔로우';
+  const followButtonMessage = isProfileMe ? '맞팔로우' : '팔로우';
 
   const onClickAction = async (apiCb, dispatcherCb, isFollow) => {
     try {
       await apiCb();
-      if (isMe) dispatcherCb();
+      if (isProfileMe) dispatcherCb();
       setIsFollow(isFollow);
     } catch (err) {
       messageApi.error(err.message);

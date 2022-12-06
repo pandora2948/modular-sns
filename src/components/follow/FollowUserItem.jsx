@@ -14,13 +14,14 @@ const FollowUserItem = ({ username, realname }) => {
   const { isFollow, setIsFollow } = useFetchCheckIsFollow({ username });
   const me = useRecoilValue(atomStore.meAtom);
   const isMe = me.username === username;
+  const isProfileMe = me.userId === userInfo.userId;
   const [messageApi, contextHolder] = message.useMessage();
-  const followButtonMessage = me.userId === userInfo.userId ? '맞팔로우' : '팔로우';
+  const followButtonMessage = isProfileMe ? '맞팔로우' : '팔로우';
 
   const onClickRemoveFollow = async () => {
     try {
       await UserService.removeFollow({ username });
-      if (isMe) {
+      if (isProfileMe) {
         setUsers({ ...users, allFollowerCount: users.allFollowerCount - 1 });
       }
       setIsFollow(false);
