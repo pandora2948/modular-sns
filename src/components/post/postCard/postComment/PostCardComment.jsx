@@ -19,7 +19,7 @@ const PostCardComment = ({ comment, postId, handleComments }) => {
       <div className="flex gap-x-2 items-center">
         <div className="flex gap-x-1 items-center">
           <UserIcon realname={realname} username={username} />
-          <Text className="text-bold font-bold ml-0.5">{comment.userInfo.username}</Text>
+          <Text className="text-bold font-bold ml-0.5">{comment.userInfo.realname}</Text>
         </div>
         <Text>{comment.textContent}</Text>
       </div>
